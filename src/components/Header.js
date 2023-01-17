@@ -4,7 +4,10 @@ import {AiFillHome ,AiOutlineUser} from 'react-icons/ai'
 import {BsFillCalendarEventFill} from 'react-icons/bs'
 import {FaQuestion} from 'react-icons/fa'
 import {IoIosSettings} from 'react-icons/io'
+import { useContext } from 'react'
+import DataContext from '../context/DataContext'
 const Header = () => {
+  const {user ,signOut}=useContext(DataContext)
   return (
     <header>
         <div id='logoContainer'>
@@ -30,7 +33,7 @@ const Header = () => {
                 <p>calendar</p>
               </div>
             </NavLink>
-            <NavLink to='/c'>
+            <NavLink to='/about'>
               <div className='ancorContent'>
                 <FaQuestion/>
                 <p>about</p>
@@ -38,12 +41,19 @@ const Header = () => {
             </NavLink>
         </nav>
         <div id='settingsContainer'>
-          <div><AiOutlineUser/></div>
+          <div className='userAcount , settingsToggle'>
+            <img src={user.userPhoto}/>
+            <div className='settings'>
+              <div className='setting'>{user.userName}</div>
+              <div className='setting'>{user.userEmail}</div>
+              <div className='setting'><button onClick={signOut}>sign out</button></div>
+            </div>
+            </div>
           <div className='settingsToggle'>
             <IoIosSettings/>
             <div className='settings'>
               <div className='setting'><p>1111111111</p></div>
-              <div className='setting'>22222222222222</div>
+              <div className='setting'><p>22222222222222</p></div>
               <div className='setting'><p>3333333333333333333333</p></div>
             </div>
             </div>

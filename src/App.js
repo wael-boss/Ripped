@@ -8,10 +8,10 @@ import { useContext, useState } from "react";
 import SigningPage from "./pages/SigningPage";
 import DataContext from "./context/DataContext";
 function App() {
-  const {signedIn}=useContext(DataContext)
+  const {user}=useContext(DataContext)
   return (
     <div className="App">
-        {signedIn ? 
+        {user.userEmail ? 
         <>
         <Header/>
         <Routes>

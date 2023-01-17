@@ -1,7 +1,7 @@
 
 const Calendar = () => {
     return (
-      <main>calendar</main>
+      <main>Calendar</main>
     )
   }
   
