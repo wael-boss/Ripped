@@ -1,13 +1,15 @@
 import {NavLink} from 'react-router-dom'
 import {CgGym} from 'react-icons/cg'
-import {AiFillHome ,AiOutlineUser} from 'react-icons/ai'
+import {AiFillHome ,AiFillEdit} from 'react-icons/ai'
 import {BsFillCalendarEventFill} from 'react-icons/bs'
-import {FaQuestion} from 'react-icons/fa'
+import {FaQuestion ,FaCheck} from 'react-icons/fa'
 import {IoIosSettings} from 'react-icons/io'
-import { useContext } from 'react'
+import { useContext, useRef, useState } from 'react'
 import DataContext from '../context/DataContext'
 const Header = () => {
-  const {user ,signOut}=useContext(DataContext)
+  const {user ,signOut ,setUser ,UserToLocalStorage}=useContext(DataContext)
+  const [isEditing ,setIsEditing]=useState(false)
+  const nameChangeRef=useRef()
   return (
     <header>
         <div id='logoContainer'>
@@ -44,8 +46,23 @@ const Header = () => {
           <div className='userAcount , settingsToggle'>
             <img src={user.userPhoto}/>
             <div className='settings'>
-              <div className='setting'>{user.userName}</div>
-              <div className='setting'>{user.userEmail}</div>
+              <div className='setting'>
+                {isEditing ?
+                <input
+                value={user.userName}
+                onChange={(e)=>{
+                  const obj={...user ,userName:e.target.value}
+                  setUser(obj)
+                }}
+                /> : <p>{user.userName}</p>}
+                <div onClick={()=>{
+                  setIsEditing(!isEditing)
+                  if(isEditing){
+                    UserToLocalStorage()
+                  }
+                }}>{isEditing ? <FaCheck/> : <AiFillEdit/>}</div>
+              </div>
+              <div className='setting'><p>{user.userEmail}</p></div>
               <div className='setting'><button onClick={signOut}>sign out</button></div>
             </div>
             </div>
