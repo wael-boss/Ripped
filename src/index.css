@@ -10,6 +10,7 @@
   --color1:#000;
   --color2:#f00;
   --color3:#ff3838;
+  --color4:#ffb100;
   --font1:'Lexend Mega', sans-serif;
   --font2:'Spinnaker', sans-serif;
 }
@@ -19,20 +20,44 @@
   box-sizing: border-box;
   font-family: var(--font2);
 }
-*:is(p ,div ,span ,a){
+*:is(p ,div ,span ,a ,button){
   color: #fff;
 }
 body {
   margin: 0;
   min-height: 100vh;
   background-color: var(--shade3);
+  overflow-x: hidden;
 }
 button{
   cursor: pointer;
+  background-color: transparent;
+  border: none;
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+::-webkit-scrollbar{
+  width: 5px;
+}
+::-webkit-scrollbar-thumb{
+  background-color: var(--shade5);
+}
+::-webkit-scrollbar-thumb{
+  background-color: var(--color2);
+  border-radius: 30px;
+}
+::scro
+::-webkit-scrollbar{
+  width: 5px;
+}
+::-webkit-scrollbar-thumb{
+  background-color: var(--shade5);
+}
+::-webkit-scrollbar-thumb{
+  background-color: var(--color2);
+  border-radius: 30px;
 }
 header{
   width: 100%;
@@ -144,4 +169,25 @@ background-color: var(--color2);
 }
 .settingsToggle:is(:hover ,:focus) .settings{
   display: flex;
+}
+main{
+  width: 100%;
+  min-height: 90vh;
+}
+section{
+  padding: 30px 0;
+}
+section:nth-child(odd){
+  background-color: var(--color1);
+}
+section:nth-child(even){
+  background-color: #020202;
+}
+footer{
+  width: 100%;
+  background-color: var(--color1);
+  display: flex;
+  justify-content: center;
+  font: 400 30px var(--font1);
+  padding: 10px 0;
 }

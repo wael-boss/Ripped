@@ -1,0 +1,112 @@
+#signingPageMain{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    background-color: var(--shade1);
+}
+#signingPageMain *:not(input){
+    text-align: center;
+}
+#signingPageMain section{
+    height: 100%;
+}
+#signingPageMain #formsSection{
+    width: 40%;
+    background-color: var(--shade1);
+    display: flex;
+    flex-direction: column;
+    padding-top:30px;
+    gap:30px;
+    align-items: center;
+}
+#intro{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+}
+#intro img{
+    width: 60px;
+}
+#intro h1{
+    font:500 30px var(--font1);
+    letter-spacing: -3px;
+}
+#intro p{
+    font-size:15px;
+}
+.signingIdentifier{
+    font-size: 25px;
+    margin: 20px 0;
+}
+.signingForm{
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.signingForm input{
+    width: 100%;
+    padding: 5px 10px;
+    background-color: var(--shade1);
+    border: 2px solid var(--color2);
+    border-radius: 8px;
+    outline: none;
+}
+.signingForm input:is(:hover ,:focus){
+    background-color: var(--shade2);
+    border: 2px solid var(--color3);
+}
+.signingForm button[type='submit']{
+    font-family: var(--font1);
+    width: 100%;
+    padding: 5px 10px;
+    background-color: var(--color1);
+    border-radius: 8px;
+}
+.signingForm button[type='submit']:is(:hover ,:focus){
+    background-color: var(--color2);
+}
+.passwordInput{
+    position: relative;
+    width: 100%;
+}
+.passwordInput input{
+    padding-right: 55px;
+}
+.passwordInput svg{
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    right: 0;
+    transform: translate(-50% ,-50%);
+}
+.passwordInput p{
+    position: absolute;
+    top: 50%;
+    right: 23px;
+    transform: translate(-50% ,-50%);
+    font-size: 15px;
+}
+.switchSignInMethod{
+    margin-top: 100px;
+}
+.switchSignInMethod a{
+    font-size: 18px;
+    font-weight: 700;
+}
+#signingPageMain #backgroundSection{
+    width: 60%;
+    border-radius: 60px 0 0 60px;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+}
+/* to be worked on */
+#signingPageMain #backgroundSection img{
+    width: 100%;
+    height: 100%;
+    object-fit:fill;
+    border-radius: 60px 0 0 60px;
+}

@@ -7,6 +7,7 @@ import Gym from "./pages/Gym";
 import { useContext, useState } from "react";
 import SigningPage from "./pages/SigningPage";
 import DataContext from "./context/DataContext";
+import Footer from "./components/Footer";
 function App() {
   const {user}=useContext(DataContext)
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/calendar" element={<Calendar/>}/>
           <Route path="/about" element={<About/>}/>
         </Routes>
+        <Footer/>
         </>
         : <SigningPage/>
       }

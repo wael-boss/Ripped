@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useRef, useState } from "react";
 import {auth ,provider} from '../Config'
 import {signInWithPopup} from 'firebase/auth'
 
@@ -12,7 +12,12 @@ export const DataProvider=({children})=>{
         userPhoto:null,
         userId:null
       })
-    const handleSignIn=async()=>{
+    const [codeShown ,setCodeShown]=useState(false)
+    const [passwordKeys ,setPasswordKeys]=useState('')
+    const emailRef=useRef()
+    const passwordCheck=useRef()
+    const passwordRef=useRef()
+    const handleSignInGoogle=async()=>{
     const data=await signInWithPopup(auth ,provider)
     const userOBJ={
       userName:data.user.displayName,
@@ -35,9 +40,16 @@ export const DataProvider=({children})=>{
   const UserToLocalStorage=()=>{
     localStorage.setItem('user' ,JSON.stringify(user))
   }
+  const handleSignIn=()=>{
+    const OBJ={
+        email:emailRef.current.value,
+        password:passwordKeys
+    }
+    console.log(OBJ)
+}
 return(
     <DataContext.Provider value={{
-        user ,handleSignIn ,signOut ,setUser ,UserToLocalStorage
+        user ,handleSignInGoogle ,signOut ,setUser ,UserToLocalStorage ,codeShown ,setCodeShown ,emailRef ,passwordRef ,handleSignIn ,passwordCheck ,passwordKeys ,setPasswordKeys
     }}>
         {children}
     </DataContext.Provider>
