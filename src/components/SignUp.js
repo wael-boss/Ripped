@@ -3,18 +3,26 @@ import { Link } from "react-router-dom"
 import {AiFillEye} from 'react-icons/ai'
 import DataContext from "../context/DataContext"
 const SignUp = () => {
-    const {codeShown ,setCodeShown ,emailRef ,handleSignIn ,passwordCheck ,passwordKeys ,setPasswordKeys}=useContext(DataContext)
+    const {navigator ,codeShown ,setCodeShown ,emailRef ,handleSignUp ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys}=useContext(DataContext)
   return (
-    <div>
-        <h2 className="signingIdentifier">Sign up</h2>
+    <div className="formsContainer">
+        <div className="signingInfo">
+            <h2>sign up</h2>
+            <p>this acount's email and password only work on this website</p>
+        </div>
         <form className="signingForm" onSubmit={(e)=>{
             e.preventDefault()
-            if(passwordCheck.current.value !== passwordKeys){
+            if(signUpPasswordKeys.length<=6){
+                setSignUpPasswordKeys('too short')
+                return
+            }
+            if(passwordCheck.current.value !== signUpPasswordKeys){
                 passwordCheck.current.value='incorrect'
                 passwordCheck.current.focus()
                 return
             }
-            handleSignIn()
+            handleSignUp()
+            navigator('/')
         }}>
             <input
             ref={emailRef}
@@ -24,13 +32,14 @@ const SignUp = () => {
             />
             <div className="passwordInput">
             <input
-            value={passwordKeys}
+            style={{color:signUpPasswordKeys.length<=6 ? 'red' : 'green'}}
+            value={signUpPasswordKeys}
             type={codeShown ? 'password' : 'text'}
             required
             placeholder="enter password"
             onChange={(e)=>{
-                if(passwordKeys.length>=12 && e.nativeEvent.inputType !== 'deleteContentBackward') return
-                setPasswordKeys(e.target.value)
+                if(signUpPasswordKeys.length>=24 && e.nativeEvent.inputType !== 'deleteContentBackward') return
+                setSignUpPasswordKeys(e.target.value)
             }}
             onPaste={(e)=>{
                 e.preventDefault()
@@ -41,7 +50,7 @@ const SignUp = () => {
             }} onClick={()=>{
                 setCodeShown(!codeShown)
             }}/>
-            <p>{passwordKeys.length}</p>
+            <p>{signUpPasswordKeys.length}</p>
             </div>
             <div className="passwordInput">
             <input

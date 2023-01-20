@@ -1,55 +1,80 @@
 import { createContext, useRef, useState } from "react";
-import {auth ,provider} from '../Config'
-import {signInWithPopup} from 'firebase/auth'
+import {auth} from '../Config'
+import { createUserWithEmailAndPassword ,signInWithEmailAndPassword} from 'firebase/auth'
+import {useNavigate} from "react-router-dom";
 
 const DataContext=createContext({})
 
 export const DataProvider=({children})=>{
     //logic
-    const [user ,setUser]=useState(JSON.parse(localStorage.getItem('user')) || {
-        userName:null,
-        userEmail:null,
-        userPhoto:null,
-        userId:null
-      })
-    const [codeShown ,setCodeShown]=useState(false)
-    const [passwordKeys ,setPasswordKeys]=useState('')
+    const emptyUserOBJ={
+      userName:null,
+      userEmail:null,
+      userPhoto:null,
+      userGender:'male',
+      userId:null
+    }
+    const [user ,setUser]=useState(JSON.parse(localStorage.getItem('user')) || emptyUserOBJ)
+    const [codeShown ,setCodeShown]=useState(true)
+    const [error ,setError]=useState(null)
+    const [smlLoad ,setSmlLoad]=useState(false)
+    const [signUpPasswordKeys ,setSignUpPasswordKeys]=useState('')
     const emailRef=useRef()
     const passwordCheck=useRef()
-    const passwordRef=useRef()
-    const handleSignInGoogle=async()=>{
-    const data=await signInWithPopup(auth ,provider)
-    const userOBJ={
-      userName:data.user.displayName,
-      userEmail:data.user.email,
-      userPhoto:data.user.photoURL,
-      userId:data.user.uid
+    const signInPasswordRef=useRef()
+    const navigator=useNavigate()
+    //functions
+    const createUser=(data)=>{
+      const userOBJ={
+        ...user,
+        userName:data.user.displayName ? data.user.displayName : data.user.email.split('@')[0],
+        userEmail:data.user.email,
+        userPhoto:data.user.photoURL,
+        userId:data.user.uid
+      }
+      localStorage.setItem('user' ,JSON.stringify(userOBJ))
+      setUser(userOBJ)
     }
-    localStorage.setItem('user' ,JSON.stringify(userOBJ))
-    setUser(userOBJ)
-  }
   const signOut=()=>{
       localStorage.removeItem('user')
-      setUser({
-          userName:null,
-          userEmail:null,
-          userPhoto:null,
-          userId:null
-      })
+      setUser(emptyUserOBJ)
   }
   const UserToLocalStorage=()=>{
     localStorage.setItem('user' ,JSON.stringify(user))
   }
-  const handleSignIn=()=>{
-    const OBJ={
-        email:emailRef.current.value,
-        password:passwordKeys
+  const handleSignIn=async()=>{
+    setSmlLoad(true)
+    try{
+      const data=await signInWithEmailAndPassword(auth ,emailRef.current.value ,signInPasswordRef.current.value)
+      createUser(data)
+    }catch(err){
+      errorOccurred(err.message)
     }
-    console.log(OBJ)
+    finally{
+      setSmlLoad(false)
+    }
+  }
+  const handleSignUp=async()=>{
+    setSmlLoad(true)
+    try{
+      const data=await createUserWithEmailAndPassword(auth ,emailRef.current.value ,signUpPasswordKeys)
+      createUser(data)
+    }catch(err){
+      errorOccurred(err)
+    }
+    finally{
+    setSmlLoad(false)
+    }
+}
+const errorOccurred=(err)=>{
+  setError(err)
+  setTimeout(()=>{
+  setError(null)
+  },4000)
 }
 return(
     <DataContext.Provider value={{
-        user ,handleSignInGoogle ,signOut ,setUser ,UserToLocalStorage ,codeShown ,setCodeShown ,emailRef ,passwordRef ,handleSignIn ,passwordCheck ,passwordKeys ,setPasswordKeys
+        user ,signOut ,setUser ,UserToLocalStorage ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,smlLoad
     }}>
         {children}
     </DataContext.Provider>

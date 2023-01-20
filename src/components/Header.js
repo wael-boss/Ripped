@@ -4,6 +4,7 @@ import {AiFillHome ,AiFillEdit} from 'react-icons/ai'
 import {BsFillCalendarEventFill} from 'react-icons/bs'
 import {FaQuestion ,FaCheck} from 'react-icons/fa'
 import {IoIosSettings} from 'react-icons/io'
+import {TbSwitch} from 'react-icons/tb'
 import { useContext, useRef, useState } from 'react'
 import DataContext from '../context/DataContext'
 const Header = () => {
@@ -44,7 +45,7 @@ const Header = () => {
         </nav>
         <div id='settingsContainer'>
           <div className='userAcount , settingsToggle'>
-            <img src={user.userPhoto}/>
+            <img src={user.userPhoto ? user.userPhoto : `/images/${user.userGender}-icon.jpg`}/>
             <div className='settings'>
               <div className='setting'>
                 {isEditing ?
@@ -63,6 +64,18 @@ const Header = () => {
                 }}>{isEditing ? <FaCheck/> : <AiFillEdit/>}</div>
               </div>
               <div className='setting'><p>{user.userEmail}</p></div>
+              <div className='setting'>
+                <p>gender: {user.userGender}</p>
+                <div>
+                <TbSwitch onClick={()=>{
+                  const OBJ={
+                    ...user,
+                    userGender:user.userGender==='male' ? 'female' : 'male'
+                  }
+                  setUser(OBJ)
+                }}/>
+                </div>
+              </div>
               <div className='setting'><button onClick={signOut}>sign out</button></div>
             </div>
             </div>

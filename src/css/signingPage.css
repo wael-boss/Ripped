@@ -3,12 +3,21 @@
     height: 100vh;
     display: flex;
     background-color: var(--shade1);
+    max-height: 100vh;
+    overflow: hidden;
 }
 #signingPageMain *:not(input){
     text-align: center;
 }
 #signingPageMain section{
     height: 100%;
+}
+.formsContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
 }
 #signingPageMain #formsSection{
     width: 40%;
@@ -36,15 +45,23 @@
 #intro p{
     font-size:15px;
 }
-.signingIdentifier{
-    font-size: 25px;
-    margin: 20px 0;
+.signingInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 .signingForm{
     width: 250px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding: 20px 0;
+}
+.signingForm h2{
+    font-size: 20px;
+}
+.signingForm p{
+    font-size: 13px;
 }
 .signingForm input{
     width: 100%;
@@ -88,9 +105,6 @@
     right: 23px;
     transform: translate(-50% ,-50%);
     font-size: 15px;
-}
-.switchSignInMethod{
-    margin-top: 100px;
 }
 .switchSignInMethod a{
     font-size: 18px;

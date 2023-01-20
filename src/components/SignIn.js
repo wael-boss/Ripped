@@ -3,9 +3,9 @@ import { Link } from "react-router-dom"
 import {AiFillEye} from 'react-icons/ai'
 import DataContext from "../context/DataContext"
 const SignIn = () => {
-    const {codeShown ,setCodeShown ,emailRef ,passwordRef ,handleSignIn}=useContext(DataContext)
+    const {codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignIn}=useContext(DataContext)
   return (
-    <div>
+    <div className="formsContainer">
         <h2 className="signingIdentifier">Sign in</h2>
         <form className="signingForm" onSubmit={(e)=>{
             e.preventDefault()
@@ -19,7 +19,7 @@ const SignIn = () => {
             />
             <div className="passwordInput">
             <input
-            ref={passwordRef}
+            ref={signInPasswordRef}
             type={codeShown ? 'password' : 'text'}
             required
             placeholder="enter password"
@@ -28,7 +28,7 @@ const SignIn = () => {
                 opacity:codeShown ? '1' : '.3'
             }} onClick={()=>{
                 setCodeShown(!codeShown)
-                passwordRef.current.focus()
+                signInPasswordRef.current.focus()
             }}/>
             </div>
             <button type="submit">Continue</button>

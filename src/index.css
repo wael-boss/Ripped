@@ -111,8 +111,11 @@ header nav a:is(.active) .ancorContent *{
   color: var(--color2);
 }
 .userAcount img{
-width: 30px;
+width: 40px;
 border-radius: 50%;
+}
+.userAcount .settings{
+  min-width: 230px;
 }
 .userAcount .setting{
   align-items: center;
@@ -141,6 +144,7 @@ background-color: var(--color2);
 #settingsContainer{
   display:flex;
   gap: 30px;
+  align-items: center;
   font-size: 30px;
   position: relative;
 }
@@ -190,4 +194,62 @@ footer{
   justify-content: center;
   font: 400 30px var(--font1);
   padding: 10px 0;
+}
+/* error popup */
+#errorPopUp{
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  background-color: var(--color3);
+  z-index: 9;
+  transition: transform .3s ease-out;
+}
+#errorPopUp p{
+  width: 100%;
+  font-size: 20px;
+  text-align: center;
+  padding: 5px 0;
+}
+/* loading screen */
+#loadingLine{
+  position: fixed;
+  bottom: 0px;
+  min-width: 100vw;
+  height: 100px;
+  background-color: var(--shade2);
+  transform: translateY(100%);
+  transition: transform .2s ease-out;
+  z-index: 10;
+}
+#loadingLineContent{
+  display: flex;
+  overflow: hidden;
+}
+#loadingLineContent>img{
+  background-color: var(--shade2);
+  z-index: 2;
+}
+#loadingLineContent div{
+  width:120vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+#loadingLineContent div span{
+  animation: pac-man 2s linear infinite;
+  width: 10%;
+  display: grid;
+  place-items: center;
+}
+#loadingLineContent div span img{
+  width:40px;
+}
+@keyframes pac-man {
+  0%{
+    transform: translateY(20px) translateX(0%);
+  }
+  100%{
+    transform:translateY(20px) translateX(-300%);
+  }
 }

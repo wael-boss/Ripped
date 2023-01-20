@@ -8,10 +8,15 @@ import { useContext, useState } from "react";
 import SigningPage from "./pages/SigningPage";
 import DataContext from "./context/DataContext";
 import Footer from "./components/Footer";
+import Missing from "./pages/Missing";
+import ErrorPopUp from "./components/ErrorPopUp";
+import LoadingScreen from "./components/LoadingScreen";
 function App() {
-  const {user}=useContext(DataContext)
+  const {user ,error}=useContext(DataContext)
   return (
     <div className="App">
+      <ErrorPopUp/>
+      <LoadingScreen/>
         {user.userEmail ? 
         <>
         <Header/>
@@ -20,6 +25,7 @@ function App() {
           <Route path="/gym" element={<Gym/>}/>
           <Route path="/calendar" element={<Calendar/>}/>
           <Route path="/about" element={<About/>}/>
+          <Route path="*" element={<Missing/>}/>
         </Routes>
         <Footer/>
         </>
