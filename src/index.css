@@ -13,6 +13,9 @@
   --color4:#ffb100;
   --font1:'Lexend Mega', sans-serif;
   --font2:'Spinnaker', sans-serif;
+  --font-size-B:30px;
+  --font-size-M:20px;
+  --font-size-S:15px;
 }
 *{
   padding: 0;
@@ -20,8 +23,31 @@
   box-sizing: border-box;
   font-family: var(--font2);
 }
-*:is(p ,div ,span ,a ,button){
+*:is(p ,div ,span ,a ,button ,input){
   color: #fff;
+}
+.btnStyle1{
+  background: linear-gradient(130deg ,var(--color2) 93% ,transparent 90%);
+  position: relative;
+  transition: transform .3s ease-out;
+}
+.btnStyle1::before{
+  content: '';
+  position: absolute;
+  bottom: -35%;
+  right:-10%;
+  background-color: var(--color4);
+  width: 20%;
+  aspect-ratio:1 / 1;
+  border-radius: 50%;
+  filter: blur(18px);
+  transition: transform .3s ease-out;
+}
+.btnStyle1:is(:hover ,:focus){
+  transform:scale(1.05) ;
+}
+.btnStyle1:is(:hover ,:focus)::before{
+  transform:translate(-500%,-100%) ;
 }
 body {
   margin: 0;
@@ -71,6 +97,7 @@ header{
 display: flex;
 align-items: center;
 gap: 5px;
+cursor: pointer;
 }
 #logoContainer img{
 width: 37px;
@@ -168,6 +195,9 @@ background-color: var(--color2);
   padding: 10px 5px;
   font-size: 15px;
 }
+.setting input{
+  background-color: var(--shade2);
+}
 .setting:not(:last-child){
   border-bottom: 2px solid var(--shade4);
 }
@@ -216,40 +246,39 @@ footer{
   position: fixed;
   bottom: 0px;
   min-width: 100vw;
-  height: 100px;
-  background-color: var(--shade2);
-  transform: translateY(100%);
+  height: 50px;
+  background-color: var(--color1);
   transition: transform .2s ease-out;
   z-index: 10;
+  box-shadow: 0 0 10px 2px var(--shade5);
 }
 #loadingLineContent{
   display: flex;
   overflow: hidden;
 }
 #loadingLineContent>img{
-  background-color: var(--shade2);
+  width: 50px;
+  background-color: var(--color1);
   z-index: 2;
 }
 #loadingLineContent div{
   width:120vw;
   display: flex;
-  align-items: center;
   justify-content: space-evenly;
+  align-items: center;
 }
 #loadingLineContent div span{
   animation: pac-man 2s linear infinite;
   width: 10%;
-  display: grid;
-  place-items: center;
 }
 #loadingLineContent div span img{
-  width:40px;
+  width:15px;
 }
 @keyframes pac-man {
   0%{
-    transform: translateY(20px) translateX(0%);
+    transform: translateY(10px) translateX(0%);
   }
   100%{
-    transform:translateY(20px) translateX(-300%);
+    transform:translateY(10px) translateX(-300%);
   }
 }

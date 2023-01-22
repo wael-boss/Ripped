@@ -1,9 +1,9 @@
 import { useContext } from "react"
 import DataContext from '../context/DataContext.js'
 const LoadingScreen = () => {
-  const {smlLoad}=useContext(DataContext)
+  const {isLoading}=useContext(DataContext)
   return (
-    <div id="loadingLine" style={{transform:smlLoad ? 'translateY(0%)' : 'translateY(100%)'}}>
+    <div id="loadingLine" style={{transform:isLoading ? 'translateY(0%)' : 'translateY(calc(100% + 10px))'}}>
         <div id='loadingLineContent'>
         <img src='/images/biking.gif'/>
         <div>

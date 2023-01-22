@@ -1,0 +1,46 @@
+#heroSection{
+    min-height: 75vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    background: url(https://media.istockphoto.com/id/1135438279/photo/room-with-concrete-floor-and-smoke.jpg?b=1&s=612x612&w=0&k=20&c=Ag9O5iUwDTtqYw5JRmv-cLFdAIoEginBUNVvYyVkwHk=) no-repeat;
+    background-size: cover;
+}
+#heroContent{
+    width:45%;
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+#heroContent .slogan{
+    font-size:var(--font-size-S) ;
+    color: var(--color3);
+}
+#quotesContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+#quotesContainer h2{
+    font-size: var(--font-size-B);
+}
+#quotesContainer p{
+    font-size: var(--font-size-M);
+}
+#heroButtonContainer{
+    display: flex;
+    gap: 20px;
+}
+#heroButtonContainer button{
+    font-size: var(--font-size-S);
+    padding: 5px 10px;
+}
+#heroImage{
+    height: 75vh;
+    width: 50%;
+}
+#heroImage img{
+    height: 100%;
+    width: 100%;
+}

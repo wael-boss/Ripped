@@ -8,12 +8,14 @@ import {TbSwitch} from 'react-icons/tb'
 import { useContext, useRef, useState } from 'react'
 import DataContext from '../context/DataContext'
 const Header = () => {
-  const {user ,signOut ,setUser ,UserToLocalStorage}=useContext(DataContext)
+  const {user ,signOut ,setUser ,UserToLocalStorage ,navigator}=useContext(DataContext)
   const [isEditing ,setIsEditing]=useState(false)
   const nameChangeRef=useRef()
   return (
     <header>
-        <div id='logoContainer'>
+        <div id='logoContainer' onClick={()=>{
+          navigator('/')
+        }}>
           <img src='/images/Logo-Red.png' alt='R'/>
           <p>IPPED</p>
         </div>

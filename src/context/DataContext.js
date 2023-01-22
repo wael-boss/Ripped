@@ -17,7 +17,7 @@ export const DataProvider=({children})=>{
     const [user ,setUser]=useState(JSON.parse(localStorage.getItem('user')) || emptyUserOBJ)
     const [codeShown ,setCodeShown]=useState(true)
     const [error ,setError]=useState(null)
-    const [smlLoad ,setSmlLoad]=useState(false)
+    const [isLoading ,setIsLoading]=useState(false)
     const [signUpPasswordKeys ,setSignUpPasswordKeys]=useState('')
     const emailRef=useRef()
     const passwordCheck=useRef()
@@ -43,38 +43,38 @@ export const DataProvider=({children})=>{
     localStorage.setItem('user' ,JSON.stringify(user))
   }
   const handleSignIn=async()=>{
-    setSmlLoad(true)
+    setIsLoading(true)
     try{
       const data=await signInWithEmailAndPassword(auth ,emailRef.current.value ,signInPasswordRef.current.value)
       createUser(data)
     }catch(err){
-      errorOccurred(err.message)
+      errorOccurred(err.code)
     }
     finally{
-      setSmlLoad(false)
+      setIsLoading(false)
     }
   }
   const handleSignUp=async()=>{
-    setSmlLoad(true)
+    setIsLoading(true)
     try{
       const data=await createUserWithEmailAndPassword(auth ,emailRef.current.value ,signUpPasswordKeys)
       createUser(data)
     }catch(err){
-      errorOccurred(err)
+      errorOccurred(err.code)
     }
     finally{
-    setSmlLoad(false)
+    setIsLoading(false)
     }
 }
 const errorOccurred=(err)=>{
   setError(err)
   setTimeout(()=>{
   setError(null)
-  },4000)
+  },3000)
 }
 return(
     <DataContext.Provider value={{
-        user ,signOut ,setUser ,UserToLocalStorage ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,smlLoad
+        user ,signOut ,setUser ,UserToLocalStorage ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading
     }}>
         {children}
     </DataContext.Provider>

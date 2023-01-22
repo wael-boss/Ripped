@@ -2,6 +2,7 @@ import '../css/signingPage.css'
 import {  Route, Routes } from "react-router-dom"
 import SignIn from "../components/SignIn"
 import SignUp from "../components/SignUp"
+import Missing from './Missing'
 const SigningPage = () => {
   return (
     <main id="signingPageMain">
@@ -14,6 +15,7 @@ const SigningPage = () => {
             <Routes>
               <Route path='/' element={<SignIn/>}/>
               <Route path='/signUp' element={<SignUp/>}/>
+              <Route path='/*' element={<Missing/>}/>
             </Routes>
         </section>
         <section id="backgroundSection">
