@@ -3,13 +3,25 @@ import DataContext from "../context/DataContext"
 import {FaSearch} from 'react-icons/fa'
 
 const NameSearch = () => {
-  const {searchParams ,setSearchParams}=useContext(DataContext)
+  const {searchParams ,setSearchParams ,getExercises}=useContext(DataContext)
   const EN=searchParams.get('EN')
+
+  const translateToName=(input)=>{
+    const a=input.split(' ')
+    const result=[]
+    a.map(word=>{
+      result.push(word.charAt(0).toUpperCase()+word.slice(1))
+    })
+    return result.join(' ')
+  }
   return (
     <div>
         <form onSubmit={(e)=>{
             e.preventDefault()
-
+            const exercise={
+              name:translateToName(EN)
+            }
+            getExercises(exercise)
           }}>
             <input
             type='text'
