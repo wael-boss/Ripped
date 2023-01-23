@@ -1,11 +1,9 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import DataContext from "../context/DataContext"
 import {FaSearch} from 'react-icons/fa'
 
 const NameSearch = () => {
-  const {searchParams ,setSearchParams ,getExercises}=useContext(DataContext)
-  const EN=searchParams.get('EN')
-
+  const {getExercises ,nameSearch ,setNameSearch}=useContext(DataContext)
   const translateToName=(input)=>{
     const a=input.split(' ')
     const result=[]
@@ -15,20 +13,21 @@ const NameSearch = () => {
     return result.join(' ')
   }
   return (
-    <div>
-        <form onSubmit={(e)=>{
+    <div id="nameSearchContainer">
+        <form id="nameForm" onSubmit={(e)=>{
             e.preventDefault()
             const exercise={
-              name:translateToName(EN)
+              name:translateToName(nameSearch)
             }
             getExercises(exercise)
           }}>
             <input
             type='text'
-            value={EN}
+            value={nameSearch}
             onChange={(e)=>{
-              setSearchParams({...searchParams,EN:e.target.value})
+              setNameSearch(e.target.value)
             }}
+            placeholder='Search by exercise name'
             />
             <button type='submit'><FaSearch/></button>
         </form>

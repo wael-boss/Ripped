@@ -44,11 +44,8 @@ export const DataProvider=({children})=>{
     const [error ,setError]=useState(null)
     const [isLoading ,setIsLoading]=useState(false)
     const [signUpPasswordKeys ,setSignUpPasswordKeys]=useState('')
-    const [searchParams ,setSearchParams]=useSearchParams({
-      EN:'',
-      PM:'',
-      SM:''
-    })
+    const [searchParams ,setSearchParams]=useSearchParams({})
+    const [nameSearch ,setNameSearch]=useState('')
     const [exercises ,setExercises]=useState([])
     const emailRef=useRef()
     const passwordCheck=useRef()
@@ -117,7 +114,7 @@ try{
 }
 return(
     <DataContext.Provider value={{
-        user ,signOut ,setUser ,UserToLocalStorage ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,muscles ,getExercises ,exercises ,setExercises
+        user ,signOut ,setUser ,UserToLocalStorage ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,muscles ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch
     }}>
         {children}
     </DataContext.Provider>

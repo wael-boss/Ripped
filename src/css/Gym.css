@@ -3,9 +3,25 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 40px;
+    background-color: var(--shade1);
 }
-#musclesFormContainer{
-    width:40%;
+#searchSection>div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+}
+#searchSection input{
+    padding: 0 0 0 10px;
+    width: 90%;
+    height: 100%;
+    border: 2px solid var(--color4);
+    background-color: var(--color1);
+    font-size: var(--font-size-S);
+}
+#searchSection button{
+    width: 10%;
+    height: 100%;
 }
 #musclesForm{
     position: relative;
@@ -14,14 +30,9 @@
     height: 30px;
 }
 #musclesForm button{
-    width: 10%;
-    height: 100%;
     border-radius: 20px 0 0 20px;
 }
 #musclesForm input{
-    padding: 0 30px 0 10px;
-    width: 90%;
-    height: 100%;
     border-radius:0 20px 20px 0;
 }
 #musclesContainer{
@@ -48,4 +59,37 @@
 }
 #musclesContainer:hover{
     display: flex;
+}
+#nameForm{
+    position: relative;
+    display:flex ;
+    width: 50%;
+    height: 30px;
+}
+#nameForm input{
+    border-radius: 20px 0 0 20px;
+}
+#nameForm button{
+    border-radius: 0 20px 20px 0;
+    background-color: var(--color2);
+}
+#resultsSection{
+    min-height:80vh ;
+}
+#resultsSection #intro{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#resultsSection #intro *{
+    text-align: center;
+}
+#resultsContainer{
+    display: flex;
+    flex-direction: column;
+}
+#resultsContainer>img{
+    width: 30%;
+    opacity: 0.1;
+    margin: auto;
 }

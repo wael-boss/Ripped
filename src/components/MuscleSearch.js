@@ -9,11 +9,14 @@ const MuscleSearch = () => {
   return (
     <div id='musclesFormContainer'>
       <div id='musclesForm'>
-        <button title={`${isSearchingPrimary ? 'Primary' : 'Secondary'} muscle`} style={{backgroundColor:isSearchingPrimary ? 'var(--color2)' : 'var(--color3)'}} onClick={()=>{
+        <button title={`${isSearchingPrimary ? 'Primary' : 'Secondary'} muscle`}
+        style={{backgroundColor:isSearchingPrimary ? 'var(--color2)' : 'var(--color3)'}}
+        onClick={()=>{
           setIsSearchingPrimary(!isSearchingPrimary)
-        }}>{isSearchingPrimary ? 'P' : 'S'}</button>
+        }}
+        >{isSearchingPrimary ? 'P' : 'S'}</button>
         <input
-        placeholder={`search for ${isSearchingPrimary ? 'Primary' : 'Secondary'} muscle`}
+        placeholder={`Search by ${isSearchingPrimary ? 'Primary' : 'Secondary'} muscle`}
         value={muscleSearch}
         onChange={(e)=>{
           setMuscleSearch(e.target.value)
