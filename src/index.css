@@ -60,9 +60,8 @@ button{
   background-color: transparent;
   border: none;
 }
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+a{
+  text-decoration: none;
 }
 ::-webkit-scrollbar{
   width: 5px;
@@ -212,10 +211,10 @@ section{
   padding: 30px 0;
 }
 section:nth-child(odd){
-  background-color: var(--color1);
+  background-color: #020202;
 }
 section:nth-child(even){
-  background-color: #020202;
+  background-color: var(--color1);
 }
 footer{
   width: 100%;

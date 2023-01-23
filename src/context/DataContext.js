@@ -1,7 +1,8 @@
 import { createContext, useRef, useState } from "react";
 import {auth} from '../Config'
 import { createUserWithEmailAndPassword ,signInWithEmailAndPassword} from 'firebase/auth'
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
+import api from "../api/api";
 
 const DataContext=createContext({})
 
@@ -14,11 +15,41 @@ export const DataProvider=({children})=>{
       userGender:'male',
       userId:null
     }
+    const muscles=[
+      "pectoralis major",
+      "biceps",
+      "abdominals",
+      "sartorius",
+      "abductors",
+      "trapezius",
+      "deltoid",
+      "latissimus dorsi",
+      "serratus anterior",
+      "external oblique",
+      "brachioradialis",
+      "finger extensors",
+      "finger flexors",
+      "quadriceps",
+      "hamstrings",
+      "gastrocnemius",
+      "soleus",
+      "infraspinatus",
+      "teres major",
+      "triceps",
+      "gluteus medius",
+      "gluteus maximus"
+    ]
     const [user ,setUser]=useState(JSON.parse(localStorage.getItem('user')) || emptyUserOBJ)
     const [codeShown ,setCodeShown]=useState(true)
     const [error ,setError]=useState(null)
     const [isLoading ,setIsLoading]=useState(false)
     const [signUpPasswordKeys ,setSignUpPasswordKeys]=useState('')
+    const [searchParams ,setSearchParams]=useSearchParams({
+      EN:'',
+      PM:'',
+      SM:''
+    })
+    const [exercises ,setExercises]=useState([])
     const emailRef=useRef()
     const passwordCheck=useRef()
     const signInPasswordRef=useRef()
@@ -72,9 +103,21 @@ const errorOccurred=(err)=>{
   setError(null)
   },3000)
 }
+const getExercises=async(params)=>{
+  setIsLoading(true)
+try{
+  api.defaults.params=params
+  const data=await api.get('https://exerciseapi3.p.rapidapi.com/search/')
+  setExercises(data.data)
+}catch(err){
+  setError(err.data)
+}finally{
+  setIsLoading(false)
+}
+}
 return(
     <DataContext.Provider value={{
-        user ,signOut ,setUser ,UserToLocalStorage ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading
+        user ,signOut ,setUser ,UserToLocalStorage ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,muscles ,getExercises ,exercises ,setExercises
     }}>
         {children}
     </DataContext.Provider>
