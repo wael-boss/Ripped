@@ -9,8 +9,7 @@ const MusclesDisplay = ({muscles ,muscleType}) => {
             return(
             <p key={muscle} onClick={(e)=>{
               e.preventDefault()
-              const params={}
-              muscleType==='P' ? params.primaryMuscle=muscle : params.secondaryMuscle=muscle
+              const params=[muscleType ,muscle]
               getExercises(params)
             }}>{muscle}</p>
             )

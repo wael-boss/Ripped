@@ -1,9 +1,8 @@
 
 const ExerciseSort = ({exercise}) => {
-  console.log(exercise)
   return (
     <>
-    <div>{exercise.Name}</div>
+    <div key={exercise.Name}>{exercise.Name}</div>
     </>
   )
 }

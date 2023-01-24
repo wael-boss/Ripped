@@ -3,9 +3,7 @@ import DataContext from '../context/DataContext'
 import MusclesDisplay from './MusclesDisplay'
 
 const MuscleSearch = () => {
-  const {muscles}=useContext(DataContext)
-  const [isSearchingPrimary ,setIsSearchingPrimary]=useState(true)
-  const [muscleSearch ,setMuscleSearch]=useState('')
+  const {muscles ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch}=useContext(DataContext)
   return (
     <div id='musclesFormContainer'>
       <div id='musclesForm'>
