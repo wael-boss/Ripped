@@ -11,7 +11,7 @@ const MusclesDisplay = ({muscles ,muscleType}) => {
               e.preventDefault()
               const params=[muscleType ,muscle]
               getExercises(params)
-            }}>{muscle}</p>
+            }}>{muscle.split('_').join(' ')}</p>
             )
         })}
     </div>

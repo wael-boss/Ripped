@@ -15,7 +15,32 @@ export const DataProvider=({children})=>{
       userGender:'male',
       userId:null
     }
-    const dictionary={}
+    const dictionary=[
+        {ImgApi:"all",ExerApi:["pectoralis major" ,"biceps" ,"abdominals" ,"sartorius" ,"abductors" ,"trapezius" ,"deltoid" ,"latissimus dorsi" ,"serratus anterior" ,"external oblique" ,"brachioradialis" ,"finger extensors" ,"finger flexors" ,"quadriceps" ,"hamstrings" ,"gastrocnemius" ,"soleus" ,"infraspinatus" ,"teres major" ,"triceps" ,"gluteus medius" ,"gluteus maximus"]},
+        {ImgApi:"all_lower",ExerApi:["abductors" ,"sartorius" ,"gastrocnemius" ,"soleus" ,"gluteus maximus" ,"gluteus medius" ,"hamstrings" ,"quadriceps"]},
+        {ImgApi:"all_upper",ExerApi:["pectoralis major" ,"biceps" ,"abdominals" ,"abductors" ,"trapezius" ,"deltoid" ,"latissimus dorsi" ,"serratus anterior" ,"external oblique" ,"brachioradialis" ,"finger extensors" ,"finger flexors" ,"infraspinatus" ,"teres major" ,"triceps"]},
+        {ImgApi:"legs",ExerApi:["abductors" ,"sartorius" ,"gastrocnemius" ,"soleus" ,"hamstrings" ,"quadriceps"]},
+        {ImgApi:"abductors",ExerApi:["abductors"]},
+        {ImgApi:"abs",ExerApi:["abdominals"]},
+        {ImgApi:"adductors",ExerApi:["sartorius"]},
+        {ImgApi:"back",ExerApi:["trapezius" ,"latissimus dorsi" ,"teres major"]},
+        {ImgApi:"back_upper",ExerApi:["trapezius" ,"teres major"]},
+        {ImgApi:"biceps",ExerApi:["biceps"]},
+        {ImgApi:"calfs",ExerApi:["gastrocnemius" ,"soleus"]},
+        {ImgApi:"chest",ExerApi:["pectoralis major"]},
+        {ImgApi:"core",ExerApi:["serratus anterior","external oblique","abdominals"]},
+        {ImgApi:"core_lower",ExerApi:["external oblique"]},
+        {ImgApi:"core_upper",ExerApi:["serratus anterior"]},
+        {ImgApi:"forearms",ExerApi:["brachioradialis" ,"finger extensors" ,"finger flexors"]},
+        {ImgApi:"gluteus",ExerApi:["gluteus maximus" ,"gluteus medius"]},
+        {ImgApi:"hamstring",ExerApi:["hamstrings"]},
+        {ImgApi:"latissimus",ExerApi:["latissimus dorsi"]},
+        {ImgApi:"neck",ExerApi:["trapezius"]},
+        {ImgApi:"quadriceps",ExerApi:["quadriceps"]},
+        {ImgApi:"shoulders",ExerApi:["deltoid"]},
+        {ImgApi:"shoulders_back",ExerApi:["infraspinatus"]},
+        {ImgApi:"triceps",ExerApi:["triceps"]},
+    ]
     const musclesDictionaryFunc=(muscle)=>{
       let result=[]
       switch(muscle){
@@ -38,7 +63,7 @@ export const DataProvider=({children})=>{
           result=['abdominals']
           break;
         case "adductors":
-          result=['sartorius' ]
+          result=['sartorius']
           break;
         case "back":
           result=["trapezius" ,"latissimus dorsi" ,"teres major"]
@@ -626,6 +651,42 @@ export const DataProvider=({children})=>{
     const signInPasswordRef=useRef()
     const navigator=useNavigate()
     //functions
+    const IMGtoEXERCISEFunc=(img)=>{
+        let exercises=[]
+        dictionary.map(obj=>{
+            if(obj.ImgApi!==img) return
+            exercises=obj.ExerApi
+        })
+        return exercises
+    }
+    const EXERCISEtoIMGFunc=(exercise)=>{
+        let img=''
+        const contestants=[]
+        dictionary.map(obj=>{
+            if(JSON.stringify(obj.ExerApi) === JSON.stringify(exercise)){
+                img=obj.ImgApi
+            }
+        })
+        if(img.length>0) return img 
+        dictionary.map(obj=>{
+            let testObj={img:obj.ImgApi,arrays:obj.ExerApi.length,matches:0}
+            exercise.map(exer=>{
+                if(obj.ExerApi.includes(exer)){
+                    testObj.matches++
+                }
+            })
+            if(testObj.matches){
+                contestants.push(testObj)
+            }
+        })
+        img=[]
+        contestants.map(contestant=>{
+            if(contestant.arrays>contestant.matches+1){
+                img.push(contestant.img)
+            }
+        })
+        return img
+    }
     const createUser=(data)=>{
       const userOBJ={
         ...user,
@@ -728,7 +789,7 @@ const moreExercises=async()=>{
 }
 return(
     <DataContext.Provider value={{
-        user ,signOut ,setUser ,UserToLocalStorage ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,muscles ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises
+        user ,signOut ,setUser ,UserToLocalStorage ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,muscles ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc
     }}>
         {children}
     </DataContext.Provider>

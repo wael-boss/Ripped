@@ -20,7 +20,7 @@ const Gym = () => {
           <div id='resultsContainer'>
           {exercises.length ? 
           exercises.map(exercise=>{
-            return(<ExerciseSort exercise={exercise}/>)
+            return(<ExerciseSort   key={JSON.stringify(exercise)} exercise={exercise}/>)
           })
           : <img src='/images/results404.png'/>}
           {musclesLeft.length!==0 &&
