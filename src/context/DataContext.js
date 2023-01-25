@@ -15,7 +15,8 @@ export const DataProvider=({children})=>{
       userGender:'male',
       userId:null
     }
-    const musclesDictionary=(muscle)=>{
+    const dictionary={}
+    const musclesDictionaryFunc=(muscle)=>{
       let result=[]
       switch(muscle){
         case "all":
@@ -127,7 +128,496 @@ export const DataProvider=({children})=>{
     const [signUpPasswordKeys ,setSignUpPasswordKeys]=useState('')
     const [searchParams ,setSearchParams]=useSearchParams({})
     const [nameSearch ,setNameSearch]=useState('')
-    const [exercises ,setExercises]=useState([])
+    const [exercises ,setExercises]=useState([
+      {
+          "Force": "push",
+          "Name": "Barbell Bench Press",
+          "Primary Muscles": [
+              "deltoid",
+              "pectoralis major"
+          ],
+          "SecondaryMuscles": [
+              "triceps"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=rT7DgCr-3pg&t=29s&ab_channel=ScottHermanFitness"
+      },
+      {
+          "Force": "push",
+          "Name": "Dumbbell Bench Press",
+          "Primary Muscles": [
+              "deltoid",
+              "pectoralis major"
+          ],
+          "SecondaryMuscles": [
+              "triceps"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=Y_7aHqXeCfQ&ab_channel=ScottHermanFitness"
+      },
+      {
+          "Force": "push",
+          "Name": "Barbell Incline Bench Press",
+          "Primary Muscles": [
+              "deltoid",
+              "pectoralis major"
+          ],
+          "SecondaryMuscles": [
+              "triceps"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=DbFgADa2PL8&ab_channel=ScottHermanFitness"
+      },
+      {
+          "Force": "push",
+          "Name": "Dumbbell Incline Bench Press",
+          "Primary Muscles": [
+              "deltoid",
+              "pectoralis major"
+          ],
+          "SecondaryMuscles": [
+              "triceps"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=8iPEnn-ltC8&t=24s&ab_channel=ScottHermanFitness"
+      },
+      {
+          "Force": "push",
+          "Name": "Dumbbell Decline Bench Press",
+          "Primary Muscles": [
+              "deltoid",
+              "pectoralis major"
+          ],
+          "SecondaryMuscles": [
+              "triceps"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=8iPEnn-ltC8&t=24s&ab_channel=ScottHermanFitness"
+      },
+      {
+          "Force": "push",
+          "Name": "Barbell Decline Bench Press",
+          "Primary Muscles": [
+              "deltoid",
+              "pectoralis major"
+          ],
+          "SecondaryMuscles": [
+              "triceps"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=8iPEnn-ltC8&t=24s&ab_channel=ScottHermanFitness"
+      },
+      {
+          "Force": "push",
+          "Name": "Dumbbell Chest Fly",
+          "Primary Muscles": [
+              "pectoralis major"
+          ],
+          "SecondaryMuscles": [
+              "biceps",
+              "deltoid",
+              "finger extensors"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=eozdVDA78K0&ab_channel=ScottHermanFitness"
+      },
+      {
+          "Force": "push",
+          "Name": "Dumbbell Incline Chest Fly",
+          "Primary Muscles": [
+              "pectoralis major"
+          ],
+          "SecondaryMuscles": [
+              "biceps",
+              "deltoid",
+              "finger extensors"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=bDaIL_zKbGs&ab_channel=ScottHermanFitness"
+      },
+      {
+          "Force": "push",
+          "Name": "Dumbbell Decline Chest Fly",
+          "Primary Muscles": [
+              "pectoralis major"
+          ],
+          "SecondaryMuscles": [
+              "biceps",
+              "deltoid",
+              "finger extensors"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=IMALXhhHRKM&ab_channel=LIVESTRONG.COM"
+      },
+      {
+          "Force": "push",
+          "Name": "Machine Chest Fly",
+          "Primary Muscles": [
+              "pectoralis major"
+          ],
+          "SecondaryMuscles": [
+              "biceps",
+              "deltoid",
+              "finger extensors"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=Z57CtFmRMxA&ab_channel=LIVESTRONG.COM"
+      },
+      {
+          "Force": "push",
+          "Name": "Cable Chest Fly",
+          "Primary Muscles": [
+              "pectoralis major"
+          ],
+          "SecondaryMuscles": [
+              "biceps",
+              "deltoid",
+              "finger extensors"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=Iwe6AmxVf7o&ab_channel=ScottHermanFitness"
+      },
+      {
+          "Force": "push",
+          "Name": "High Cable Chest Fly",
+          "Primary Muscles": [
+              "deltoid",
+              "pectoralis major"
+          ],
+          "SecondaryMuscles": [
+              "biceps",
+              "finger extensors",
+              "latissimus dorsi"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=Iwe6AmxVf7o&ab_channel=ScottHermanFitness"
+      },
+      {
+          "Force": "push",
+          "Name": "Single Arm Cable Chest Fly",
+          "Primary Muscles": [
+              "pectoralis major"
+          ],
+          "SecondaryMuscles": [
+              "external oblique",
+              "latissimus dorsi",
+              "serratus anterior",
+              "triceps"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=yaNwBor6SMs&ab_channel=ShytownFitness"
+      },
+      {
+          "Force": "push",
+          "Name": "Chest Dip",
+          "Primary Muscles": [
+              "pectoralis major",
+              "triceps"
+          ],
+          "SecondaryMuscles": [
+              "deltoid",
+              "latissimus dorsi",
+              "teres major",
+              "trapezius"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=dX_nSOOJIsE&ab_channel=Howcast"
+      },
+      {
+          "Force": "push",
+          "Name": "Dumbbell Bicep Curl",
+          "Primary Muscles": [
+              "biceps"
+          ],
+          "SecondaryMuscles": [
+              "brachioradialis",
+              "deltoid",
+              "finger flexors",
+              "trapezius"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=ykJmrZ5v0Oo&ab_channel=Howcast"
+      },
+      {
+          "Force": "push",
+          "Name": "Preacher Bicep Curl",
+          "Primary Muscles": [
+              "biceps"
+          ],
+          "SecondaryMuscles": [
+              "brachioradialis",
+              "deltoid",
+              "finger flexors",
+              "trapezius"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=fIWP-FRFNU0&ab_channel=KAGED"
+      },
+      {
+          "Force": "push",
+          "Name": "Barbell Bicep Curl",
+          "Primary Muscles": [
+              "biceps"
+          ],
+          "SecondaryMuscles": [
+              "brachioradialis",
+              "deltoid",
+              "finger flexors",
+              "trapezius"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=kwG2ipFRgfo&ab_channel=Howcast"
+      },
+      {
+          "Force": "push",
+          "Name": "Dumbbell Hammer Curl",
+          "Primary Muscles": [
+              "biceps"
+          ],
+          "SecondaryMuscles": [
+              "brachioradialis",
+              "deltoid",
+              "finger flexors",
+              "trapezius"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=zC3nLlEvin4&ab_channel=ScottHermanFitness"
+      },
+      {
+          "Force": "push",
+          "Name": "Reverse Curl",
+          "Primary Muscles": [
+              "biceps"
+          ],
+          "SecondaryMuscles": [
+              "brachioradialis",
+              "deltoid",
+              "finger flexors",
+              "trapezius"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=nRgxYX2Ve9w&ab_channel=Howcast"
+      },
+      {
+          "Force": "push",
+          "Name": "Plank",
+          "Primary Muscles": [
+              "abdominals",
+              "external oblique"
+          ],
+          "SecondaryMuscles": [
+              "deltoid",
+              "gluteus maximus",
+              "gluteus medius",
+              "pectoralis major",
+              "triceps"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=BQu26ABuVS0&ab_channel=WaysAndHow"
+      },
+      {
+          "Force": "push",
+          "Name": "Weighted Plank",
+          "Primary Muscles": [
+              "abdominals",
+              "external oblique"
+          ],
+          "SecondaryMuscles": [
+              "deltoid",
+              "gluteus maximus",
+              "gluteus medius",
+              "pectoralis major",
+              "triceps"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=H88Ip-MUWn0&ab_channel=StrengthSide"
+      },
+      {
+          "Force": "push",
+          "Name": "Crunch",
+          "Primary Muscles": [
+              "abdominals",
+              "external oblique"
+          ],
+          "SecondaryMuscles": [
+              "serratus anterior"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=Xyd_fa5zoEU&ab_channel=LIVESTRONG.COM"
+      },
+      {
+          "Force": "push",
+          "Name": "Cable Crunch",
+          "Primary Muscles": [
+              "abdominals",
+              "external oblique"
+          ],
+          "SecondaryMuscles": [
+              "serratus anterior"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=AV5PmZJIrrw&ab_channel=ColossusFitness"
+      },
+      {
+          "Force": "push",
+          "Name": "Dead Bug",
+          "Primary Muscles": [
+              "abdominals",
+              "external oblique"
+          ],
+          "SecondaryMuscles": [
+              "infraspinatus",
+              "quadriceps",
+              "serratus anterior",
+              "teres major"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=4XLEnwUr1d8&ab_channel=Bodybuilding.com"
+      },
+      {
+          "Force": "push",
+          "Name": "Mountain Climbers",
+          "Primary Muscles": [
+              "abdominals"
+          ],
+          "SecondaryMuscles": [
+              "deltoid",
+              "gastrocnemius",
+              "hamstrings",
+              "quadriceps",
+              "sartorius"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=nmwgirgXLYM&ab_channel=Howcast"
+      },
+      {
+          "Force": "push",
+          "Name": "Hanging Knee Raises",
+          "Primary Muscles": [
+              "abdominals"
+          ],
+          "SecondaryMuscles": [
+              "external oblique",
+              "finger extensors",
+              "finger flexors",
+              "sartorius"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=KhPTiWP6lB4&ab_channel=BrianSchmitt"
+      },
+      {
+          "Force": "push",
+          "Name": "Hanging Leg Raises",
+          "Primary Muscles": [
+              "abdominals"
+          ],
+          "SecondaryMuscles": [
+              "external oblique",
+              "finger extensors",
+              "finger flexors",
+              "sartorius"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=hdng3Nm1x_E&ab_channel=ScottHermanFitness"
+      },
+      {
+          "Force": "push",
+          "Name": "Leg Raises",
+          "Primary Muscles": [
+              "abdominals"
+          ],
+          "SecondaryMuscles": [
+              "external oblique",
+              "sartorius"
+          ],
+          "Type": "compound",
+          "Workout Type": [
+              "strength"
+          ],
+          "Youtube link": "https://www.youtube.com/watch?v=l4kQd9eWclE&ab_channel=Howcast"
+      }
+  ])
     const [musclesLeft ,setMusclesLeft]=useState([])
     const [isSearchingPrimary ,setIsSearchingPrimary]=useState(true)
     const [muscleSearch ,setMuscleSearch]=useState('')
@@ -186,6 +676,8 @@ const errorOccurred=(err)=>{
   setError(null)
   },3000)
 }
+
+
 const getExercises=async(input)=>{
   if(isLoading) return
   setMusclesLeft([])
@@ -194,15 +686,17 @@ const getExercises=async(input)=>{
   if(input.length){
     const muscleType=input[0]
     const params={}
-    const muscles=musclesDictionary(input[1])
+    const muscles=musclesDictionaryFunc(input[1])
     muscleType==='P' ? params.primaryMuscle=muscles[0] : params.secondaryMuscle=muscles[0]
     api.defaults.params=params
     setMusclesLeft(muscles.slice(1))
   }
 try{
-  const data=await api.get('https://exerciseapi3.p.rapidapi.com/search/')
-  errorOccurred('we store no exercises over this muscle')
-  setExercises(data.data)
+  const response=await api.get('https://exerciseapi3.p.rapidapi.com/search/')
+  if(!response.data.length){
+    errorOccurred(`No exercises for ${Object.values(api.defaults.params)[0]} as a ${isSearchingPrimary ? 'Primary' : 'Secondary'}`)
+  }
+  setExercises(response.data)
 }catch(err){
   errorOccurred(err.message)
 }finally{
@@ -217,11 +711,11 @@ const moreExercises=async()=>{
   isSearchingPrimary ? params.primaryMuscle=wantedMuscle : params.secondaryMuscle=wantedMuscle
   api.defaults.params=params
   try{
-    const data=await api.get('https://exerciseapi3.p.rapidapi.com/search/')
-    if(data.data.length){
-      errorOccurred('we store no exercises over this muscle')
+    const response=await api.get('https://exerciseapi3.p.rapidapi.com/search/')
+    if(!response.data.length){
+        errorOccurred(`No exercises for ${Object.values(api.defaults.params)[0]} as a ${isSearchingPrimary ? 'Primary' : 'Secondary'}`)
     }
-    setExercises([...exercises ,...data.data])
+    setExercises([...exercises ,...response.data])
     setMusclesLeft(prev=>{
       const newArr=prev.slice(1)
       return newArr
