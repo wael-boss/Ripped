@@ -5,7 +5,7 @@ import { useContext } from 'react'
 import DataContext from '../context/DataContext'
 import ExerciseSort from '../components/ExerciseSort'
 const Gym = () => {
-  const {exercises ,musclesLeft ,moreExercises}=useContext(DataContext)
+  const {exercises ,musclesLeft ,moreExercises ,testState}=useContext(DataContext)
     return (
       <main>
         <section id='searchSection'>
@@ -31,6 +31,7 @@ const Gym = () => {
           </button>}
           </div>
         </section>
+        <img src={testState}/>
       </main>
     )
   }

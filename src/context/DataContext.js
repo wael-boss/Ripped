@@ -2,7 +2,8 @@ import { createContext, useRef, useState } from "react";
 import {auth} from '../Config'
 import { createUserWithEmailAndPassword ,signInWithEmailAndPassword} from 'firebase/auth'
 import {useNavigate, useSearchParams} from "react-router-dom";
-import api from "../api/api";
+import ExerciseAPI from "../api/ExerciseAPI";
+import ImgAPI from "../api/ImgAPI";
 
 const DataContext=createContext({})
 
@@ -150,6 +151,7 @@ export const DataProvider=({children})=>{
     const [codeShown ,setCodeShown]=useState(true)
     const [error ,setError]=useState(null)
     const [isLoading ,setIsLoading]=useState(false)
+    const [muscleAPIcolor ,setMuscleAPIcolor]=useState('200,100,80')
     const [signUpPasswordKeys ,setSignUpPasswordKeys]=useState('')
     const [searchParams ,setSearchParams]=useSearchParams({})
     const [nameSearch ,setNameSearch]=useState('')
@@ -660,11 +662,11 @@ export const DataProvider=({children})=>{
         return exercises
     }
     const EXERCISEtoIMGFunc=(exercise)=>{
-        let img=''
+        let img=[]
         const contestants=[]
         dictionary.map(obj=>{
             if(JSON.stringify(obj.ExerApi) === JSON.stringify(exercise)){
-                img=obj.ImgApi
+                img.push(obj.ImgApi)
             }
         })
         if(img.length>0) return img 
@@ -679,9 +681,8 @@ export const DataProvider=({children})=>{
                 contestants.push(testObj)
             }
         })
-        img=[]
         contestants.map(contestant=>{
-            if(contestant.arrays>contestant.matches+1){
+            if(contestant.arrays<contestant.matches+1){
                 img.push(contestant.img)
             }
         })
@@ -743,19 +744,19 @@ const getExercises=async(input)=>{
   if(isLoading) return
   setMusclesLeft([])
   setIsLoading(true)
-  api.defaults.params=input
+  ExerciseAPI.defaults.params=input
   if(input.length){
     const muscleType=input[0]
     const params={}
     const muscles=musclesDictionaryFunc(input[1])
     muscleType==='P' ? params.primaryMuscle=muscles[0] : params.secondaryMuscle=muscles[0]
-    api.defaults.params=params
+    ExerciseAPI.defaults.params=params
     setMusclesLeft(muscles.slice(1))
   }
 try{
-  const response=await api.get('https://exerciseapi3.p.rapidapi.com/search/')
+  const response=await ExerciseAPI.get('https://exerciseapi3.p.rapidapi.com/search/')
   if(!response.data.length){
-    errorOccurred(`No exercises for ${Object.values(api.defaults.params)[0]} as a ${isSearchingPrimary ? 'Primary' : 'Secondary'}`)
+    errorOccurred(`No exercises for ${Object.values(ExerciseAPI.defaults.params)[0]} as a ${isSearchingPrimary ? 'Primary' : 'Secondary'}`)
   }
   setExercises(response.data)
 }catch(err){
@@ -770,11 +771,11 @@ const moreExercises=async()=>{
   const wantedMuscle=musclesLeft[0]
   const params={}
   isSearchingPrimary ? params.primaryMuscle=wantedMuscle : params.secondaryMuscle=wantedMuscle
-  api.defaults.params=params
+  ExerciseAPI.defaults.params=params
   try{
-    const response=await api.get('https://exerciseapi3.p.rapidapi.com/search/')
+    const response=await ExerciseAPI.get('https://exerciseapi3.p.rapidapi.com/search/')
     if(!response.data.length){
-        errorOccurred(`No exercises for ${Object.values(api.defaults.params)[0]} as a ${isSearchingPrimary ? 'Primary' : 'Secondary'}`)
+        errorOccurred(`No exercises for ${Object.values(ExerciseAPI.defaults.params)[0]} as a ${isSearchingPrimary ? 'Primary' : 'Secondary'}`)
     }
     setExercises([...exercises ,...response.data])
     setMusclesLeft(prev=>{
@@ -787,9 +788,24 @@ const moreExercises=async()=>{
     setIsLoading(false)
   }
 }
+const [testState ,setTestState]=useState()
+const getMuscleImage=async(muscleGroups)=>{
+    const muscleArr=EXERCISEtoIMGFunc(muscleGroups)
+    let muscleImg=null
+    const params={muscleGroups:muscleArr.join(','), color:muscleAPIcolor}
+    ImgAPI.defaults.params=params
+    try{
+        const data=await ImgAPI.get('/')
+        muscleImg=data.data
+        console.log(muscleImg)
+        setTestState(muscleImg)
+    }catch(err){
+        errorOccurred(err.message)
+    }
+}
 return(
     <DataContext.Provider value={{
-        user ,signOut ,setUser ,UserToLocalStorage ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,muscles ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc
+        user ,signOut ,setUser ,UserToLocalStorage ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,muscles ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,testState
     }}>
         {children}
     </DataContext.Provider>

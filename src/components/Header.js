@@ -7,8 +7,9 @@ import {IoIosSettings} from 'react-icons/io'
 import {TbSwitch} from 'react-icons/tb'
 import { useContext, useRef, useState } from 'react'
 import DataContext from '../context/DataContext'
+import { colord } from 'colord'
 const Header = () => {
-  const {user ,signOut ,setUser ,UserToLocalStorage ,navigator}=useContext(DataContext)
+  const {user ,signOut ,setUser ,UserToLocalStorage ,navigator,muscleAPIcolor ,setMuscleAPIcolor}=useContext(DataContext)
   const [isEditing ,setIsEditing]=useState(false)
   const nameChangeRef=useRef()
   return (
@@ -84,7 +85,17 @@ const Header = () => {
           <div className='settingsToggle'>
             <IoIosSettings/>
             <div className='settings'>
-              <div className='setting'><p>1111111111</p></div>
+              <div className='setting'>
+                <input
+                type='color'
+                formAction='RGB'
+                value={colord('rgb('+muscleAPIcolor+')').toHex()}
+                onChange={e=>{
+                  let rgb=colord(e.target.value).toRgbString()
+                  setMuscleAPIcolor(rgb.split('rgb(').join(',').split(')').join('').split(',').slice(1).join(','))
+                }}
+                />
+              </div>
               <div className='setting'><p>22222222222222</p></div>
               <div className='setting'><p>3333333333333333333333</p></div>
             </div>
