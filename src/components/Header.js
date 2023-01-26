@@ -92,7 +92,7 @@ const Header = () => {
                 value={colord('rgb('+muscleAPIcolor+')').toHex()}
                 onChange={e=>{
                   let rgb=colord(e.target.value).toRgbString()
-                  setMuscleAPIcolor(rgb.split('rgb(').join(',').split(')').join('').split(',').slice(1).join(','))
+                  setMuscleAPIcolor(rgb.slice(4,-1))
                 }}
                 />
               </div>

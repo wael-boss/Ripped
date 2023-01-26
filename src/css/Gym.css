@@ -34,6 +34,7 @@
 }
 #musclesForm input{
     border-radius:0 20px 20px 0;
+    cursor: pointer;
 }
 #musclesContainer{
     min-width: 100%;
@@ -80,6 +81,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin: 20px 0;
 }
 #resultsSection #intro *{
     text-align: center;
@@ -87,9 +89,68 @@
 #resultsContainer{
     display: flex;
     flex-direction: column;
+    /* justify-content: center; */
+    gap: 20px;
+    min-height: 70vh;
+    position: relative;
 }
 #resultsContainer>img{
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    right: 50%;
+    left: 50%;
+    transform: translateX(-50%);
     width: 30%;
     opacity: 0.1;
     margin: auto;
+}
+.exerciseGroup{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.exerciseInfo{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.loadingMuscleImg{
+    width: 10%;
+    aspect-ratio: 1/1;
+    background-color: var(--shade2);
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+}
+.loadingMuscleImg::after{
+    content: '';
+    position: absolute;
+    top:50%;
+    bottom:50%;
+    height: 20%;
+    width: 300%;
+    background-color:var(--color4);
+    filter: blur(10px);
+    animation: loader 1.5s  linear infinite;
+}
+@keyframes loader {
+    0%{
+        transform:rotate(45deg) translateY(1400%);
+    }
+    100%{
+        transform:rotate(45deg) translateY(-600%);
+    }
+}
+.exerciseInfo>img{
+    width: 10%;
+    border-radius: 10px;
+}
+.exerciseInfo>p{
+    font-size: var(--font-size-B);
+}
+.exerciseInfo>p>span{
+    font-family: var(--font1);
+    font-weight:700;
 }

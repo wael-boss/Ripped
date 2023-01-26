@@ -129,7 +129,104 @@ export const DataProvider=({children})=>{
     const [signUpPasswordKeys ,setSignUpPasswordKeys]=useState('')
     const [searchParams ,setSearchParams]=useSearchParams({})
     const [nameSearch ,setNameSearch]=useState('')
-    const [exercises ,setExercises]=useState([])
+    const [exercises ,setExercises]=useState([{
+      "muscleType": "Primary",
+      "muscleGroups": [
+          "biceps"
+      ],
+      "data": [
+          {
+              "Force": "push",
+              "Name": "Dumbbell Bicep Curl",
+              "Primary Muscles": [
+                  "biceps"
+              ],
+              "SecondaryMuscles": [
+                  "brachioradialis",
+                  "deltoid",
+                  "finger flexors",
+                  "trapezius"
+              ],
+              "Type": "compound",
+              "Workout Type": [
+                  "strength"
+              ],
+              "Youtube link": "https://www.youtube.com/watch?v=ykJmrZ5v0Oo&ab_channel=Howcast"
+          },
+          {
+              "Force": "push",
+              "Name": "Preacher Bicep Curl",
+              "Primary Muscles": [
+                  "biceps"
+              ],
+              "SecondaryMuscles": [
+                  "brachioradialis",
+                  "deltoid",
+                  "finger flexors",
+                  "trapezius"
+              ],
+              "Type": "compound",
+              "Workout Type": [
+                  "strength"
+              ],
+              "Youtube link": "https://www.youtube.com/watch?v=fIWP-FRFNU0&ab_channel=KAGED"
+          },
+          {
+              "Force": "push",
+              "Name": "Barbell Bicep Curl",
+              "Primary Muscles": [
+                  "biceps"
+              ],
+              "SecondaryMuscles": [
+                  "brachioradialis",
+                  "deltoid",
+                  "finger flexors",
+                  "trapezius"
+              ],
+              "Type": "compound",
+              "Workout Type": [
+                  "strength"
+              ],
+              "Youtube link": "https://www.youtube.com/watch?v=kwG2ipFRgfo&ab_channel=Howcast"
+          },
+          {
+              "Force": "push",
+              "Name": "Dumbbell Hammer Curl",
+              "Primary Muscles": [
+                  "biceps"
+              ],
+              "SecondaryMuscles": [
+                  "brachioradialis",
+                  "deltoid",
+                  "finger flexors",
+                  "trapezius"
+              ],
+              "Type": "compound",
+              "Workout Type": [
+                  "strength"
+              ],
+              "Youtube link": "https://www.youtube.com/watch?v=zC3nLlEvin4&ab_channel=ScottHermanFitness"
+          },
+          {
+              "Force": "push",
+              "Name": "Reverse Curl",
+              "Primary Muscles": [
+                  "biceps"
+              ],
+              "SecondaryMuscles": [
+                  "brachioradialis",
+                  "deltoid",
+                  "finger flexors",
+                  "trapezius"
+              ],
+              "Type": "compound",
+              "Workout Type": [
+                  "strength"
+              ],
+              "Youtube link": "https://www.youtube.com/watch?v=nRgxYX2Ve9w&ab_channel=Howcast"
+          }
+      ]
+  }])
     const [musclesLeft ,setMusclesLeft]=useState([])
     const [isSearchingPrimary ,setIsSearchingPrimary]=useState(true)
     const [muscleSearch ,setMuscleSearch]=useState('')
@@ -272,7 +369,7 @@ try{
   }
   let execisesArr
   if(isSearchingPrimary){
-     execisesArr=[{muscleGroups:Object.values(response.data[0])[2],data:response.data}]
+     execisesArr=[{muscleType:isSearchingPrimary ? 'Primary' : 'Secondary',muscleGroups:Object.values(response.data[0])[2],data:response.data}]
   }else{
     let a=[]
     const result=[]
@@ -284,7 +381,7 @@ try{
         result.push(muscle)
       }
     })
-    execisesArr=[{muscleGroups:result,data:response.data}]
+    execisesArr=[{muscleType:isSearchingPrimary ? 'Primary' : 'Secondary',muscleGroups:result,data:response.data}]
   }
   setExercises(execisesArr)
 }catch(err){
@@ -311,7 +408,7 @@ const moreExercises=async()=>{
         errorOccurred(`No exercises for ${wantedMuscle} as a ${isSearchingPrimary ? 'Primary' : 'Secondary'}`)
         return
     }
-    const execisesArr={muscleGroups:Object.values(response.data[0])[2],data:response.data}
+    const execisesArr={muscleType:isSearchingPrimary ? 'Primary' : 'Secondary',muscleGroups:Object.values(response.data[0])[2],data:response.data}
     setExercises([...exercises ,execisesArr])
   }catch(err){
     errorOccurred(err.message)
