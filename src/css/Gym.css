@@ -154,3 +154,29 @@
     font-family: var(--font1);
     font-weight:700;
 }
+.exerciseContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.exercise{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    background-color: var(--shade1);
+    border-top:2px solid var(--color4) ;
+    border-bottom:2px solid var(--color4) ;
+}
+.exercise *{
+    font-size: var(--font-size-B);
+}
+.exercise>img{
+    width: 10%;
+}
+.exercise>button{
+    transition: transform .3s ease-in-out;
+}
+.exercise>button:hover{
+    transform: rotate(90deg);
+}
