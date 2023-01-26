@@ -1,17 +1,15 @@
 import { useContext } from "react"
 import DataContext from "../context/DataContext"
+import ExercisesLoop from "./ExercisesLoop"
 
-const ExerciseSort = ({exercise}) => {
-  const {EXERCISEtoIMGFunc ,getMuscleImage}=useContext(DataContext)
+const ExerciseSort = ({exercise ,I}) => {
+  const {generalMuscleImages ,exercises}=useContext(DataContext)
   return (
-    <div>
-      <button
-      style={{backgroundColor:'red'}}
-      onClick={()=>{
-      const muscles=EXERCISEtoIMGFunc(Object.values(exercise)[2])
-      getMuscleImage(Object.values(exercise)[2])
-    }}
-    >{exercise.Name}</button>
+    <div className="exerciseGroup">
+      <div className="exerciseInfo">
+        <img width='200' src={generalMuscleImages[I]}/>
+      </div>
+      <ExercisesLoop exercises={exercise.data}/>
     </div>
   )
 }

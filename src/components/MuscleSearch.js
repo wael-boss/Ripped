@@ -1,9 +1,17 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import DataContext from '../context/DataContext'
 import MusclesDisplay from './MusclesDisplay'
 
 const MuscleSearch = () => {
-  const {muscles ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch}=useContext(DataContext)
+  const {dictionary ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch}=useContext(DataContext)
+  const dictionaryMuscles=()=>{
+    const result=[]
+    dictionary.map(obj=>{
+      result.push(obj.ImgApi)
+    })
+    return result
+  }
+  const muscles=dictionaryMuscles(dictionary)
   return (
     <div id='musclesFormContainer'>
       <div id='musclesForm'>
@@ -21,7 +29,8 @@ const MuscleSearch = () => {
         }}
         />
         <MusclesDisplay
-        muscles={muscleSearch.length ? muscles.sort().filter(muscle=>(muscle.toLowerCase()).includes(muscleSearch.toLocaleLowerCase())) : muscles}
+        muscles={muscleSearch.length ? muscles.sort().filter(muscle=>(muscle.toLowerCase()).includes(muscleSearch.toLocaleLowerCase()))
+        : muscles}
         muscleType={isSearchingPrimary ? 'P' : 'S'}
         />
       </div>

@@ -6,6 +6,7 @@ import DataContext from '../context/DataContext'
 import ExerciseSort from '../components/ExerciseSort'
 const Gym = () => {
   const {exercises ,musclesLeft ,moreExercises ,testState}=useContext(DataContext)
+  let i=-1
     return (
       <main>
         <section id='searchSection'>
@@ -20,7 +21,8 @@ const Gym = () => {
           <div id='resultsContainer'>
           {exercises.length ? 
           exercises.map(exercise=>{
-            return(<ExerciseSort   key={JSON.stringify(exercise)} exercise={exercise}/>)
+            i++
+            return(<ExerciseSort key={JSON.stringify(exercise)} exercise={exercise} I={i}/>)
           })
           : <img src='/images/results404.png'/>}
           {musclesLeft.length!==0 &&
@@ -31,7 +33,6 @@ const Gym = () => {
           </button>}
           </div>
         </section>
-        <img src={testState}/>
       </main>
     )
   }
