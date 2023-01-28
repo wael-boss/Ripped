@@ -47,6 +47,7 @@
     border-radius: 7px;
     max-height: 40vh;
     overflow-y: scroll;
+    z-index: 9;
 }
 #musclesContainer p{
     border-bottom:2px solid var(--color3) ;
@@ -117,7 +118,8 @@
     gap: 20px;
 }
 .loadingMuscleImg{
-    width: 10%;
+    min-width: 10%;
+    max-width: 10%;
     aspect-ratio: 1/1;
     background-color: var(--shade2);
     overflow: hidden;
@@ -144,39 +146,45 @@
     }
 }
 .exerciseInfo>img{
-    width: 10%;
+    min-width: 10%;
+    max-width: 10%;
     border-radius: 10px;
 }
 .exerciseInfo>p{
-    font-size: var(--font-size-B);
+    font-size: var(--font-size-M);
 }
 .exerciseInfo>p>span{
     font-family: var(--font1);
     font-weight:700;
 }
 .exerciseContainer{
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+    display: grid;
+    grid-template-columns: repeat(2 ,1fr);
+    column-gap: 5px;
+    row-gap: 10px;
 }
 .exercise{
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 30px;
-    background-color: var(--shade1);
+    background-image: linear-gradient(90deg ,var(--shade5)0% 10% ,var(--shade1) 50% 100%);
     border-top:2px solid var(--color4) ;
     border-bottom:2px solid var(--color4) ;
 }
 .exercise *{
-    font-size: var(--font-size-B);
+    font-size: var(--font-size-M);
 }
 .exercise>img{
     width: 10%;
 }
 .exercise>button{
-    transition: transform .3s ease-in-out;
+    display: grid;
+    place-items: center;
 }
-.exercise>button:hover{
-    transform: rotate(90deg);
+.exercise>button>svg{
+    transition: transform .2s ease-in-out;
+}
+.exercise>button:hover>svg{
+    transform: translateX(50%);
 }

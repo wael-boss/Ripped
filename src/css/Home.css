@@ -35,7 +35,23 @@
 #heroButtonContainer button{
     font-size: var(--font-size-S);
     padding: 5px 10px;
+    position: relative;
 }
+#heroButtonContainer button::before{
+    content: '';
+    position: absolute;
+    bottom: -35%;
+    right:-10%;
+    background-color: var(--color4);
+    width: 20%;
+    aspect-ratio:1 / 1;
+    border-radius: 50%;
+    filter: blur(18px);
+    transition: transform .3s ease-out;
+  }
+  #heroButtonContainer button:is(:hover ,:focus)::before{
+    transform:translate(-500%,-100%) ;
+  }
 #heroImage{
     height: 75vh;
     width: 50%;

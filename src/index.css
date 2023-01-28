@@ -14,7 +14,7 @@
   --font1:'Lexend Mega', sans-serif;
   --font2:'Spinnaker', sans-serif;
   --font-size-B:30px;
-  --font-size-M:20px;
+  --font-size-M:25px;
   --font-size-S:15px;
 }
 *{
@@ -28,26 +28,10 @@
 }
 .btnStyle1{
   background: linear-gradient(130deg ,var(--color2) 93% ,transparent 90%);
-  position: relative;
-  transition: transform .3s ease-out;
-}
-.btnStyle1::before{
-  content: '';
-  position: absolute;
-  bottom: -35%;
-  right:-10%;
-  background-color: var(--color4);
-  width: 20%;
-  aspect-ratio:1 / 1;
-  border-radius: 50%;
-  filter: blur(18px);
   transition: transform .3s ease-out;
 }
 .btnStyle1:is(:hover ,:focus){
   transform:scale(1.05) ;
-}
-.btnStyle1:is(:hover ,:focus)::before{
-  transform:translate(-500%,-100%) ;
 }
 body {
   margin: 0;
