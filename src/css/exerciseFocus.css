@@ -1,0 +1,64 @@
+#exerciseContainer{
+    display: flex;
+}
+#exerciseContainer>section{
+    height:90vh;
+    padding: 0px;
+}
+#exerciseContainer>#muscleInfo{
+    width: 70%;
+}
+#exerciseContainer>#muscleImages{
+    width: 30%;
+}
+#muscleImages{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+#muscleImages>#imageScroller{
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+}
+#muscleImages>#imageScroller::-webkit-scrollbar{
+    display: none;
+}
+[data-muscle-type]{
+    position: relative;
+}
+[data-muscle-type]::after{
+    content:attr(data-muscle-type);
+    position: absolute;
+    top:100%;
+    font: 500 var(--font-size-B) var(--font1);
+}
+#muscleImages>#imageScroller>img{
+    width:100%;
+    aspect-ratio: 1/1;
+    scroll-snap-align: start;
+    opacity: 0.5;
+}
+#muscleImages>#imageScroller>.loadingMuscleImg{
+    min-width:100%;
+    max-width:100%;
+    aspect-ratio: 1/1;
+    scroll-snap-align: start;
+    opacity: 0.5;
+}
+#muscleImages>#squares{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+#squares>span{
+    width:4%;
+    aspect-ratio: 1/1;
+    background-color: var(--color2);
+    cursor: pointer;
+}

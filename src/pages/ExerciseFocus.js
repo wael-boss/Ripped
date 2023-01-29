@@ -1,9 +1,9 @@
-import { useContext, useEffect, useMemo, useState } from "react"
+import { useContext, useEffect, useMemo, useRef, useState } from "react"
 import { useLocation } from "react-router-dom"
 import ExerciseAPI from "../api/ExerciseAPI"
 import DataContext from "../context/DataContext"
-import {HiArrowNarrowRight} from 'react-icons/hi'
 import ImgAPI from "../api/ImgAPI"
+import '../css/exerciseFocus.css'
 const ExerciseFocus = () => {
   const {muscleAPIcolor ,EXERCISEtoIMGFunc ,generalMuscleImages ,setSearchParams ,searchParams ,errorOccurred ,navigator ,setIsLoading}=useContext(DataContext)
   const location=useLocation()
@@ -56,6 +56,7 @@ const ExerciseFocus = () => {
   const paramsExericseName=searchParams.get('name')
   const locationExercise=!location.state ? null : location.state.exercise
   const OnLoadExercise=async()=>{
+    if(exerciseFocus !== null) return
     if(!paramsExericseName){
         setSearchParams({...searchParams ,name:locationExercise.Name})
         setExerciseFocus(locationExercise)
@@ -85,14 +86,36 @@ const convertBlob=(blob)=>{
     }
   OnLoadExercise()
   },[])
-  console.log(exerciseFocus)
+  const imageScroller=useRef()
   return (
     <main>
       {exerciseFocus ? 
-      <div>
-        <h1>{exerciseFocus.Name}</h1>
-        {primaryImage ? <img   width='200' height='200' src={primaryImage}/> : <div className="loadingMuscleImg"></div>}
-        {secondaryImage ? <img width='200' height='200' src={secondaryImage}/> : <div className="loadingMuscleImg"></div>}
+      <div id="exerciseContainer">
+        <section id="muscleInfo">
+          <h1>{exerciseFocus.Name}</h1>
+        </section>
+        <section id="muscleImages">
+          <div id="imageScroller" ref={imageScroller}>
+            {primaryImage ? <img  data-muscle-type='Primary muscles'  src={primaryImage}/> : <div className="loadingMuscleImg"></div>}
+            {secondaryImage ? <img data-muscle-type='Secondary muscles' src={secondaryImage}/> : <div className="loadingMuscleImg"></div>}
+          </div>
+          <div id="squares">
+            <span onClick={()=>{
+              imageScroller.current.scrollTo({
+                top:0,
+                left:0,
+                behavior:'smooth',
+              })
+            }}></span>
+            <span onClick={()=>{
+              imageScroller.current.scrollTo({
+                top:0,
+                left:imageScroller.current.offsetWidth,
+                behavior:'smooth',
+              })
+            }}></span>
+          </div>
+        </section>
       </div>
       : <p>wait</p>
       }
