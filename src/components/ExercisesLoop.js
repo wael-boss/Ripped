@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import {BsArrowRight} from 'react-icons/bs' 
 import DataContext from '../context/DataContext'
 const ExercisesLoop = ({exercises}) => {
-  const {navigator}=useContext(DataContext)
+  const {navigator ,setSearchParams ,searchParams}=useContext(DataContext)
   return (
     <div className="exerciseContainer">
     {exercises.map(exercise=>{
@@ -11,7 +11,7 @@ const ExercisesLoop = ({exercises}) => {
                 <img src={`/images/${exercise.Force}.png`}/>
                 <p>{exercise.Name}</p>
                 <button onClick={()=>{
-                  navigator('/exerciseFocus')
+                  navigator('/exerciseFocus' ,{state:{exercise:exercise}})
                 }}><BsArrowRight/></button>
             </div>
         )

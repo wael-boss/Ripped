@@ -7,7 +7,7 @@ const ExerciseSort = ({exercise ,I}) => {
   return (
     <div className="exerciseGroup">
       <div className="exerciseInfo">
-        {generalMuscleImages[I] ? <img src={generalMuscleImages[I]}/> : <div className="loadingMuscleImg"></div>}
+        {generalMuscleImages[I] ? <img src={generalMuscleImages[I].image}/> : <div className="loadingMuscleImg"></div>}
         <p>benieth are exercises that work <span style={{color:`rgb(${muscleAPIcolor})`}}>{exercise.muscleGroups.join(' , ').toUpperCase()}</span> as a <span style={{color:`rgb(${muscleAPIcolor})`}}>{exercise.muscleType}</span> muscle.</p>
       </div>
       <ExercisesLoop exercises={exercise.data}/>
