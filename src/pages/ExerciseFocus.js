@@ -12,6 +12,7 @@ const ExerciseFocus = () => {
   const [primaryCame ,setPrimaryCame]=useState(false)
   const [primaryImage ,setPrimaryImage]=useState(null)
   const [secondaryImage ,setSecondaryImage]=useState(null)
+  const [showingPimage ,setShowingPimage]=useState(true)
 
 
 
@@ -19,7 +20,7 @@ const ExerciseFocus = () => {
   const getMuscleImage=useMemo(async()=>{
     if(isGettingImage) return
     if(!exerciseFocus) return
-    if (!primaryImage || !secondaryImage) setIsGettingImage(true)
+    if (!primaryImage || !secondaryImage){setIsGettingImage(true)}else return
     console.log('got image')
     if(!primaryImage){
       const primaryMuscles=Object.values(exerciseFocus)[2]
@@ -87,34 +88,72 @@ const convertBlob=(blob)=>{
   OnLoadExercise()
   },[])
   const imageScroller=useRef()
+  imageScroller.current.scrollTo({
+    top:0,
+    left:showingPimage ? 0 : imageScroller.current.offsetWidth,
+    behavior:'smooth',
+  })
   return (
     <main>
       {exerciseFocus ? 
       <div id="exerciseContainer">
         <section id="muscleInfo">
-          <h1>{exerciseFocus.Name}</h1>
+          <h1>- {exerciseFocus.Name}</h1>
+          <h2>Force: {exerciseFocus.Force}.</h2>
+          <div>
+            <h2>Primary muscle{Object.values(exerciseFocus)[2].length>1 ? 's' : ''}:</h2>
+            <ul>
+              {Object.values(exerciseFocus)[2].map(muscle=>{
+                return(
+                  <li>{muscle}.</li>
+                )
+              })}
+            </ul>
+          </div>
+          <div>
+            <h2>Secondary muscle{Object.values(exerciseFocus)[3].length>1 ? 's' : ''}:</h2>
+            <ul>
+              {Object.values(exerciseFocus)[3].map(muscle=>{
+                return(
+                  <li>{muscle}.</li>
+                )
+              })}
+            </ul>
+          </div>
+          <h2>workout genre: {exerciseFocus.Type}.</h2>
+          <div>
+            <h2>workout type{Object.values(exerciseFocus)[5].length>1 ? 's' : ''}:</h2>
+            <ul>
+              {Object.values(exerciseFocus)[5].map(type=>{
+                return(
+                  <li>{type}.</li>
+                )
+              })}
+            </ul>
+          </div>
         </section>
         <section id="muscleImages">
           <div id="imageScroller" ref={imageScroller}>
-            {primaryImage ? <img  data-muscle-type='Primary muscles'  src={primaryImage}/> : <div className="loadingMuscleImg"></div>}
-            {secondaryImage ? <img data-muscle-type='Secondary muscles' src={secondaryImage}/> : <div className="loadingMuscleImg"></div>}
+            <div>
+              <p>Primary muscle group</p>
+              {primaryImage ? <img src={primaryImage}/> : <div className="loadingMuscleImg"></div>}
+            </div>
+            <div>
+            <p>Secodary muscle group</p>
+              {secondaryImage ? <img src={secondaryImage}/> : <div className="loadingMuscleImg"></div>}
+            </div>
           </div>
           <div id="squares">
-            <span onClick={()=>{
-              imageScroller.current.scrollTo({
-                top:0,
-                left:0,
-                behavior:'smooth',
-              })
+            <span style={{backgroundColor:showingPimage ? 'var(--color2)' : 'transparent'}} onClick={()=>{
+              setShowingPimage(true)
             }}></span>
-            <span onClick={()=>{
-              imageScroller.current.scrollTo({
-                top:0,
-                left:imageScroller.current.offsetWidth,
-                behavior:'smooth',
-              })
+            <span style={{backgroundColor:showingPimage ? 'transparent' : 'var(--color2)'}} onClick={()=>{
+              setShowingPimage(false)
             }}></span>
           </div>
+          <iframe
+          src={`https://www.youtube.com/embed/${Object.values(exerciseFocus)[6].slice(32).slice(0 ,11)}`}>
+          </iframe>
         </section>
       </div>
       : <p>wait</p>

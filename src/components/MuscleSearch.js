@@ -3,7 +3,7 @@ import DataContext from '../context/DataContext'
 import MusclesDisplay from './MusclesDisplay'
 
 const MuscleSearch = () => {
-  const {dictionary ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch}=useContext(DataContext)
+  const {muscleChoiceInput ,dictionary ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch}=useContext(DataContext)
   const dictionaryMuscles=()=>{
     const result=[]
     dictionary.map(obj=>{
@@ -22,6 +22,7 @@ const MuscleSearch = () => {
         }}
         >{isSearchingPrimary ? 'P' : 'S'}</button>
         <input
+        ref={muscleChoiceInput}
         placeholder={`Search by ${isSearchingPrimary ? 'Primary' : 'Secondary'} muscle`}
         value={muscleSearch}
         onChange={(e)=>{

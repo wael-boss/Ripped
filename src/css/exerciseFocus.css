@@ -2,47 +2,75 @@
     display: flex;
 }
 #exerciseContainer>section{
-    height:90vh;
-    padding: 0px;
+    min-height:90vh;
 }
 #exerciseContainer>#muscleInfo{
     width: 70%;
 }
 #exerciseContainer>#muscleImages{
     width: 30%;
+    padding: 0px;
+}
+#exerciseContainer>#muscleInfo{
+    padding: 20px;
+}
+#muscleInfo h1{
+    font: 500 var(--font-size-B) var(--font1);
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--color2);
+    margin-bottom: 20px;
+}
+#muscleInfo h2{
+    font-size: var(--font-size-M);
+    width: fit-content;
+    border-bottom: 1px solid var(--color2);
+}
+#muscleInfo li{
+    font-size: calc(var(--font-size-S) + 5px);
+}
+#muscleInfo ul{
+    padding-left: 30px;
+}
+#muscleInfo >div{
+padding: 20px 0;
+}
+#muscleInfo >div>h2{
+margin-bottom:10px;
 }
 #muscleImages{
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 20px;
 }
 #muscleImages>#imageScroller{
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 1.1;
     display: flex;
     flex-wrap: nowrap;
     overflow-x: scroll;
+    overflow-y: hidden;
     scroll-snap-type: x mandatory;
+}
+#muscleImages>#imageScroller>div{
+    width:100%;
+    aspect-ratio: 1/1;
+    scroll-snap-align: start;
+}
+#muscleImages>#imageScroller>div>p{
+    width:100%;
+    height: 10%;
+    text-align: center;
+    font-size: var(--font-size-M);
 }
 #muscleImages>#imageScroller::-webkit-scrollbar{
     display: none;
 }
-[data-muscle-type]{
-    position: relative;
+#muscleImages>#imageScroller>div>img{
+    width: 100%;
+    aspect-ratio: 1 / 1;
 }
-[data-muscle-type]::after{
-    content:attr(data-muscle-type);
-    position: absolute;
-    top:100%;
-    font: 500 var(--font-size-B) var(--font1);
-}
-#muscleImages>#imageScroller>img{
-    width:100%;
-    aspect-ratio: 1/1;
-    scroll-snap-align: start;
-    opacity: 0.5;
-}
-#muscleImages>#imageScroller>.loadingMuscleImg{
+#muscleImages>#imageScroller>div>.loadingMuscleImg{
     min-width:100%;
     max-width:100%;
     aspect-ratio: 1/1;
@@ -59,6 +87,11 @@
 #squares>span{
     width:4%;
     aspect-ratio: 1/1;
-    background-color: var(--color2);
+    border:2px solid var(--color2);
     cursor: pointer;
+}
+#muscleImages iframe{
+    border: none;
+    width: 100%;
+    aspect-ratio: 3/2;
 }
