@@ -13,12 +13,14 @@ import ErrorPopUp from "./components/ErrorPopUp";
 import LoadingScreen from "./components/LoadingScreen";
 import ExerciseFocus from "./pages/ExerciseFocus";
 import User from "./pages/User";
+import AddWorkout from "./components/AddWorkout";
 function App() {
   const {user}=useContext(DataContext)
   return (
     <div className="App">
       <ErrorPopUp/>
       <LoadingScreen/>
+      <AddWorkout/>
         {user.userEmail ? 
         <>
         <Header/>

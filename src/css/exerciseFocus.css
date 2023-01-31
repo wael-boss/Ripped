@@ -14,11 +14,31 @@
 #exerciseContainer>#muscleInfo{
     padding: 20px;
 }
-#muscleInfo h1{
-    font: 500 var(--font-size-B) var(--font1);
+#pageIntro{
     padding-bottom: 5px;
     border-bottom: 1px solid var(--color2);
     margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#pageIntro h1{
+    font: 500 var(--font-size-B) var(--font1);
+}
+#funcButtons{
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 30px;
+    align-items: center;
+}
+#funcButtons button{
+    display:grid;
+    place-items: center;
+    font-size: var(--font-size-B);
+    transition: color .2s ease-in-out;
+}
+#funcButtons button:is(:hover ,:focus){
+    color: var(--color4);
 }
 #muscleInfo h2{
     font-size: var(--font-size-M);

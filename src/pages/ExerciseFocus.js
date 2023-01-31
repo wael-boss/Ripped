@@ -4,8 +4,10 @@ import ExerciseAPI from "../api/ExerciseAPI"
 import DataContext from "../context/DataContext"
 import ImgAPI from "../api/ImgAPI"
 import '../css/exerciseFocus.css'
+import {FaPlus ,FaPaperclip} from 'react-icons/fa'
+
 const ExerciseFocus = () => {
-  const {muscleAPIcolor ,EXERCISEtoIMGFunc ,generalMuscleImages ,setSearchParams ,searchParams ,errorOccurred ,navigator ,setIsLoading}=useContext(DataContext)
+  const {setItemsToAdd ,muscleAPIcolor ,EXERCISEtoIMGFunc ,setSearchParams ,searchParams ,errorOccurred ,navigator ,setIsLoading}=useContext(DataContext)
   const location=useLocation()
   const [exerciseFocus ,setExerciseFocus]=useState(null)
   const [isGettingImage ,setIsGettingImage]=useState(false)
@@ -13,8 +15,6 @@ const ExerciseFocus = () => {
   const [primaryImage ,setPrimaryImage]=useState(null)
   const [secondaryImage ,setSecondaryImage]=useState(null)
   const [showingPimage ,setShowingPimage]=useState(true)
-
-
 
 
   const getMuscleImage=useMemo(async()=>{
@@ -88,17 +88,42 @@ const convertBlob=(blob)=>{
   OnLoadExercise()
   },[])
   const imageScroller=useRef()
-  imageScroller.current.scrollTo({
-    top:0,
-    left:showingPimage ? 0 : imageScroller.current.offsetWidth,
-    behavior:'smooth',
-  })
+  useEffect(()=>{
+    if(!imageScroller.current) return
+    imageScroller.current.scrollTo({
+      top:0,
+      left:showingPimage ? 0 : imageScroller.current.offsetWidth,
+      behavior:'smooth',
+    })
+  },[showingPimage])
+  const handleCopy=()=>{
+    navigator.clipboard.writeText(window.location.href)
+  }
   return (
     <main>
       {exerciseFocus ? 
       <div id="exerciseContainer">
         <section id="muscleInfo">
-          <h1>- {exerciseFocus.Name}</h1>
+          <div id="pageIntro">
+            <h1>- {exerciseFocus.Name}</h1>
+            <div id="funcButtons">
+              <button
+              title="share workout"
+              onClick={()=>{
+                handleCopy()
+              }}
+              ><FaPaperclip/></button>
+              <button
+              title="add workout"
+              onClick={()=>{
+                setItemsToAdd({
+                  type:'exercise',
+                  data:exerciseFocus.Name
+                })
+              }}
+              ><FaPlus/></button>
+            </div>
+          </div>
           <h2>Force: {exerciseFocus.Force}.</h2>
           <div>
             <h2>Primary muscle{Object.values(exerciseFocus)[2].length>1 ? 's' : ''}:</h2>
