@@ -2,7 +2,61 @@ import { useContext } from "react"
 import DataContext from "../context/DataContext"
 import {RxCross2} from 'react-icons/rx'
 const AddWorkout = () => {
-    const {itemsToAdd ,setItemsToAdd}=useContext(DataContext)
+    const {errorOccurred ,calendar ,setCalendar ,itemsToAdd ,setItemsToAdd}=useContext(DataContext)
+    const innerContent=()=>{
+      if(itemsToAdd.type==='exercise'){
+      return(
+        <>
+          <h3>add this exercise to a day of choice</h3>
+          <div className="daysContainer">
+          {calendar.map(day=>{
+            const dayName=day[0]
+            const dayExercises=day[1]
+            return(
+              <button
+              title={
+                dayExercises.map(exercise=>{
+                  return exercise
+                })
+              }
+              onClick={()=>{
+                const newDay=[dayName ,[...dayExercises ,itemsToAdd.data]]
+                let newCalendar=calendar
+                calendar.map(day=>{
+                  if(day[0]===dayName){
+                    if(day[1].includes(itemsToAdd.data)){
+                      errorOccurred(`${day[0]} already contains this exercise`)
+                      return
+                    }
+                  newCalendar.splice(newCalendar.indexOf(day),1,newDay)
+                }
+                })
+                setCalendar(newCalendar)
+                setItemsToAdd({})
+              }}
+              >{dayName}</button>
+            )
+          })}
+          </div>
+           {/*add exercise name to a day of choice  */}
+        </>
+      )
+    }else if(itemsToAdd.type==='day'){
+      return(
+        <>
+            {/* replace a day of choice by the specified day's content*/}
+        </>
+      )
+    }else if(itemsToAdd.type==='workout'){
+      return(
+        <>
+        {/* ask for confermation and replace the entire workout by the chosen one */}
+        </>
+      )
+    }else{
+      // error
+    }
+    }
   return (
     <div
     id="addWorkout"
@@ -11,18 +65,10 @@ const AddWorkout = () => {
         onClick={()=>{
             setItemsToAdd({})
         }}
-        />
-        {itemsToAdd.type==='exercise' ?
-        <div>
-           {/*add exercise name to a day of choice  */}
-           p
-        </div> : itemsToAdd.type==='day' ?
-        <div>
-            {/* replace a day of choice by the specified day's content*/}
-        </div> :
-        <div>
-        {/* ask for confermation and replace the entire workout by the chosen one */}
-        </div>}
+    />
+      <div id="addingContent">
+        {innerContent()}
+      </div>
     </div>
   )
 }
