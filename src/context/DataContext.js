@@ -4,6 +4,8 @@ import { createUserWithEmailAndPassword ,signInWithEmailAndPassword} from 'fireb
 import {useNavigate, useSearchParams} from "react-router-dom";
 import ExerciseAPI from "../api/ExerciseAPI";
 import ImgAPI from "../api/ImgAPI";
+import "firebase/database";
+import firebaseConfig from "../Config";
 
 const DataContext=createContext({})
 
