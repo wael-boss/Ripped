@@ -1,8 +1,10 @@
 import { initializeApp } from "firebase/app";
 import {getAuth} from 'firebase/auth'
+import {getDatabase} from 'firebase/database'
 const firebaseConfig = {
   apiKey: "AIzaSyDnCBUms_87GkwXG0r6DUI2Jt6Q2Qiqedw",
   authDomain: "ripped-8d337.firebaseapp.com",
+  databaseURL: "https://ripped-8d337-default-rtdb.firebaseio.com",
   projectId: "ripped-8d337",
   storageBucket: "ripped-8d337.appspot.com",
   messagingSenderId: "738731752806",
@@ -13,6 +15,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth=getAuth(app)
-
-export {auth}
+const database=getDatabase(app)
+export {auth ,database}
 export default firebaseConfig

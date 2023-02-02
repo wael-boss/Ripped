@@ -5,7 +5,6 @@ import {useNavigate, useSearchParams} from "react-router-dom";
 import ExerciseAPI from "../api/ExerciseAPI";
 import ImgAPI from "../api/ImgAPI";
 import "firebase/database";
-import firebaseConfig from "../Config";
 
 const DataContext=createContext({})
 
@@ -141,6 +140,7 @@ export const DataProvider=({children})=>{
       ['day1',[]],
       ['day2',[]]
     ])
+    const [platformUserInfo ,setPlatformUserInfo]=useState({})
     const emailRef=useRef()
     const passwordCheck=useRef()
     const signInPasswordRef=useRef()
@@ -148,62 +148,63 @@ export const DataProvider=({children})=>{
     const navigator=useNavigate()
     //functions
     const IMGtoEXERCISEFunc=(img)=>{
-        let exercises=[]
-        dictionary.map(obj=>{
-            if(obj.ImgApi!==img) return
-            exercises=obj.ExerApi
-        })
-        return exercises
+      let exercises=[]
+      dictionary.map(obj=>{
+        if(obj.ImgApi!==img) return
+        exercises=obj.ExerApi
+      })
+      return exercises
     }
     const EXERCISEtoIMGFunc=(exercise)=>{
-        let img=[]
-        const contestants=[]
-        dictionary.map(obj=>{
-            if(JSON.stringify(obj.ExerApi) === JSON.stringify(exercise)){
-                img.push(obj.ImgApi)
-            }
-        })
+      let img=[]
+      const contestants=[]
+      dictionary.map(obj=>{
+        if(JSON.stringify(obj.ExerApi) === JSON.stringify(exercise)){
+          img.push(obj.ImgApi)
+        }
+      })
         if(img.length>0) return img 
         dictionary.map(obj=>{
-            let testObj={img:obj.ImgApi,arrays:obj.ExerApi.length,matches:0}
-            exercise.map(exer=>{
-                if(obj.ExerApi.includes(exer)){
-                    testObj.matches++
-                }
-            })
-            if(testObj.matches){
-                contestants.push(testObj)
+          let testObj={img:obj.ImgApi,arrays:obj.ExerApi.length,matches:0}
+          exercise.map(exer=>{
+            if(obj.ExerApi.includes(exer)){
+              testObj.matches++
             }
+          })
+          if(testObj.matches){
+            contestants.push(testObj)
+          }
         })
         contestants.map(contestant=>{
-            if(contestant.arrays<contestant.matches+1){
-                img.push(contestant.img)
-            }
+          if(contestant.arrays<contestant.matches+1){
+            img.push(contestant.img)
+          }
         })
         return img
-    }
-    const createUser=(data)=>{
-      const userOBJ={
-        ...user,
-        userName:data.user.displayName ? data.user.displayName : data.user.email.split('@')[0],
-        userEmail:data.user.email,
-        userPhoto:data.user.photoURL,
-        userId:data.user.uid
       }
-      localStorage.setItem('user' ,JSON.stringify(userOBJ))
-      setUser(userOBJ)
-    }
-  const signOut=()=>{
-      localStorage.removeItem('user')
-      setUser(emptyUserOBJ)
-  }
-  const UserToLocalStorage=()=>{
-    localStorage.setItem('user' ,JSON.stringify(user))
-  }
-  const handleSignIn=async()=>{
-    if(isLoading) return
-    setIsLoading(true)
-    try{
+      const createUser=(data)=>{
+        const userOBJ={
+          ...user,
+          userName:data.user.displayName ? data.user.displayName : data.user.email.split('@')[0],
+          userEmail:data.user.email,
+          userPhoto:data.user.photoURL,
+          userId:data.user.uid
+        }
+        localStorage.setItem('user' ,JSON.stringify(userOBJ))
+        setUser(userOBJ)
+      }
+      const signOut=()=>{
+        localStorage.removeItem('user')
+        setUser(emptyUserOBJ)
+      }
+      const UserToLocalStorage=()=>{
+        localStorage.setItem('user' ,JSON.stringify(user))
+      }
+//database functions
+      const handleSignIn=async()=>{
+        if(isLoading) return
+        setIsLoading(true)
+        try{
       const data=await signInWithEmailAndPassword(auth ,emailRef.current.value ,signInPasswordRef.current.value)
       createUser(data)
     }catch(err){
@@ -226,6 +227,7 @@ export const DataProvider=({children})=>{
     setIsLoading(false)
     }
 }
+//end of database funcs
 const errorOccurred=(err)=>{
   setError(err)
   setTimeout(()=>{
@@ -327,7 +329,7 @@ const moreExercises=async()=>{
 }
 return(
     <DataContext.Provider value={{
-        user ,signOut ,setUser ,UserToLocalStorage ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,calendar ,setCalendar
+        user ,signOut ,setUser ,UserToLocalStorage ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,calendar ,setCalendar ,platformUserInfo ,setPlatformUserInfo
     }}>
         {children}
     </DataContext.Provider>
