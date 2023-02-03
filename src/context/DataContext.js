@@ -1,6 +1,6 @@
 import { createContext, useMemo, useRef, useState } from "react";
 import {auth} from '../Config'
-import { createUserWithEmailAndPassword ,signInWithEmailAndPassword} from 'firebase/auth'
+import { createUserWithEmailAndPassword ,signInWithEmailAndPassword ,GoogleAuthProvider,signInWithPopup ,FacebookAuthProvider} from 'firebase/auth'
 import {useNavigate, useSearchParams} from "react-router-dom";
 import ExerciseAPI from "../api/ExerciseAPI";
 import ImgAPI from "../api/ImgAPI";
@@ -14,7 +14,6 @@ export const DataProvider=({children})=>{
       userName:null,
       userEmail:null,
       userPhoto:null,
-      userGender:'male',
       userId:null
     }
     const dictionary=[
@@ -140,7 +139,7 @@ export const DataProvider=({children})=>{
       ['day1',[]],
       ['day2',[]]
     ])
-    const [platformUserInfo ,setPlatformUserInfo]=useState({})
+    const [platformUserInfo ,setPlatformUserInfo]=useState(emptyUserOBJ)
     const emailRef=useRef()
     const passwordCheck=useRef()
     const signInPasswordRef=useRef()
@@ -201,10 +200,48 @@ export const DataProvider=({children})=>{
         localStorage.setItem('user' ,JSON.stringify(user))
       }
 //database functions
-      const handleSignIn=async()=>{
-        if(isLoading) return
-        setIsLoading(true)
-        try{
+  const facebookLogIn=async()=>{
+    if(isLoading) return
+    setIsLoading(true)
+    const Provider=new FacebookAuthProvider()
+    try{
+      const response=await signInWithPopup(auth ,Provider)
+      console.log(response.user)
+      setPlatformUserInfo({
+        userName:response.user.displayName,
+        userEmail:response.user.email,
+        userPhoto:response.user.photoURL,
+        userId:response.user.uid
+      })
+    }catch(err){
+      errorOccurred(err.message)
+    }finally{
+      setIsLoading(false)
+    }
+  }
+  const googleLogIn=async()=>{
+    if(isLoading) return
+    setIsLoading(true)
+    const Provider=new GoogleAuthProvider()
+    try{
+      const response=await signInWithPopup(auth ,Provider)
+      console.log(response.user)
+      setPlatformUserInfo({
+        userName:response.user.displayName,
+        userEmail:response.user.email,
+        userPhoto:response.user.photoURL,
+        userId:response.user.uid
+      })
+    }catch(err){
+      errorOccurred(err.message)
+    }finally{
+      setIsLoading(false)
+    }
+  }
+  const handleSignIn=async()=>{
+    if(isLoading) return
+    setIsLoading(true)
+    try{
       const data=await signInWithEmailAndPassword(auth ,emailRef.current.value ,signInPasswordRef.current.value)
       createUser(data)
     }catch(err){
@@ -329,7 +366,7 @@ const moreExercises=async()=>{
 }
 return(
     <DataContext.Provider value={{
-        user ,signOut ,setUser ,UserToLocalStorage ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,calendar ,setCalendar ,platformUserInfo ,setPlatformUserInfo
+        user ,signOut ,setUser ,UserToLocalStorage ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,calendar ,setCalendar ,platformUserInfo ,setPlatformUserInfo ,facebookLogIn ,googleLogIn
     }}>
         {children}
     </DataContext.Provider>

@@ -11,7 +11,7 @@ const SigningPage = () => {
   return (
     <main id="signingPageMain">
         <section id="formsSection">
-          {!platformUserInfo.name ? 
+          {!platformUserInfo.userName ? 
           <PlatformSignIn/>
           :
           <>
