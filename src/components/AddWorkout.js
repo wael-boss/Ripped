@@ -2,14 +2,15 @@ import { useContext } from "react"
 import DataContext from "../context/DataContext"
 import {RxCross2} from 'react-icons/rx'
 const AddWorkout = () => {
-    const {errorOccurred ,calendar ,setCalendar ,itemsToAdd ,setItemsToAdd}=useContext(DataContext)
+    const {errorOccurred ,setUser ,user ,itemsToAdd ,setItemsToAdd}=useContext(DataContext)
+    console.log(user)
     const innerContent=()=>{
       if(itemsToAdd.type==='exercise'){
       return(
         <>
           <h3>add this exercise to a day of choice</h3>
           <div className="daysContainer">
-          {calendar.map(day=>{
+          {user.userCalendar.map(day=>{
             const dayName=day[0]
             const dayExercises=day[1]
             return(
@@ -21,8 +22,8 @@ const AddWorkout = () => {
               }
               onClick={()=>{
                 const newDay=[dayName ,[...dayExercises ,itemsToAdd.data]]
-                let newCalendar=calendar
-                calendar.map(day=>{
+                let newCalendar=user.userCalendar
+                user.userCalendar.map(day=>{
                   if(day[0]===dayName){
                     if(day[1].includes(itemsToAdd.data)){
                       errorOccurred(`${day[0]} already contains this exercise`)
@@ -31,7 +32,7 @@ const AddWorkout = () => {
                   newCalendar.splice(newCalendar.indexOf(day),1,newDay)
                 }
                 })
-                setCalendar(newCalendar)
+                setUser({...user ,userCalendar:newCalendar})
                 setItemsToAdd({})
               }}
               >{dayName}</button>

@@ -3,15 +3,19 @@ import {  Route, Routes } from "react-router-dom"
 import SignIn from "../components/SignIn"
 import SignUp from "../components/SignUp"
 import Missing from './Missing'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import DataContext from '../context/DataContext'
 import PlatformSignIn from '../components/PlatformSignIn'
 const SigningPage = () => {
-  const {platformUserInfo}=useContext(DataContext)
+  const {onLoadProperties ,getUser}=useContext(DataContext)
+  useEffect(()=>{
+    if(!onLoadProperties.userId) return
+    getUser()
+  },[])
   return (
     <main id="signingPageMain">
         <section id="formsSection">
-          {!platformUserInfo.userPhoto ? 
+          {!onLoadProperties.userPhoto ? 
           <PlatformSignIn/>
           :
           <>
@@ -23,7 +27,7 @@ const SigningPage = () => {
             <Routes>
               <Route path='/' element={<SignIn/>}/>
               <Route path='/signUp' element={<SignUp/>}/>
-              <Route path='/*' element={<Missing/>}/>
+              {/* <Route path='/*' element={<Missing/>}/> */}
             </Routes>
             </>}
         </section>

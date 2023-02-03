@@ -15,10 +15,13 @@ export const DataProvider=({children})=>{
       userEmail:null,
       userAge:null,
       userHeaight:null,
+      userGender:null,
       userWeight:null,
-      userCalendar:null
+      userCalendar:[['day1',[]]],
+      userPhoto:null
     }
-    const emptyPlatformData={
+    const emptyLoadProperties={
+      userId:null,
       userPhoto:null
     }
     const dictionary=[
@@ -126,7 +129,7 @@ export const DataProvider=({children})=>{
       }
       return result
     }
-    const [user ,setUser]=useState(JSON.parse(localStorage.getItem('user')) || emptyUserOBJ)
+    const [user ,setUser]=useState(emptyUserOBJ)
     const [codeShown ,setCodeShown]=useState(true)
     const [error ,setError]=useState(null)
     const [isLoading ,setIsLoading]=useState(false)
@@ -140,10 +143,7 @@ export const DataProvider=({children})=>{
     const [muscleSearch ,setMuscleSearch]=useState('')
     const [generalMuscleImages ,setGeneralMuscleImages]=useState([])
     const [itemsToAdd ,setItemsToAdd]=useState({})
-    const [calendar ,setCalendar]=useState([
-      ['day1',[]]
-    ])
-    const [platformUserInfo ,setPlatformUserInfo]=useState(JSON.parse(localStorage.getItem('PlatformData')) || emptyPlatformData)
+    const [onLoadProperties ,setOnLoadProperties]=useState(JSON.parse(localStorage.getItem('OnLoad')) || emptyLoadProperties)
     const emailRef=useRef()
     const passwordCheck=useRef()
     const signInPasswordRef=useRef()
@@ -185,63 +185,72 @@ export const DataProvider=({children})=>{
         })
         return img
       }
-      // const createUser=(data)=>{
-      //   const userOBJ={
-      //     userId:data.user.uid
-      //   }
-      //   localStorage.setItem('user' ,JSON.stringify(userOBJ))
-      //   setUser(userOBJ)
-      // }
+
       const signOutFunc=()=>{
         localStorage.removeItem('user')
         setUser(emptyUserOBJ)
       }
-      const UserToLocalStorage=()=>{
-        localStorage.setItem('user' ,JSON.stringify(user))
-      }
+      const loadPropertiesToLs=useMemo(()=>{
+        localStorage.setItem('OnLoad' ,JSON.stringify(onLoadProperties))
+      },[onLoadProperties])
+
     const setPlatformData=(response)=>{
-      const OBJ={
+      const platformUser=auth.currentUser
+      deleteUser(platformUser)
+      setOnLoadProperties({
+        ...onLoadProperties,
         userPhoto:response.user.photoURL
-      }
-      const user=auth.currentUser
-      deleteUser(user)
-      localStorage.setItem('PlatformData' ,JSON.stringify(OBJ))
-      setPlatformUserInfo(OBJ)
+      })
+      setUser({
+        ...user,
+        userPhoto:response.user.photoURL
+      })
     }
 //database functions
 const craeteUser=async(userId)=>{
   console.log('creating user')
   const db = getDatabase();
   const userObj={
-    ...emptyUserOBJ,
+    ...user,
+    userCalendar:JSON.stringify(user.userCalendar),
     userEmail:auth.currentUser.email,
     userName:auth.currentUser.email.split('@')[0],
-    userCalendar:calendar
+    userPhoto:onLoadProperties.userPhoto
   }
   set(ref(db, 'users/' + userId), userObj);
-  setUser(userObj)
+  setUser({...userObj ,userCalendar:user.userCalendar})
 }
 const getUser=async()=>{
-  console.log('getting user')
-  const userId = auth.currentUser.uid;
+  setIsLoading(true)
+  const userId =onLoadProperties.userId ? onLoadProperties.userId : auth.currentUser.uid;
+  setOnLoadProperties({
+    ...onLoadProperties,
+    userId:userId
+  })
   const dbRef = ref(getDatabase());
-  get(child(dbRef, `users/${userId}`)).then((snapshot) => {
-    if (snapshot.exists()) {
+  try{
+    const snapshot= await get(child(dbRef, `users/${userId}`))
+    if (snapshot.exists()){
       const response=snapshot.val()
       setUser({
-      userName:response.userName,
-      userEmail:response.userEmail,
-      userAge:response.userAge,
-      userHeaight:response.userHeaight,
-      userWeight:response.userWeight,
-      userCalendar:response.userCalendar
-      });
+        ...user,
+        userName:response.userName,
+        userEmail:response.userEmail,
+        userAge:response.userAge,
+        userHeaight:response.userHeaight,
+        userWeight:response.userWeight,
+        userCalendar:JSON.parse(response.userCalendar),
+        userGender:response.userGender,
+        userPhoto:response.userPhoto
+      })
     } else {
-      craeteUser(userId);
+      craeteUser(userId)
     }
-  }).catch((error) => {
-    console.error(error);
-  });
+  }catch(err){
+    errorOccurred(err.message)
+  }finally{
+    setIsLoading(false)
+  }
 }
   const facebookLogIn=async()=>{
     if(isLoading) return
@@ -304,8 +313,6 @@ const errorOccurred=(err)=>{
 }
 
 const getMuscleImage=useMemo(async()=>{
-  //dev
-  return
   if(!exercises.length) {
     return
   }
@@ -397,7 +404,7 @@ const moreExercises=async()=>{
 }
 return(
     <DataContext.Provider value={{
-        user ,signOutFunc ,setUser ,UserToLocalStorage ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,calendar ,setCalendar ,platformUserInfo ,setPlatformUserInfo ,facebookLogIn ,googleLogIn
+        user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,facebookLogIn ,googleLogIn,onLoadProperties ,setOnLoadProperties ,getUser
     }}>
         {children}
     </DataContext.Provider>

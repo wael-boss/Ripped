@@ -48,7 +48,7 @@ const Header = () => {
         </nav>
         <div id='settingsContainer'>
           <div className='userAcount , settingsToggle'>
-            <img src={platformUserInfo.userPhoto ? platformUserInfo.userPhoto : `/images/${user.userGender}-icon.jpg`}/>
+            <img src={user.userPhoto ? user.userPhoto : `/images/${user.userGender}-icon.jpg`}/>
             <div className='settings'>
               <div className='setting'>
                 {isEditing ?

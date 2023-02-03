@@ -130,7 +130,7 @@ const convertBlob=(blob)=>{
             <ul>
               {Object.values(exerciseFocus)[2].map(muscle=>{
                 return(
-                  <li>{muscle}.</li>
+                  <li key={`${muscle}${Object.values(exerciseFocus)[2].indexOf(muscle)}`}>{muscle}.</li>
                 )
               })}
             </ul>
@@ -140,7 +140,7 @@ const convertBlob=(blob)=>{
             <ul>
               {Object.values(exerciseFocus)[3].map(muscle=>{
                 return(
-                  <li>{muscle}.</li>
+                  <li key={`${muscle}${Object.values(exerciseFocus)[3].indexOf(muscle)}`}>{muscle}.</li>
                 )
               })}
             </ul>
@@ -151,7 +151,7 @@ const convertBlob=(blob)=>{
             <ul>
               {Object.values(exerciseFocus)[5].map(type=>{
                 return(
-                  <li>{type}.</li>
+                  <li key={`${type}${Object.values(exerciseFocus)[5].indexOf(type)}`}>{type}.</li>
                 )
               })}
             </ul>
