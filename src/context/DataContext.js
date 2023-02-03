@@ -1,10 +1,10 @@
 import { createContext, useMemo, useRef, useState } from "react";
 import {auth} from '../Config'
-import { createUserWithEmailAndPassword ,signInWithEmailAndPassword ,GoogleAuthProvider,signInWithPopup ,FacebookAuthProvider} from 'firebase/auth'
+import { createUserWithEmailAndPassword ,signInWithEmailAndPassword ,GoogleAuthProvider,signInWithPopup ,FacebookAuthProvider ,deleteUser} from 'firebase/auth'
 import {useNavigate, useSearchParams} from "react-router-dom";
 import ExerciseAPI from "../api/ExerciseAPI";
 import ImgAPI from "../api/ImgAPI";
-import "firebase/database";
+import {getDatabase ,ref ,child ,get ,set} from "firebase/database";
 
 const DataContext=createContext({})
 
@@ -13,8 +13,13 @@ export const DataProvider=({children})=>{
     const emptyUserOBJ={
       userName:null,
       userEmail:null,
-      userPhoto:null,
-      userId:null
+      userAge:null,
+      userHeaight:null,
+      userWeight:null,
+      userCalendar:null
+    }
+    const emptyPlatformData={
+      userPhoto:null
     }
     const dictionary=[
         {ImgApi:"all",ExerApi:["pectoralis major" ,"biceps" ,"abdominals" ,"sartorius" ,"abductors" ,"trapezius" ,"deltoid" ,"latissimus dorsi" ,"serratus anterior" ,"external oblique" ,"brachioradialis" ,"finger extensors" ,"finger flexors" ,"quadriceps" ,"hamstrings" ,"gastrocnemius" ,"soleus" ,"infraspinatus" ,"teres major" ,"triceps" ,"gluteus medius" ,"gluteus maximus"]},
@@ -136,10 +141,9 @@ export const DataProvider=({children})=>{
     const [generalMuscleImages ,setGeneralMuscleImages]=useState([])
     const [itemsToAdd ,setItemsToAdd]=useState({})
     const [calendar ,setCalendar]=useState([
-      ['day1',[]],
-      ['day2',[]]
+      ['day1',[]]
     ])
-    const [platformUserInfo ,setPlatformUserInfo]=useState(emptyUserOBJ)
+    const [platformUserInfo ,setPlatformUserInfo]=useState(JSON.parse(localStorage.getItem('PlatformData')) || emptyPlatformData)
     const emailRef=useRef()
     const passwordCheck=useRef()
     const signInPasswordRef=useRef()
@@ -181,38 +185,71 @@ export const DataProvider=({children})=>{
         })
         return img
       }
-      const createUser=(data)=>{
-        const userOBJ={
-          ...user,
-          userName:data.user.displayName ? data.user.displayName : data.user.email.split('@')[0],
-          userEmail:data.user.email,
-          userPhoto:data.user.photoURL,
-          userId:data.user.uid
-        }
-        localStorage.setItem('user' ,JSON.stringify(userOBJ))
-        setUser(userOBJ)
-      }
-      const signOut=()=>{
+      // const createUser=(data)=>{
+      //   const userOBJ={
+      //     userId:data.user.uid
+      //   }
+      //   localStorage.setItem('user' ,JSON.stringify(userOBJ))
+      //   setUser(userOBJ)
+      // }
+      const signOutFunc=()=>{
         localStorage.removeItem('user')
         setUser(emptyUserOBJ)
       }
       const UserToLocalStorage=()=>{
         localStorage.setItem('user' ,JSON.stringify(user))
       }
+    const setPlatformData=(response)=>{
+      const OBJ={
+        userPhoto:response.user.photoURL
+      }
+      const user=auth.currentUser
+      deleteUser(user)
+      localStorage.setItem('PlatformData' ,JSON.stringify(OBJ))
+      setPlatformUserInfo(OBJ)
+    }
 //database functions
+const craeteUser=async(userId)=>{
+  console.log('creating user')
+  const db = getDatabase();
+  const userObj={
+    ...emptyUserOBJ,
+    userEmail:auth.currentUser.email,
+    userName:auth.currentUser.email.split('@')[0],
+    userCalendar:calendar
+  }
+  set(ref(db, 'users/' + userId), userObj);
+  setUser(userObj)
+}
+const getUser=async()=>{
+  console.log('getting user')
+  const userId = auth.currentUser.uid;
+  const dbRef = ref(getDatabase());
+  get(child(dbRef, `users/${userId}`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      const response=snapshot.val()
+      setUser({
+      userName:response.userName,
+      userEmail:response.userEmail,
+      userAge:response.userAge,
+      userHeaight:response.userHeaight,
+      userWeight:response.userWeight,
+      userCalendar:response.userCalendar
+      });
+    } else {
+      craeteUser(userId);
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+}
   const facebookLogIn=async()=>{
     if(isLoading) return
     setIsLoading(true)
     const Provider=new FacebookAuthProvider()
     try{
       const response=await signInWithPopup(auth ,Provider)
-      console.log(response.user)
-      setPlatformUserInfo({
-        userName:response.user.displayName,
-        userEmail:response.user.email,
-        userPhoto:response.user.photoURL,
-        userId:response.user.uid
-      })
+      setPlatformData(response)
     }catch(err){
       errorOccurred(err.message)
     }finally{
@@ -225,13 +262,7 @@ export const DataProvider=({children})=>{
     const Provider=new GoogleAuthProvider()
     try{
       const response=await signInWithPopup(auth ,Provider)
-      console.log(response.user)
-      setPlatformUserInfo({
-        userName:response.user.displayName,
-        userEmail:response.user.email,
-        userPhoto:response.user.photoURL,
-        userId:response.user.uid
-      })
+      setPlatformData(response)
     }catch(err){
       errorOccurred(err.message)
     }finally{
@@ -243,7 +274,7 @@ export const DataProvider=({children})=>{
     setIsLoading(true)
     try{
       const data=await signInWithEmailAndPassword(auth ,emailRef.current.value ,signInPasswordRef.current.value)
-      createUser(data)
+      getUser()
     }catch(err){
       errorOccurred(err.message)
     }
@@ -256,7 +287,7 @@ export const DataProvider=({children})=>{
     setIsLoading(true)
     try{
       const data=await createUserWithEmailAndPassword(auth ,emailRef.current.value ,signUpPasswordKeys)
-      createUser(data)
+      getUser()
     }catch(err){
       errorOccurred(err.message)
     }
@@ -366,7 +397,7 @@ const moreExercises=async()=>{
 }
 return(
     <DataContext.Provider value={{
-        user ,signOut ,setUser ,UserToLocalStorage ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,calendar ,setCalendar ,platformUserInfo ,setPlatformUserInfo ,facebookLogIn ,googleLogIn
+        user ,signOutFunc ,setUser ,UserToLocalStorage ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,calendar ,setCalendar ,platformUserInfo ,setPlatformUserInfo ,facebookLogIn ,googleLogIn
     }}>
         {children}
     </DataContext.Provider>

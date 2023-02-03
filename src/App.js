@@ -21,7 +21,7 @@ function App() {
       <ErrorPopUp/>
       <LoadingScreen/>
       <AddWorkout/>
-        {user.userEmail ? 
+        {user.userName ? 
         <>
         <Header/>
         <Routes>

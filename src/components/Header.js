@@ -9,7 +9,7 @@ import { useContext, useRef, useState } from 'react'
 import DataContext from '../context/DataContext'
 import { colord } from 'colord'
 const Header = () => {
-  const {user ,signOut ,setUser ,UserToLocalStorage ,navigator,muscleAPIcolor ,setMuscleAPIcolor}=useContext(DataContext)
+  const {platformUserInfo ,user ,signOut ,setUser ,UserToLocalStorage ,navigator,muscleAPIcolor ,setMuscleAPIcolor}=useContext(DataContext)
   const [isEditing ,setIsEditing]=useState(false)
   const nameChangeRef=useRef()
   return (
@@ -48,7 +48,7 @@ const Header = () => {
         </nav>
         <div id='settingsContainer'>
           <div className='userAcount , settingsToggle'>
-            <img src={user.userPhoto ? user.userPhoto : `/images/${user.userGender}-icon.jpg`}/>
+            <img src={platformUserInfo.userPhoto ? platformUserInfo.userPhoto : `/images/${user.userGender}-icon.jpg`}/>
             <div className='settings'>
               <div className='setting'>
                 {isEditing ?

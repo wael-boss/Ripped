@@ -7,11 +7,11 @@ import { useContext } from 'react'
 import DataContext from '../context/DataContext'
 import PlatformSignIn from '../components/PlatformSignIn'
 const SigningPage = () => {
-  const {platformUserInfo ,setPlatformUserInfo}=useContext(DataContext)
+  const {platformUserInfo}=useContext(DataContext)
   return (
     <main id="signingPageMain">
         <section id="formsSection">
-          {!platformUserInfo.userName ? 
+          {!platformUserInfo.userPhoto ? 
           <PlatformSignIn/>
           :
           <>
