@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword ,signInWithEmailAndPassword ,GoogleAuthP
 import {useNavigate, useSearchParams} from "react-router-dom";
 import ExerciseAPI from "../api/ExerciseAPI";
 import ImgAPI from "../api/ImgAPI";
-import {getDatabase ,ref ,child ,get ,set} from "firebase/database";
+import {getDatabase ,ref ,child ,get ,set, update} from "firebase/database";
 
 const DataContext=createContext({})
 
@@ -129,7 +129,7 @@ export const DataProvider=({children})=>{
       }
       return result
     }
-    const [user ,setUser]=useState(emptyUserOBJ)
+    const [user ,setUser]=useState(JSON.parse(sessionStorage.getItem('user')) || emptyUserOBJ)
     const [codeShown ,setCodeShown]=useState(true)
     const [error ,setError]=useState(null)
     const [isLoading ,setIsLoading]=useState(false)
@@ -206,7 +206,21 @@ export const DataProvider=({children})=>{
         userPhoto:response.user.photoURL
       })
     }
+    const saveUserToSession=(user)=>{
+      sessionStorage.setItem('user',JSON.stringify(user))
+    }
 //database functions
+const updateUserDetail=async(option,data)=>{
+  const updates={}
+  updates[option]=data
+  const db=getDatabase()
+  try{
+    const response=await update(ref(db ,`users/${auth.currentUser.uid}`),updates)
+    console.log(response)
+  }catch(err){
+    errorOccurred(err.message)
+  }
+}
 const craeteUser=async(userId)=>{
   console.log('creating user')
   const db = getDatabase();
@@ -219,6 +233,7 @@ const craeteUser=async(userId)=>{
   }
   set(ref(db, 'users/' + userId), userObj);
   setUser({...userObj ,userCalendar:user.userCalendar})
+  saveUserToSession({...userObj ,userCalendar:user.userCalendar})
 }
 const getUser=async()=>{
   setIsLoading(true)
@@ -232,7 +247,7 @@ const getUser=async()=>{
     const snapshot= await get(child(dbRef, `users/${userId}`))
     if (snapshot.exists()){
       const response=snapshot.val()
-      setUser({
+      const OBJ={
         ...user,
         userName:response.userName,
         userEmail:response.userEmail,
@@ -242,7 +257,9 @@ const getUser=async()=>{
         userCalendar:JSON.parse(response.userCalendar),
         userGender:response.userGender,
         userPhoto:response.userPhoto
-      })
+      }
+      setUser(OBJ)
+      saveUserToSession(OBJ)
     } else {
       craeteUser(userId)
     }
@@ -404,7 +421,7 @@ const moreExercises=async()=>{
 }
 return(
     <DataContext.Provider value={{
-        user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,facebookLogIn ,googleLogIn,onLoadProperties ,setOnLoadProperties ,getUser
+        user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,facebookLogIn ,googleLogIn,onLoadProperties ,setOnLoadProperties ,getUser ,updateUserDetail
     }}>
         {children}
     </DataContext.Provider>

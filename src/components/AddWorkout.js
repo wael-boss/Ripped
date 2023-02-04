@@ -2,7 +2,7 @@ import { useContext } from "react"
 import DataContext from "../context/DataContext"
 import {RxCross2} from 'react-icons/rx'
 const AddWorkout = () => {
-    const {errorOccurred ,setUser ,user ,itemsToAdd ,setItemsToAdd}=useContext(DataContext)
+    const {updateUserDetail ,errorOccurred ,setUser ,user ,itemsToAdd ,setItemsToAdd}=useContext(DataContext)
     console.log(user)
     const innerContent=()=>{
       if(itemsToAdd.type==='exercise'){
@@ -15,6 +15,7 @@ const AddWorkout = () => {
             const dayExercises=day[1]
             return(
               <button
+              key={dayName}
               title={
                 dayExercises.map(exercise=>{
                   return exercise
@@ -32,6 +33,7 @@ const AddWorkout = () => {
                   newCalendar.splice(newCalendar.indexOf(day),1,newDay)
                 }
                 })
+                updateUserDetail('userCalendar',JSON.stringify(newCalendar))
                 setUser({...user ,userCalendar:newCalendar})
                 setItemsToAdd({})
               }}
