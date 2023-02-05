@@ -9,16 +9,18 @@ import {getDatabase ,ref ,child ,get ,set, update} from "firebase/database";
 const DataContext=createContext({})
 
 export const DataProvider=({children})=>{
+  const db=getDatabase()
     //logic
     const emptyUserOBJ={
       userName:null,
       userEmail:null,
+      userPassword:null,
+      userPhoto:null,
       userAge:null,
-      userHeaight:null,
-      userGender:null,
+      userHeight:null,
       userWeight:null,
+      userGender:null,
       userCalendar:[['day1',[]]],
-      userPhoto:null
     }
     const dictionary=[
         {ImgApi:"all",ExerApi:["pectoralis major" ,"biceps" ,"abdominals" ,"sartorius" ,"abductors" ,"trapezius" ,"deltoid" ,"latissimus dorsi" ,"serratus anterior" ,"external oblique" ,"brachioradialis" ,"finger extensors" ,"finger flexors" ,"quadriceps" ,"hamstrings" ,"gastrocnemius" ,"soleus" ,"infraspinatus" ,"teres major" ,"triceps" ,"gluteus medius" ,"gluteus maximus"]},
@@ -126,7 +128,7 @@ export const DataProvider=({children})=>{
       return result
     }
     const [user ,setUser]=useState(JSON.parse(sessionStorage.getItem('user')) || emptyUserOBJ)
-    const [authenticationId ,setAuthenticationId]=useState(JSON.parse(localStorage.getItem('authenticationId')))
+    const [authenticationId ,setAuthenticationId]=useState(localStorage.getItem('authenticationId') || '')
     const [codeShown ,setCodeShown]=useState(true)
     const [error ,setError]=useState(null)
     const [isLoading ,setIsLoading]=useState(false)
@@ -180,16 +182,18 @@ export const DataProvider=({children})=>{
           }
         })
         return img
-      }
-
-      const signOutFunc=()=>{
-      }
-      const authenticationIdToLS=useMemo(()=>{
-        localStorage.setItem('authenticationId' ,authenticationId)
-      },[authenticationId])
-    const saveUserToSession=(user)=>{
-      sessionStorage.setItem('user',JSON.stringify(user))
     }
+
+  const signOutFunc=()=>{
+    setAuthenticationId('')
+    setUser(emptyUserOBJ)
+  }
+  const authenticationIdToLS=useMemo(()=>{
+    localStorage.setItem('authenticationId' ,authenticationId)
+  },[authenticationId])
+  const saveUserToSession=useMemo(()=>{
+    sessionStorage.setItem('user',JSON.stringify(user))
+  },[user])
 //database functions
 const updateUserDetail=async(option,data)=>{
   const updates={}
@@ -201,13 +205,21 @@ const updateUserDetail=async(option,data)=>{
     errorOccurred(err.message)
   }
 }
-const craeteUser=async(userId)=>{
-    // const response=await set(ref(db, 'users/' + userId), userObj);
-}
-const getUser=async()=>{
-    // const snapshot= await get(child(dbRef, `users/${userId}`))
-    // if (snapshot.exists()){
-    //   const response=snapshot.val()
+const craeteUser=async(userData)=>{
+  setIsLoading(true)
+  const finalObj={
+    ...userData,
+    userCalendar:JSON.stringify(userData.userCalendar)
+  }
+  try{
+    const response=await set(ref(db, `users/${authenticationId}`), finalObj);
+    console.log(response)
+    setUser(userData)
+  }catch(err){
+    errorOccurred(err.message)
+  }finally{
+    setIsLoading(false)
+  }
 }
   const PlatformLogIn=async(platform)=>{
     if(isLoading) return
@@ -224,6 +236,9 @@ const getUser=async()=>{
     }
     try{
       const response=await signInWithPopup(auth ,Provider)
+      console.log(response)
+      setUser({...user ,userPhoto:response.user.photoURL})
+      setAuthenticationId(response.user.uid)
     }catch(err){
       errorOccurred(err.message)
     }finally{
@@ -231,10 +246,49 @@ const getUser=async()=>{
     }
   }
   const handleSignIn=async()=>{
-
+    setIsLoading(true)
+    const emailInput=emailRef.current.value
+    const passwordInput=signInPasswordRef.current.value
+    const dbRef=ref(db)
+    try{
+      const snapshot=await get(child(dbRef, `users/${authenticationId}`))
+      if (snapshot.exists()){
+      const response=snapshot.val()
+      if(emailInput===response.userEmail && passwordInput===response.userPassword){
+        setUser({
+          ...user,
+          ...response,
+          userCalendar:JSON.parse(response.userCalendar)
+        }) 
+      }else{
+        if(emailInput===response.userEmail){
+          errorOccurred('wrong password')
+        }else{
+          errorOccurred('wrong information')
+        }
+      }
+    }else{
+      errorOccurred('this is not a valid acount')
+    }
+    }catch(err){
+      errorOccurred(err.message)
+    }finally{
+      setIsLoading(false)
+    }
   }
   const handleSignUp=async()=>{
-
+    if(!user.userPhoto){
+      setAuthenticationId('')
+      errorOccurred('something went wrong')
+      return
+    }
+    const OBJ={
+      ...user,
+      userEmail:emailRef.current.value,
+      userPassword:signUpPasswordKeys,
+      userName:emailRef.current.value.split('@')[0],
+    }
+    craeteUser(OBJ)
 }
 //end of database funcs
 const errorOccurred=(err)=>{
@@ -336,7 +390,7 @@ const moreExercises=async()=>{
 }
 return(
     <DataContext.Provider value={{
-        user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,PlatformLogIn ,authenticationId ,setAuthenticationId ,getUser ,updateUserDetail
+        user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,PlatformLogIn ,authenticationId ,setAuthenticationId ,updateUserDetail
     }}>
         {children}
     </DataContext.Provider>

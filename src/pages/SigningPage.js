@@ -7,15 +7,16 @@ import { useContext, useEffect } from 'react'
 import DataContext from '../context/DataContext'
 import PlatformSignIn from '../components/PlatformSignIn'
 const SigningPage = () => {
-  const {navigator ,authenticationId}=useContext(DataContext)
+  const {navigator ,authenticationId ,user}=useContext(DataContext)
+  console.log(authenticationId)
   useEffect(()=>{
-    console.log(!authenticationId)
-    if(!authenticationId) return
+    if(!authenticationId.length) return
+    //get user data
   },[])
   return (
     <main id="signingPageMain">
         <section id="formsSection">
-          {!authenticationId ? 
+          {!authenticationId.length || !user.userPhoto ? 
           <PlatformSignIn/>
           :
           <>

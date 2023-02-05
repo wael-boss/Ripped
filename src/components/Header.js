@@ -9,7 +9,7 @@ import { useContext, useRef, useState } from 'react'
 import DataContext from '../context/DataContext'
 import { colord } from 'colord'
 const Header = () => {
-  const {platformUserInfo ,user ,signOut ,setUser ,UserToLocalStorage ,navigator,muscleAPIcolor ,setMuscleAPIcolor}=useContext(DataContext)
+  const {user ,signOutFunc ,setUser ,UserToLocalStorage ,navigator,muscleAPIcolor ,setMuscleAPIcolor}=useContext(DataContext)
   const [isEditing ,setIsEditing]=useState(false)
   const nameChangeRef=useRef()
   return (
@@ -79,7 +79,7 @@ const Header = () => {
                 }}/>
                 </div>
               </div>
-              <div className='setting'><button onClick={signOut}>sign out</button></div>
+              <div className='setting'><button onClick={signOutFunc}>sign out</button></div>
             </div>
             </div>
           <div className='settingsToggle'>
