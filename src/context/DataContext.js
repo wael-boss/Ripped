@@ -20,10 +20,6 @@ export const DataProvider=({children})=>{
       userCalendar:[['day1',[]]],
       userPhoto:null
     }
-    const emptyLoadProperties={
-      userId:null,
-      userPhoto:null
-    }
     const dictionary=[
         {ImgApi:"all",ExerApi:["pectoralis major" ,"biceps" ,"abdominals" ,"sartorius" ,"abductors" ,"trapezius" ,"deltoid" ,"latissimus dorsi" ,"serratus anterior" ,"external oblique" ,"brachioradialis" ,"finger extensors" ,"finger flexors" ,"quadriceps" ,"hamstrings" ,"gastrocnemius" ,"soleus" ,"infraspinatus" ,"teres major" ,"triceps" ,"gluteus medius" ,"gluteus maximus"]},
         {ImgApi:"all_lower",ExerApi:["abductors" ,"sartorius" ,"gastrocnemius" ,"soleus" ,"gluteus maximus" ,"gluteus medius" ,"hamstrings" ,"quadriceps"]},
@@ -130,6 +126,7 @@ export const DataProvider=({children})=>{
       return result
     }
     const [user ,setUser]=useState(JSON.parse(sessionStorage.getItem('user')) || emptyUserOBJ)
+    const [authenticationId ,setAuthenticationId]=useState(JSON.parse(localStorage.getItem('authenticationId')))
     const [codeShown ,setCodeShown]=useState(true)
     const [error ,setError]=useState(null)
     const [isLoading ,setIsLoading]=useState(false)
@@ -143,7 +140,6 @@ export const DataProvider=({children})=>{
     const [muscleSearch ,setMuscleSearch]=useState('')
     const [generalMuscleImages ,setGeneralMuscleImages]=useState([])
     const [itemsToAdd ,setItemsToAdd]=useState({})
-    const [onLoadProperties ,setOnLoadProperties]=useState(JSON.parse(localStorage.getItem('OnLoad')) || emptyLoadProperties)
     const emailRef=useRef()
     const passwordCheck=useRef()
     const signInPasswordRef=useRef()
@@ -187,25 +183,10 @@ export const DataProvider=({children})=>{
       }
 
       const signOutFunc=()=>{
-        localStorage.removeItem('user')
-        setUser(emptyUserOBJ)
       }
-      const loadPropertiesToLs=useMemo(()=>{
-        localStorage.setItem('OnLoad' ,JSON.stringify(onLoadProperties))
-      },[onLoadProperties])
-
-    const setPlatformData=(response)=>{
-      const platformUser=auth.currentUser
-      deleteUser(platformUser)
-      setOnLoadProperties({
-        ...onLoadProperties,
-        userPhoto:response.user.photoURL
-      })
-      setUser({
-        ...user,
-        userPhoto:response.user.photoURL
-      })
-    }
+      const authenticationIdToLS=useMemo(()=>{
+        localStorage.setItem('authenticationId' ,authenticationId)
+      },[authenticationId])
     const saveUserToSession=(user)=>{
       sessionStorage.setItem('user',JSON.stringify(user))
     }
@@ -216,79 +197,33 @@ const updateUserDetail=async(option,data)=>{
   const db=getDatabase()
   try{
     const response=await update(ref(db ,`users/${auth.currentUser.uid}`),updates)
-    console.log(response)
   }catch(err){
     errorOccurred(err.message)
   }
 }
 const craeteUser=async(userId)=>{
-  console.log('creating user')
-  const db = getDatabase();
-  const userObj={
-    ...user,
-    userCalendar:JSON.stringify(user.userCalendar),
-    userEmail:auth.currentUser.email,
-    userName:auth.currentUser.email.split('@')[0],
-    userPhoto:onLoadProperties.userPhoto
-  }
-  set(ref(db, 'users/' + userId), userObj);
-  setUser({...userObj ,userCalendar:user.userCalendar})
-  saveUserToSession({...userObj ,userCalendar:user.userCalendar})
+    // const response=await set(ref(db, 'users/' + userId), userObj);
 }
 const getUser=async()=>{
-  setIsLoading(true)
-  const userId =onLoadProperties.userId ? onLoadProperties.userId : auth.currentUser.uid;
-  setOnLoadProperties({
-    ...onLoadProperties,
-    userId:userId
-  })
-  const dbRef = ref(getDatabase());
-  try{
-    const snapshot= await get(child(dbRef, `users/${userId}`))
-    if (snapshot.exists()){
-      const response=snapshot.val()
-      const OBJ={
-        ...user,
-        userName:response.userName,
-        userEmail:response.userEmail,
-        userAge:response.userAge,
-        userHeaight:response.userHeaight,
-        userWeight:response.userWeight,
-        userCalendar:JSON.parse(response.userCalendar),
-        userGender:response.userGender,
-        userPhoto:response.userPhoto
-      }
-      setUser(OBJ)
-      saveUserToSession(OBJ)
-    } else {
-      craeteUser(userId)
-    }
-  }catch(err){
-    errorOccurred(err.message)
-  }finally{
-    setIsLoading(false)
-  }
+    // const snapshot= await get(child(dbRef, `users/${userId}`))
+    // if (snapshot.exists()){
+    //   const response=snapshot.val()
 }
-  const facebookLogIn=async()=>{
+  const PlatformLogIn=async(platform)=>{
     if(isLoading) return
     setIsLoading(true)
-    const Provider=new FacebookAuthProvider()
-    try{
-      const response=await signInWithPopup(auth ,Provider)
-      setPlatformData(response)
-    }catch(err){
-      errorOccurred(err.message)
-    }finally{
-      setIsLoading(false)
+    let Provider=''
+    if(platform==='g'){
+      Provider=new GoogleAuthProvider()
+    }else if(platform==='f'){
+      Provider=new FacebookAuthProvider()
     }
-  }
-  const googleLogIn=async()=>{
-    if(isLoading) return
-    setIsLoading(true)
-    const Provider=new GoogleAuthProvider()
+    if(Provider===''){
+      errorOccurred('something went wrong')
+      return
+    }
     try{
       const response=await signInWithPopup(auth ,Provider)
-      setPlatformData(response)
     }catch(err){
       errorOccurred(err.message)
     }finally{
@@ -296,30 +231,10 @@ const getUser=async()=>{
     }
   }
   const handleSignIn=async()=>{
-    if(isLoading) return
-    setIsLoading(true)
-    try{
-      const data=await signInWithEmailAndPassword(auth ,emailRef.current.value ,signInPasswordRef.current.value)
-      getUser()
-    }catch(err){
-      errorOccurred(err.message)
-    }
-    finally{
-      setIsLoading(false)
-    }
+
   }
   const handleSignUp=async()=>{
-    if(isLoading) return
-    setIsLoading(true)
-    try{
-      const data=await createUserWithEmailAndPassword(auth ,emailRef.current.value ,signUpPasswordKeys)
-      getUser()
-    }catch(err){
-      errorOccurred(err.message)
-    }
-    finally{
-    setIsLoading(false)
-    }
+
 }
 //end of database funcs
 const errorOccurred=(err)=>{
@@ -421,7 +336,7 @@ const moreExercises=async()=>{
 }
 return(
     <DataContext.Provider value={{
-        user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,facebookLogIn ,googleLogIn,onLoadProperties ,setOnLoadProperties ,getUser ,updateUserDetail
+        user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,PlatformLogIn ,authenticationId ,setAuthenticationId ,getUser ,updateUserDetail
     }}>
         {children}
     </DataContext.Provider>

@@ -3,7 +3,6 @@ import DataContext from "../context/DataContext"
 import {RxCross2} from 'react-icons/rx'
 const AddWorkout = () => {
     const {updateUserDetail ,errorOccurred ,setUser ,user ,itemsToAdd ,setItemsToAdd}=useContext(DataContext)
-    console.log(user)
     const innerContent=()=>{
       if(itemsToAdd.type==='exercise'){
       return(

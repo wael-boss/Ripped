@@ -3,7 +3,7 @@ import { FaFacebookF} from 'react-icons/fa'
 import {FcGoogle} from 'react-icons/fc'
 import DataContext from "../context/DataContext"
 const PlatformSignIn = () => {
-  const {facebookLogIn ,googleLogIn}=useContext(DataContext)
+  const {PlatformLogIn}=useContext(DataContext)
   const [isShowingMore ,setIsShowingMore]=useState(false)
   const Introduction="Welcome to Ripped, your one-stop fitness destination! We offer a wide range of workouts and visual guides, plus fitness calculators to help you reach your goals. Stay accountable with friends and family by sharing your workout plans. Suitable for all fitness levels, Ripped has everything you need to get ripped!"
   return (
@@ -25,7 +25,11 @@ const PlatformSignIn = () => {
       <div id="signingToPlatform">
         <p>start by confirming that you are not a robot</p>
         <p>using</p>
-        <div><FcGoogle onClick={googleLogIn} title="google"/> -or- <FaFacebookF onClick={facebookLogIn} title="facebook" style={{color:'#4267B2'}}/></div>
+        <div><FcGoogle onClick={()=>{
+          PlatformLogIn('g')
+        }} title="google"/> -or- <FaFacebookF onClick={()=>{
+          PlatformLogIn('f')
+        }} title="facebook" style={{color:'#4267B2'}}/></div>
       </div>
     </div>
   )
