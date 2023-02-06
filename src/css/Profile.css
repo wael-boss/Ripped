@@ -1,0 +1,49 @@
+#profilePage section{
+padding: 20px 30px;
+}
+#profileIntro{
+    display: flex;
+    align-items: center;
+    gap: 5%;
+    min-height: 20vh;
+}
+#profileIntro img{
+    height: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+#profileIntro #profileGlmipse{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#profileGlmipse #headers{
+    display: flex;
+    gap: 20px;
+}
+#profileGlmipse #subHeaders>h2{
+   font-size: var(--font-size-S);
+}
+#profileIntro h1{
+    font: 700 var(--font-size-B) var(--font1);
+}
+#profileIntro p{
+    font: 700 var(--font-size-M) var(--font1);
+}
+#profileIntro svg{
+    font-size:calc(var(--font-size-B) + 10px);
+    transition: transform .2s ease-in-out;
+}
+#moreInformation{
+    display: grid;
+    grid-template-columns: repeat(2 ,1fr);
+}
+#moreInformation p{
+    width: 100%;
+    text-align: center;
+    font: 400 var(--font-size-S) var(--font1);
+}
+#calendar{
+    
+}

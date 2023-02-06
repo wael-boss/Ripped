@@ -13,6 +13,8 @@ export const DataProvider=({children})=>{
     //logic
     const emptyUserOBJ={
       userName:null,
+      userCrowns:[],
+      userBio:'',
       userEmail:null,
       userPassword:null,
       userPhoto:null,

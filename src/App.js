@@ -14,6 +14,8 @@ import LoadingScreen from "./components/LoadingScreen";
 import ExerciseFocus from "./pages/ExerciseFocus";
 import User from "./pages/User";
 import AddWorkout from "./components/AddWorkout";
+import Settings from "./pages/Settings";
+import Profile from "./pages/Profile";
 function App() {
   const {user}=useContext(DataContext)
   return (
@@ -31,6 +33,8 @@ function App() {
           <Route path="/about" element={<About/>}/>
           <Route path="/exerciseFocus" element={<ExerciseFocus/>}/>
           <Route path="/user" element={<User/>}/>
+          <Route path="/settings" element={<Settings/>}/>
+          <Route path="/profile" element={<Profile/>}/>
           <Route path="*" element={<Missing/>}/>
         </Routes>
         <Footer/>

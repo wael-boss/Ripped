@@ -1,4 +1,4 @@
-import '../css/signingPage.css'
+import '../css/SigningPage.css'
 import {  Route, Routes } from "react-router-dom"
 import SignIn from "../components/SignIn"
 import SignUp from "../components/SignUp"

@@ -29,7 +29,8 @@ const Home = () => {
             {randomQuoteFunc()}
           </div>
           <div id='heroButtonContainer'>
-            <button className='btnStyle1'>Get started</button>
+            <button className='btnStyle1'>check calendar</button>
+            <button className='btnStyle1'>how to use</button>
           </div>
         </div>
         <div id='heroImage'>

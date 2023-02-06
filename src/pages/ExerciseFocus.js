@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom"
 import ExerciseAPI from "../api/ExerciseAPI"
 import DataContext from "../context/DataContext"
 import ImgAPI from "../api/ImgAPI"
-import '../css/exerciseFocus.css'
+import '../css/ExerciseFocus.css'
 import {FaPlus ,FaPaperclip} from 'react-icons/fa'
 
 const ExerciseFocus = () => {
