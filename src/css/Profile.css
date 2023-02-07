@@ -5,7 +5,7 @@ padding: 20px 30px;
     display: flex;
     align-items: center;
     gap: 5%;
-    min-height: 20vh;
+    height: 15vh;
 }
 #profileIntro img{
     height: 100%;
@@ -45,5 +45,24 @@ padding: 20px 30px;
     font: 400 var(--font-size-S) var(--font1);
 }
 #calendar{
-    
+   display: flex;
+   flex-direction: column;
+}
+#calendar .day{
+    width: 100%;
+   display: flex;
+}
+#calendar .day>div{
+   outline: 1px solid var(--color2);
+}
+#calendar .day .dayCounter{
+   min-width: 10vw;
+}
+#calendar .day .dayName{
+    min-width: 10vw;
+}
+#calendar .day .dayExercise{
+   flex-grow: 1;
+   display: flex;
+   flex-wrap: wrap;
 }

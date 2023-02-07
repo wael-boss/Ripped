@@ -1,5 +1,5 @@
 import '../css/SigningPage.css'
-import {  Route, Routes } from "react-router-dom"
+import {  Link, Route, Routes } from "react-router-dom"
 import SignIn from "../components/SignIn"
 import SignUp from "../components/SignUp"
 import Missing from './Missing'
@@ -16,7 +16,7 @@ const SigningPage = () => {
   return (
     <main id="signingPageMain">
         <section id="formsSection">
-          {!authenticationId.length || !user.userPhoto ? 
+          {!authenticationId.length ?
           <PlatformSignIn/>
           :
           <>
@@ -28,7 +28,7 @@ const SigningPage = () => {
             <Routes>
               <Route path='/' element={<SignIn/>}/>
               <Route path='/signUp' element={<SignUp/>}/>
-              {/* <Route path='/*' element={navigator('/')}/> */}
+              <Route path='/*' element={<Link to='/'>back to signing page</Link>}/>
             </Routes>
             </>}
         </section>

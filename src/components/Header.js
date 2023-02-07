@@ -32,12 +32,6 @@ const Header = () => {
                 <p>gym</p>
               </div>
             </NavLink>
-            <NavLink to='/calendar'>
-              <div className='ancorContent'>
-                <BsFillCalendarEventFill/>
-                <p>calendar</p>
-              </div>
-            </NavLink>
             <NavLink to='/about'>
               <div className='ancorContent'>
                 <FaQuestion/>

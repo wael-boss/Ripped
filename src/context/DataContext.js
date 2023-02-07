@@ -22,7 +22,15 @@ export const DataProvider=({children})=>{
       userHeight:null,
       userWeight:null,
       userGender:null,
-      userCalendar:[['day1',[]]],
+      userCalendar:[
+      ['saturday','day1',[]],
+      ['sunday','day2',[]],
+      ['monday','day3',[]],
+      ['tuesday','day4',[]],
+      ['wednesday','day5',[]],
+      ['thursday','day6',[]],
+      ['friday','day7',[]]
+    ]
     }
     const dictionary=[
         {ImgApi:"all",ExerApi:["pectoralis major" ,"biceps" ,"abdominals" ,"sartorius" ,"abductors" ,"trapezius" ,"deltoid" ,"latissimus dorsi" ,"serratus anterior" ,"external oblique" ,"brachioradialis" ,"finger extensors" ,"finger flexors" ,"quadriceps" ,"hamstrings" ,"gastrocnemius" ,"soleus" ,"infraspinatus" ,"teres major" ,"triceps" ,"gluteus medius" ,"gluteus maximus"]},
@@ -279,16 +287,17 @@ const craeteUser=async(userData)=>{
     }
   }
   const handleSignUp=async()=>{
-    if(!user.userPhoto){
-      setAuthenticationId('')
-      errorOccurred('something went wrong')
-      return
-    }
     const OBJ={
       ...user,
       userEmail:emailRef.current.value,
       userPassword:signUpPasswordKeys,
       userName:emailRef.current.value.split('@')[0],
+      userPhoto:auth.currentUser.photoURL
+    }
+    if(!OBJ.userPhoto){
+      setAuthenticationId('')
+      errorOccurred('something went wrong')
+      return
     }
     craeteUser(OBJ)
 }

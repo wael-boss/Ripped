@@ -1,7 +1,6 @@
 import Header from "./components/Header";
 import { Route ,Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import Calendar from "./pages/Calendar";
 import About from "./pages/About";
 import Gym from "./pages/Gym";
 import { useContext } from "react";
@@ -29,7 +28,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/gym" element={<Gym/>}/>
-          <Route path="/calendar" element={<Calendar/>}/>
           <Route path="/about" element={<About/>}/>
           <Route path="/exerciseFocus" element={<ExerciseFocus/>}/>
           <Route path="/user" element={<User/>}/>

@@ -10,8 +10,9 @@ const AddWorkout = () => {
           <h3>add this exercise to a day of choice</h3>
           <div className="daysContainer">
           {user.userCalendar.map(day=>{
-            const dayName=day[0]
-            const dayExercises=day[1]
+            const dayCounter=day[0]
+            const dayName=day[1]
+            const dayExercises=day[2]
             return(
               <button
               key={dayName}
@@ -21,12 +22,12 @@ const AddWorkout = () => {
                 })
               }
               onClick={()=>{
-                const newDay=[dayName ,[...dayExercises ,itemsToAdd.data]]
+                const newDay=[dayCounter ,dayName ,[...dayExercises ,itemsToAdd.data]]
                 let newCalendar=user.userCalendar
                 user.userCalendar.map(day=>{
-                  if(day[0]===dayName){
-                    if(day[1].includes(itemsToAdd.data)){
-                      errorOccurred(`${day[0]} already contains this exercise`)
+                  if(day[1]===dayName){
+                    if(day[2].includes(itemsToAdd.data)){
+                      errorOccurred(`${day[1]} already contains this exercise`)
                       return
                     }
                   newCalendar.splice(newCalendar.indexOf(day),1,newDay)
