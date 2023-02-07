@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import { useLocation } from "react-router-dom"
 import DataContext from "../context/DataContext"
 import {MdArrowDropDown} from "react-icons/md"
-import {AiOutlinePlus} from "react-icons/ai"
+import {AiOutlinePlus ,AiOutlineMinus} from "react-icons/ai"
 import '../css/Profile.css'
 const Profile = () => {
   const {user ,navigator ,setItemsToAdd}=useContext(DataContext)
@@ -41,24 +41,29 @@ const Profile = () => {
           const dayExercises=day[2]
           return(
             <div key={dayCounter} className="day">
-              <div className="dayCounter"><p>{dayCounter}</p></div>
-              <div className="dayName"><p>{dayName}</p></div>
+              <div className="dayCounter"><hr/><p>{dayCounter}</p><hr/></div>
+              <div className="dayName"><hr/><p>{dayName}</p><hr/></div>
               <div className="dayExercises">
                 {dayExercises.map(exercise=>{
                   return(
-                    <>
-                    <p onClick={()=>{
-                      // look at exercise details
-                      navigator(`/exerciseFocus?name=${exercise.split(' ').join('+')}`)
-                    }}>{exercise}</p>
-                    {!!locationUser &&<AiOutlinePlus onClick={()=>{
-                      // add workout
-                      setItemsToAdd({
-                        type:'exercise',
-                        data:exercise
-                      })
-                    }}/>}
-                    </>
+                    <div>
+                      <p onClick={()=>{
+                        // look at exercise details
+                        navigator(`/exerciseFocus?name=${exercise.split(' ').join('+')}`)
+                      }}>{exercise}
+                      </p>
+                      <hr/>
+                      <div className="functionButtons">
+                      {!!locationUser &&<AiOutlinePlus onClick={()=>{
+                        // add workout
+                        setItemsToAdd({
+                          type:'exercise',
+                          data:exercise
+                        })
+                      }}/>}
+                      {!locationUser &&<AiOutlineMinus/>}
+                      </div>
+                    </div>
                   )
                 })}
               </div>
