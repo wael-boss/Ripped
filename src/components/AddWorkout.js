@@ -2,7 +2,7 @@ import { useContext } from "react"
 import DataContext from "../context/DataContext"
 import {RxCross2} from 'react-icons/rx'
 const AddWorkout = () => {
-    const {updateUserDetail ,errorOccurred ,setUser ,user ,itemsToAdd ,setItemsToAdd}=useContext(DataContext)
+    const {addExeciseToCalendar ,user ,itemsToAdd ,setItemsToAdd}=useContext(DataContext)
     const innerContent=()=>{
       if(itemsToAdd.type==='exercise'){
       return(
@@ -10,34 +10,16 @@ const AddWorkout = () => {
           <h3>add this exercise to a day of choice</h3>
           <div className="daysContainer">
           {user.userCalendar.map(day=>{
-            const dayCounter=day[0]
-            const dayName=day[1]
-            const dayExercises=day[2]
             return(
               <button
-              key={dayName}
+              key={day[1]}
               title={
-                dayExercises.map(exercise=>{
+                day[2].map(exercise=>{
                   return exercise
                 })
               }
-              onClick={()=>{
-                const newDay=[dayCounter ,dayName ,[...dayExercises ,itemsToAdd.data]]
-                let newCalendar=user.userCalendar
-                user.userCalendar.map(day=>{
-                  if(day[1]===dayName){
-                    if(day[2].includes(itemsToAdd.data)){
-                      errorOccurred(`${day[1]} already contains this exercise`)
-                      return
-                    }
-                  newCalendar.splice(newCalendar.indexOf(day),1,newDay)
-                }
-                })
-                updateUserDetail('userCalendar',JSON.stringify(newCalendar))
-                setUser({...user ,userCalendar:newCalendar})
-                setItemsToAdd({})
-              }}
-              >{dayName}</button>
+              onClick={()=>{addExeciseToCalendar(day)}}
+              >{day[1]}</button>
             )
           })}
           </div>

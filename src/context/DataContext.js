@@ -152,12 +152,16 @@ export const DataProvider=({children})=>{
     const [muscleSearch ,setMuscleSearch]=useState('')
     const [generalMuscleImages ,setGeneralMuscleImages]=useState([])
     const [itemsToAdd ,setItemsToAdd]=useState({})
+    const [isNeedingConfermation ,setIsNeedingConfermation]=useState({})
     const emailRef=useRef()
     const passwordCheck=useRef()
     const signInPasswordRef=useRef()
     const muscleChoiceInput=useRef()
     const navigator=useNavigate()
     //functions
+    const ConfirmationTab=(string)=>{
+      // to be worked on
+    }
     const IMGtoEXERCISEFunc=(img)=>{
       let exercises=[]
       dictionary.map(obj=>{
@@ -204,6 +208,58 @@ export const DataProvider=({children})=>{
   const saveUserToSession=useMemo(()=>{
     sessionStorage.setItem('user',JSON.stringify(user))
   },[user])
+  // calendar functions
+  const addExeciseToCalendar=async(day)=>{
+    if(isLoading) return
+    const dayCounter=day[0]
+    const dayName=day[1]
+    const dayExercises=day[2]
+    const newDay=[dayCounter ,dayName ,[...dayExercises ,itemsToAdd.data]]
+    let newCalendar=user.userCalendar
+    user.userCalendar.map(day=>{
+      if(day[1]===dayName){
+        if(day[2].includes(itemsToAdd.data)){
+          errorOccurred(`${day[1]} already contains this exercise`)
+          return
+        }
+      newCalendar.splice(newCalendar.indexOf(day),1,newDay)
+    }
+    })
+    try{
+      setIsLoading(true)
+      const response=await updateUserDetail('userCalendar',JSON.stringify(newCalendar))
+      setUser({...user ,userCalendar:newCalendar})
+      setItemsToAdd({})
+    }catch(err){
+      errorOccurred(err.message)
+    }finally{
+      setIsLoading(false)
+    }
+  }
+  const removeExeciseFromCalendar=async(day ,targetExercise)=>{
+    if(isLoading) return
+    setIsLoading(true)
+    const dayCounter=day[0]
+    const dayName=day[1]
+    const dayExercises=day[2]
+    const newDay=[dayCounter ,dayName ,
+    dayExercises.filter(exercise=>exercise!==targetExercise)
+    ]
+    let newCalendar=user.userCalendar
+    user.userCalendar.map(day=>{
+      if(day[1]===dayName){
+      newCalendar.splice(newCalendar.indexOf(day),1,newDay)
+    }
+    })
+    try{
+      const response=await updateUserDetail('userCalendar',JSON.stringify(newCalendar))
+      setUser({...user ,userCalendar:newCalendar})
+    }catch(err){
+      errorOccurred(err.message)
+    }finally{
+      setIsLoading(false)
+    }
+  }
 //database functions
 const updateUserDetail=async(option,data)=>{
   const updates={}
@@ -401,7 +457,7 @@ const moreExercises=async()=>{
 }
 return(
     <DataContext.Provider value={{
-        user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,PlatformLogIn ,authenticationId ,setAuthenticationId ,updateUserDetail
+        user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,PlatformLogIn ,authenticationId ,setAuthenticationId ,updateUserDetail ,addExeciseToCalendar ,removeExeciseFromCalendar
     }}>
         {children}
     </DataContext.Provider>

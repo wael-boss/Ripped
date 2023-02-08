@@ -5,7 +5,7 @@ import {MdArrowDropDown} from "react-icons/md"
 import {AiOutlinePlus ,AiOutlineMinus} from "react-icons/ai"
 import '../css/Profile.css'
 const Profile = () => {
-  const {user ,navigator ,setItemsToAdd}=useContext(DataContext)
+  const {user ,navigator ,setItemsToAdd ,removeExeciseFromCalendar}=useContext(DataContext)
   const location=useLocation()
   const locationUser=!location.state ? null : location.state.user
   const [userProfile ,setUserProfile]=useState(locationUser || user)
@@ -41,10 +41,15 @@ const Profile = () => {
           const dayExercises=day[2]
           return(
             <div key={dayCounter} className="day">
-              <div className="dayCounter"><hr/><p>{dayCounter}</p><hr/></div>
+              <div className="dayCounter"><hr/><p>{dayCounter.substring(0 ,3)}</p><hr/></div>
               <div className="dayName"><hr/><p>{dayName}</p><hr/></div>
-              <div className="dayExercises">
-                {dayExercises.map(exercise=>{
+              <div className="dayExercises" style={{gridTemplateColumns:!dayExercises.length ? '1fr' : 'repeat(2 ,1fr)'}}>
+                {!dayExercises.length ? 
+                <div>
+                    <hr/>
+                </div>
+                    : 
+                dayExercises.map(exercise=>{
                   return(
                     <div>
                       <p onClick={()=>{
@@ -53,7 +58,7 @@ const Profile = () => {
                       }}>{exercise}
                       </p>
                       <hr/>
-                      <div className="functionButtons">
+                      <div className="calenadarBtns">
                       {!!locationUser &&<AiOutlinePlus onClick={()=>{
                         // add workout
                         setItemsToAdd({
@@ -61,7 +66,9 @@ const Profile = () => {
                           data:exercise
                         })
                       }}/>}
-                      {!locationUser &&<AiOutlineMinus/>}
+                      {!locationUser &&<AiOutlineMinus onClick={()=>{
+                        removeExeciseFromCalendar(day ,exercise)
+                      }}/>}
                       </div>
                     </div>
                   )

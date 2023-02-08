@@ -1,10 +1,9 @@
 import {Link, NavLink} from 'react-router-dom'
 import {CgGym} from 'react-icons/cg'
-import {AiFillHome ,AiFillEdit} from 'react-icons/ai'
-import {BsFillCalendarEventFill} from 'react-icons/bs'
-import {FaQuestion ,FaCheck} from 'react-icons/fa'
+import {AiFillHome} from 'react-icons/ai'
+import {FaQuestion} from 'react-icons/fa'
 import {IoIosSettings} from 'react-icons/io'
-import {TbSwitch} from 'react-icons/tb'
+import {RiUserSearchFill} from 'react-icons/ri'
 import { useContext, useRef, useState } from 'react'
 import DataContext from '../context/DataContext'
 const Header = () => {
@@ -24,6 +23,12 @@ const Header = () => {
               <div className='ancorContent'>
                 <AiFillHome/>
                 <p>home</p>
+              </div>
+            </NavLink>
+            <NavLink to='/peaple'>
+              <div className='ancorContent'>
+                <RiUserSearchFill/>
+                <p>peaple</p>
               </div>
             </NavLink>
             <NavLink to='/gym'>

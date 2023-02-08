@@ -1,3 +1,6 @@
+#profilePage{
+background-color: var(--color1);
+}
 #profilePage section{
 padding: 20px 30px;
 }
@@ -82,7 +85,6 @@ padding: 20px 30px;
 .day .dayExercises{
     flex-grow: 1;
     display: grid;
-    grid-template-columns: repeat(2 ,1fr);
     column-gap: 10px;
 }
 .dayExercises>div{
@@ -92,8 +94,11 @@ padding: 20px 30px;
 }
 .dayExercises>div>p{
 }
-.dayExercises>div>div{
+.dayExercises .calenadarBtns{
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.dayExercises .calenadarBtns>svg{
+    cursor: pointer;
 }
