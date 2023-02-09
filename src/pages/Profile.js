@@ -6,7 +6,7 @@ import {AiOutlinePlus ,AiOutlineMinus ,AiFillEdit} from "react-icons/ai"
 import {GoSettings} from "react-icons/go"
 import '../css/Profile.css'
 const Profile = () => {
-  const {errorOccurred ,user ,navigator ,setItemsToAdd ,removeExeciseFromCalendar ,editDayName}=useContext(DataContext)
+  const {emptyCalendar ,emptyDay ,errorOccurred ,user ,navigator ,setItemsToAdd ,removeExeciseFromCalendar ,editDayName}=useContext(DataContext)
   const location=useLocation()
   const locationUser=!location.state ? null : location.state.user
   const [userProfile ,setUserProfile]=useState(locationUser || user)
@@ -55,10 +55,12 @@ const Profile = () => {
           <div id="settingsLogic">
             {settingOption===1 &&
             <div>
-              <div className="dayContainer">{userProfile.userCalendar.map(day=>{
+              <div className="dayContainer">
+                {userProfile.userCalendar.map(day=>{
                 return(<button onClick={()=>{
                   setDayToEdit(day[1])
-                }}>{day[1]}</button>)
+                  editInputRef.current.value=''
+                }} style={{backgroundColor:dayToEdit===day[1] ? 'var(--color2)' : 'var(--shade5)'}}>{day[1]}</button>)
               })}</div>
               <form onSubmit={(e)=>{
                 e.preventDefault()
@@ -66,7 +68,8 @@ const Profile = () => {
                   errorOccurred('unvalid input')
                   return
               }
-                editDayName(userProfile.userCalendar.filter(day=>day[1]===dayToEdit) ,editInputRef.current.value)
+              editDayName(userProfile.userCalendar.filter(day=>day[1]===dayToEdit)[0] ,editInputRef.current.value)
+              editInputRef.current.value=''
               }}>
               <input
               ref={editInputRef}
@@ -76,9 +79,20 @@ const Profile = () => {
               </form>
             </div>}
             {settingOption===2 &&
-            <div>2</div>}
+            <div>
+                <div className="dayContainer">
+                  {userProfile.userCalendar.map(day=>{
+                    return(<button onClick={()=>{
+                      emptyDay(day)
+                    }}>{day[1]}</button>)
+                  })}
+                </div>
+              </div>}
             {settingOption===3 &&
-            <div>3</div>}
+            <div>
+              <h2>by confirming the calendar will get back to default state</h2>
+              <button onClick={emptyCalendar} style={{backgroundColor:'red'}}>confirm</button>
+            </div>}
           </div>
         </div>}
         <div id="calendar">
