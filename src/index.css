@@ -180,7 +180,7 @@ section{
   padding: 30px 0;
 }
 section:nth-child(odd){
-  background-color: #020202;
+  background-color: #050505;
 }
 section:nth-child(even){
   background-color: var(--color1);
@@ -273,4 +273,20 @@ footer{
   color: red;
   font-size: 40px;
   cursor: pointer;
+}
+.dayContainer{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+.dayContainer button{
+  font-size: var(--font-size-S);
+  padding: 3px 10px;
+  background-color: var(--shade5);
+  border-radius: 5px;
+  cursor: pointer;
+}
+.dayContainer button:is(:hover ,:focus){
+  background-color: var(--shade3);
 }

@@ -260,6 +260,26 @@ export const DataProvider=({children})=>{
       setIsLoading(false)
     }
   }
+  const editDayName=async(day ,newName)=>{
+    if(isLoading) return
+    user.userCalendar.map(day=>{
+      if(day[1]===newName){
+        errorOccurred("you can't call two days the same name")
+        return
+      }
+    })
+    const newDay=[day[0] ,newName ,day[2]]
+    console.log(day ,newDay)
+    // try{
+    //   setIsLoading(true)
+    //   const response=await updateUserDetail('userCalendar',JSON.stringify(newCalendar))
+    //   setUser({...user ,userCalendar:newCalendar})
+    // }catch(err){
+    //   errorOccurred(err.message)
+    // }finally{
+    //   setIsLoading(false)
+    // }
+  }
 //database functions
 const updateUserDetail=async(option,data)=>{
   const updates={}
@@ -457,7 +477,7 @@ const moreExercises=async()=>{
 }
 return(
     <DataContext.Provider value={{
-        user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,PlatformLogIn ,authenticationId ,setAuthenticationId ,updateUserDetail ,addExeciseToCalendar ,removeExeciseFromCalendar
+        user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,PlatformLogIn ,authenticationId ,setAuthenticationId ,updateUserDetail ,addExeciseToCalendar ,removeExeciseFromCalendar ,editDayName
     }}>
         {children}
     </DataContext.Provider>

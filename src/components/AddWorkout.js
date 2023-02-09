@@ -8,7 +8,7 @@ const AddWorkout = () => {
       return(
         <>
           <h3>add this exercise to a day of choice</h3>
-          <div className="daysContainer">
+          <div className="dayContainer">
           {user.userCalendar.map(day=>{
             return(
               <button
