@@ -273,7 +273,7 @@ export const DataProvider=({children})=>{
       }
     })
     if(daysWithSameName>0){
-      errorOccurred("you can't call two days the same name")
+      errorOccurred("there is a day already called this name")
       return
     }
     const newDay=[day[0] ,newName ,day[2]]
@@ -289,6 +289,10 @@ export const DataProvider=({children})=>{
     }
   }
   const emptyDay=async(day)=>{
+    if(!day[2].length){
+      errorOccurred('this day is already empty')
+      return
+    }
     let newCalendar=user.userCalendar
     const newDay=[day[0] ,day[1] ,[]]
     newCalendar.splice(newCalendar.indexOf(day),1,newDay)
@@ -304,10 +308,11 @@ export const DataProvider=({children})=>{
   }
   const emptyCalendar=async()=>{
     if(isLoading) return
+    const newCalendar=emptyUserOBJ.userCalendar
     try{
       setIsLoading(true)
-      const response=await updateUserDetail('userCalendar',JSON.stringify(emptyUserOBJ.userCalendar))
-      setUser({...user ,userCalendar:emptyUserOBJ.userCalendar})
+      const response=await updateUserDetail('userCalendar',JSON.stringify(newCalendar))
+      setUser({...user ,userCalendar:newCalendar})
     }catch(err){
       errorOccurred(err.message)
     }finally{

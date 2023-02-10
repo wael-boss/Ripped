@@ -68,6 +68,8 @@ padding: 20px 30px;
 #lightSettings{
     display: flex;
     width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
 }
 #lightSettings p{
     cursor: pointer;
@@ -80,9 +82,52 @@ padding: 20px 30px;
     background-color: var(--shade1);
 
 }
+.settingContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 0;
+}
+.settingContent h2{
+    width:100%;
+    text-align: center;
+    font-weight: 400;
+    font-size:  var(--font-size-M);
+}
+.settingContent>button{
+    font-size: var(--font-size-M);
+    width: fit-content;
+    padding: 5px 20px;
+    border-radius: 10px;
+    background-color: var(--color2);
+}
+.settingContent form{
+    display: flex;
+    gap: 20px;
+}
+.settingContent form>button{
+    font-size: var(--font-size-M);
+    width: fit-content;
+    padding: 5px 20px;
+    border-radius: 10px;
+    background-color: var(--color2);
+}
+.settingContent form>input{
+    font-size: var(--font-size-M);
+    width: fit-content;
+    padding: 5px 20px;
+    border-radius: 10px;
+    background-color: var(--shade2);
+    border-color: var(--color4);
+}
 #settingsOptions{
     display: flex;
     flex-direction: column;
+}
+#settingsOptions p{
+    font: 500 var(--font-size-S) var(--font1);
 }
 #calendar{
     width: 100%;
@@ -130,8 +175,6 @@ padding: 20px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-.dayExercises>div>p{
 }
 .dayExercises .calenadarBtns{
     display: flex;

@@ -54,7 +54,8 @@ const Profile = () => {
           </div>
           <div id="settingsLogic">
             {settingOption===1 &&
-            <div>
+            <div className="settingContent">
+              <h2>re-name a day of choice with what ever you deem fitting</h2>
               <div className="dayContainer">
                 {userProfile.userCalendar.map(day=>{
                 return(<button onClick={()=>{
@@ -79,7 +80,8 @@ const Profile = () => {
               </form>
             </div>}
             {settingOption===2 &&
-            <div>
+            <div className="settingContent">
+              <h2>click on the day you want to be emptied of exercises</h2>
                 <div className="dayContainer">
                   {userProfile.userCalendar.map(day=>{
                     return(<button onClick={()=>{
@@ -89,9 +91,9 @@ const Profile = () => {
                 </div>
               </div>}
             {settingOption===3 &&
-            <div>
+            <div className="settingContent">
               <h2>by confirming the calendar will get back to default state</h2>
-              <button onClick={emptyCalendar} style={{backgroundColor:'red'}}>confirm</button>
+              <button onClick={emptyCalendar}>confirm</button>
             </div>}
           </div>
         </div>}
