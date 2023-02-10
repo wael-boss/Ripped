@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import {BsArrowRight} from 'react-icons/bs' 
 import DataContext from '../context/DataContext'
 const ExercisesLoop = ({exercises}) => {
-  const {navigator ,setSearchParams ,searchParams}=useContext(DataContext)
+  const {navigator}=useContext(DataContext)
   return (
     <div className="exerciseContainer">
     {exercises.map(exercise=>{

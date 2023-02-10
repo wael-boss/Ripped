@@ -153,6 +153,7 @@ export const DataProvider=({children})=>{
     const [generalMuscleImages ,setGeneralMuscleImages]=useState([])
     const [itemsToAdd ,setItemsToAdd]=useState({})
     const [isNeedingConfermation ,setIsNeedingConfermation]=useState({})
+    const [users ,setUsers]=useState([])
     const emailRef=useRef()
     const passwordCheck=useRef()
     const signInPasswordRef=useRef()
@@ -320,6 +321,34 @@ export const DataProvider=({children})=>{
     }
   }
 //database functions
+const getAllUsers=async()=>{
+  if(isLoading) return
+  setIsLoading(true)
+  const dbRef=ref(db)
+  let usersResult=[]
+  try{
+    const snapshot=await get(child(dbRef, `users`))
+    if (snapshot.exists()){
+    const response=snapshot.val()
+    Object.entries(response).map(arr=>{
+      const responseId=arr[0]
+      const responseUser=arr[1]
+      if(responseId===authenticationId) return
+      const userOBJ={
+        ...emptyUserOBJ,
+        ...responseUser,
+        userCalendar:JSON.parse(responseUser.userCalendar)
+      }
+      usersResult.push(userOBJ)
+    })
+    setUsers(usersResult)
+  }
+}catch(err){
+    errorOccurred(err.message)
+  }finally{
+    setIsLoading(false)
+  }
+}
 const updateUserDetail=async(option,data)=>{
   const updates={}
   updates[option]=data
@@ -516,7 +545,7 @@ const moreExercises=async()=>{
 }
 return(
     <DataContext.Provider value={{
-        user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,PlatformLogIn ,authenticationId ,setAuthenticationId ,updateUserDetail ,addExeciseToCalendar ,removeExeciseFromCalendar ,editDayName ,emptyDay ,emptyCalendar
+        user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,PlatformLogIn ,authenticationId ,setAuthenticationId ,updateUserDetail ,addExeciseToCalendar ,removeExeciseFromCalendar ,editDayName ,emptyDay ,emptyCalendar ,users ,setUsers ,getAllUsers
     }}>
         {children}
     </DataContext.Provider>

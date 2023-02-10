@@ -2,13 +2,14 @@ import { useContext, useRef, useState } from "react"
 import { useLocation } from "react-router-dom"
 import DataContext from "../context/DataContext"
 import {MdArrowDropDown} from "react-icons/md"
-import {AiOutlinePlus ,AiOutlineMinus ,AiFillEdit} from "react-icons/ai"
+import {AiOutlinePlus ,AiOutlineMinus} from "react-icons/ai"
 import {GoSettings} from "react-icons/go"
 import '../css/Profile.css'
 const Profile = () => {
   const {emptyCalendar ,emptyDay ,errorOccurred ,user ,navigator ,setItemsToAdd ,removeExeciseFromCalendar ,editDayName}=useContext(DataContext)
   const location=useLocation()
   const locationUser=!location.state ? null : location.state.user
+  console.log(locationUser)
   const [userProfile ,setUserProfile]=useState(locationUser || user)
   const [isShowingMore ,setIsShowingMore]=useState(false)
   const [isShowingSettings ,setIsShowingSettings]=useState(false)
