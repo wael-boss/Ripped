@@ -1,0 +1,76 @@
+#userSearch{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+#userSearchForm{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--font-size-B);
+    position: relative;
+}
+#userSearchForm>*{
+    font-size: var(--font-size-B);
+}
+#userSearchForm>input{
+    flex-grow: 1;
+    outline: none;
+    padding: 10px 0 10px 5%;
+    background-color:transparent;
+    border: none;
+    border-bottom:2px solid var(--color4);
+}
+#userSearchForm>svg{
+    position: absolute;
+    left: 0px;
+    width: 5%;
+    opacity: .4;
+}
+#usersAcounts{
+    min-height:80vh ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#usersContainer{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2 ,1fr);
+    column-gap: 10px;
+}
+.userContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px ;
+    border-bottom: 1px solid var(--color3);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color .2s ease-out;
+}
+.userContainer:is(:hover ,:focus){
+    background-color: var(--shade3);
+}
+.userContainer *{
+    font-size: var(--font-size-M);
+}
+.userDetails{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.userDetails>img{
+    width:70px;
+    border-radius: 50%;
+}
+.userDetails>div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.userContainer>p{
+    font-family: var(---font1);
+}

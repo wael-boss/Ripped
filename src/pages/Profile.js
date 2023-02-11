@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { useLocation } from "react-router-dom"
 import DataContext from "../context/DataContext"
 import {MdArrowDropDown} from "react-icons/md"
@@ -16,6 +16,9 @@ const Profile = () => {
   const [settingOption ,setSettingOption]=useState(0)
   const [dayToEdit ,setDayToEdit]=useState('')
   const editInputRef=useRef()
+  useEffect(()=>{
+    setUserProfile(!locationUser ? user : locationUser)
+  },[locationUser])
   return (
     <main id="profilePage">
       <section id="profileIntro">
@@ -29,6 +32,9 @@ const Profile = () => {
             <h2>{userProfile.userBio}</h2>
           </div>
         </div>
+        {!!locationUser &&<button onClick={()=>{
+          // salute the user func
+        }}>+👑</button>}
         <MdArrowDropDown style={{transform:isShowingMore ? 'rotate(-180deg)' : 'rotate(0deg)'}} onClick={()=>{
           setIsShowingMore(!isShowingMore)
         }}/>
@@ -41,11 +47,11 @@ const Profile = () => {
         <p>gender: {!userProfile.userGender ? 'not mentioned' : userProfile.userGender}</p>
       </section>}
       <section id="calendarSection">
-        <button id="calendarLightSettingsContainer" onClick={()=>{
+        {!locationUser &&<button id="calendarLightSettingsContainer" onClick={()=>{
           setIsShowingSettings(!isShowingSettings)
         }}>
           <GoSettings
-        /></button>
+        /></button>}
         {isShowingSettings &&
         <div id="lightSettings">
           <div id="settingsOptions">

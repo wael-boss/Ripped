@@ -2,17 +2,17 @@ import { useContext, useEffect, useState } from 'react'
 import {FiSearch} from 'react-icons/fi'
 import UserSearchDisplay from '../components/UserSearchDisplay'
 import DataContext from '../context/DataContext'
+import '../css/Peaple.css'
 const Peaple = () => {
   const {getAllUsers ,users}=useContext(DataContext)
   const [userSearch ,setUserSearch]=useState('')
   useEffect(()=>{
-    if(users.length) return
     getAllUsers()
-  })
+  },[])
   return (
     <main>
       <section id='userSearch'>
-        <form onSubmit={(e)=>{
+        <form id='userSearchForm' onSubmit={(e)=>{
           e.preventDefault()
         }}>
           <input
@@ -28,9 +28,7 @@ const Peaple = () => {
       <section id='usersAcounts'>
         {!users.length ?
         <p>no users yet</p> :
-        <div id='userContainer'>
-          <UserSearchDisplay users={userSearch.length ? users.filter(user=>(user.userName.toLowerCase()).includes(userSearch.toLowerCase())) : users}/>
-        </div>}
+          <UserSearchDisplay users={userSearch.length ? users.filter(user=>(user.userName.toLowerCase()).includes(userSearch.toLowerCase())) : users}/>}
       </section>
     </main>
   )

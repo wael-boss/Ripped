@@ -1,5 +1,5 @@
 import { useContext, useEffect, useMemo, useRef, useState } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import ExerciseAPI from "../api/ExerciseAPI"
 import DataContext from "../context/DataContext"
 import ImgAPI from "../api/ImgAPI"
@@ -7,7 +7,7 @@ import '../css/ExerciseFocus.css'
 import {FaPlus ,FaPaperclip} from 'react-icons/fa'
 
 const ExerciseFocus = () => {
-  const {setItemsToAdd ,muscleAPIcolor ,EXERCISEtoIMGFunc ,setSearchParams ,searchParams ,errorOccurred ,navigator ,setIsLoading}=useContext(DataContext)
+  const {setItemsToAdd ,muscleAPIcolor ,EXERCISEtoIMGFunc ,setSearchParams ,searchParams ,errorOccurred ,setIsLoading}=useContext(DataContext)
   const location=useLocation()
   const [exerciseFocus ,setExerciseFocus]=useState(null)
   const [isGettingImage ,setIsGettingImage]=useState(false)
@@ -15,7 +15,7 @@ const ExerciseFocus = () => {
   const [primaryImage ,setPrimaryImage]=useState(null)
   const [secondaryImage ,setSecondaryImage]=useState(null)
   const [showingPimage ,setShowingPimage]=useState(true)
-
+  const navigationSystem=useNavigate()
 
   const getMuscleImage=useMemo(async()=>{
     if(isGettingImage) return
@@ -82,7 +82,7 @@ const convertBlob=(blob)=>{
   
   useEffect(()=>{
     if(!paramsExericseName && !locationExercise) {
-      navigator('/')
+      navigationSystem('/')
       return
     }
   OnLoadExercise()

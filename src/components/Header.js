@@ -45,7 +45,9 @@ const Header = () => {
             </NavLink>
         </nav>
         <div id='technicalLinks'>
-            <Link to='profile'><img src={user.userPhoto ? user.userPhoto : `/images/${user.userGender}-icon.jpg`}/></Link>
+            <div onClick={()=>{
+              navigator('/profile')
+            }}><img src={user.userPhoto ? user.userPhoto : `/images/${user.userGender}-icon.jpg`}/></div>
             <Link to='settings'><IoIosSettings/></Link>
         </div>
     </header>

@@ -208,7 +208,6 @@ export const DataProvider=({children})=>{
   },[authenticationId])
   const saveUserToSession=useMemo(()=>{
     sessionStorage.setItem('user',JSON.stringify(user))
-    console.log('done')
   },[user])
   // calendar functions
   const addExeciseToCalendar=async(day)=>{
@@ -337,7 +336,8 @@ const getAllUsers=async()=>{
       const userOBJ={
         ...emptyUserOBJ,
         ...responseUser,
-        userCalendar:JSON.parse(responseUser.userCalendar)
+        userCalendar:JSON.parse(responseUser.userCalendar),
+        userId:responseId
       }
       usersResult.push(userOBJ)
     })
