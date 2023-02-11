@@ -154,6 +154,7 @@ export const DataProvider=({children})=>{
     const [itemsToAdd ,setItemsToAdd]=useState({})
     const [isNeedingConfermation ,setIsNeedingConfermation]=useState({})
     const [users ,setUsers]=useState([])
+    const [userProfile ,setUserProfile]=useState(user) 
     const emailRef=useRef()
     const passwordCheck=useRef()
     const signInPasswordRef=useRef()
@@ -163,6 +164,29 @@ export const DataProvider=({children})=>{
     const ConfirmationTab=(string)=>{
       // to be worked on
     }
+    // fitness calculations
+    const calcBMI=(weight, height)=>{
+      height=height/100
+      let bmi=weight/(height*height)
+      bmi=Math.round(bmi*100)/100
+      return bmi
+    }
+    const calcBMR=(weight, height, age, gender)=>{
+      if (gender === "male") {
+        var bmr=88.36+(13.4*weight)+(4.8*height)-(5.7*age)
+      } else if (gender === "female") {
+        var bmr=447.6+(9.2*weight)+(3.1*height)-(4.3*age)
+      }
+      return bmr
+    }
+    const calcTDEE=(weight, height, age, gender, activityLevel)=>{
+      // convert activityLevel to numbers
+      // end
+      var bmr = calcBMR(weight, height, age, gender)
+      var tdee = bmr * activityLevel
+      return tdee
+    }
+    // end
     const IMGtoEXERCISEFunc=(img)=>{
       let exercises=[]
       dictionary.map(obj=>{
@@ -320,6 +344,23 @@ export const DataProvider=({children})=>{
     }
   }
 //database functions
+const coronateUser=async(target)=>{
+  const updates={}
+  const {userId ,userCrowns}=target
+  updates.userCrowns=[...userCrowns ,authenticationId]
+  if(userCrowns.includes(authenticationId)){
+    errorOccurred('you already proformed this action')
+    return
+  }
+  try{
+    const response=await update(ref(db ,`users/${userId}`),updates)
+    const newUser={...userProfile ,userCrowns:updates.userCrowns}
+    console.log('ren')
+    setUserProfile(newUser)
+  }catch(err){
+    errorOccurred(err.message)
+  }
+}
 const getAllUsers=async()=>{
   if(isLoading) return
   setIsLoading(true)
@@ -545,7 +586,8 @@ const moreExercises=async()=>{
 }
 return(
     <DataContext.Provider value={{
-        user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,PlatformLogIn ,authenticationId ,setAuthenticationId ,updateUserDetail ,addExeciseToCalendar ,removeExeciseFromCalendar ,editDayName ,emptyDay ,emptyCalendar ,users ,setUsers ,getAllUsers
+        user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,PlatformLogIn ,authenticationId ,setAuthenticationId ,updateUserDetail ,addExeciseToCalendar ,removeExeciseFromCalendar ,editDayName ,emptyDay ,emptyCalendar ,users ,setUsers ,getAllUsers ,calcBMI ,calcBMR ,calcTDEE ,coronateUser
+        ,userProfile ,setUserProfile
     }}>
         {children}
     </DataContext.Provider>
