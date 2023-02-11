@@ -6,7 +6,7 @@ import {AiOutlinePlus ,AiOutlineMinus} from "react-icons/ai"
 import {GoSettings} from "react-icons/go"
 import '../css/Profile.css'
 const Profile = () => {
-  const {userProfile ,setUserProfile ,coronateUser ,emptyCalendar ,emptyDay ,errorOccurred ,user ,navigator ,setItemsToAdd ,removeExeciseFromCalendar ,editDayName}=useContext(DataContext)
+  const {calcBMI ,calcBMR ,calcTDEE ,userProfile ,setUserProfile ,coronateUser ,emptyCalendar ,emptyDay ,errorOccurred ,user ,navigator ,setItemsToAdd ,removeExeciseFromCalendar ,editDayName}=useContext(DataContext)
   const location=useLocation()
   const locationUser=!location.state ? null : location.state.user
   const [isShowingMore ,setIsShowingMore]=useState(false)
@@ -44,6 +44,9 @@ const Profile = () => {
         <p>height: {!userProfile.userHeight ? 'not mentioned' : userProfile.userHeight}</p>
         <p>weight: {!userProfile.userWeight ? 'not mentioned' : userProfile.userWeight}</p>
         <p>gender: {!userProfile.userGender ? 'not mentioned' : userProfile.userGender}</p>
+        <p>BMI:{calcBMI(userProfile)}</p>
+        <p>BMR:{calcBMR(userProfile)}</p>
+        <p>TDEE:{calcTDEE(userProfile)}</p>
       </section>}
       <section id="calendarSection">
         {!locationUser &&<button id="calendarLightSettingsContainer" onClick={()=>{

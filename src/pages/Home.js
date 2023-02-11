@@ -1,6 +1,9 @@
+import { useContext } from 'react'
+import DataContext from '../context/DataContext'
 import '../css/Home.css'
 
 const Home = () => {
+  const {navigator}=useContext(DataContext)
   const quotes=[
     {author:"Ronnie Coleman",quote:"The real workout starts when you want to stop."},
     {author:"Dwayne ‘The Rock’ Johnson",quote:"Wake up determined. Go to bed satisfied."},
@@ -29,8 +32,12 @@ const Home = () => {
             {randomQuoteFunc()}
           </div>
           <div id='heroButtonContainer'>
-            <button className='btnStyle1'>check calendar</button>
-            <button className='btnStyle1'>how to use</button>
+            <button className='btnStyle1' onClick={()=>{
+              navigator('/profile')
+            }}>my profile</button>
+            <button className='btnStyle1' onClick={()=>{
+              navigator('/peaple')
+            }}>find a friend</button>
           </div>
         </div>
         <div id='heroImage'>

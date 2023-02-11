@@ -22,6 +22,7 @@ export const DataProvider=({children})=>{
       userHeight:null,
       userWeight:null,
       userGender:null,
+      userActivityLevel:null,
       userCalendar:[
       ['saturday','day1',[]],
       ['sunday','day2',[]],
@@ -165,25 +166,32 @@ export const DataProvider=({children})=>{
       // to be worked on
     }
     // fitness calculations
-    const calcBMI=(weight, height)=>{
-      height=height/100
-      let bmi=weight/(height*height)
+    const calcBMI=(PROFILE)=>{
+      const {userHeight ,userWeight}=PROFILE
+      if(!userHeight || !userWeight) return 'not much info'
+      userHeight=userHeight/100
+      let bmi=userWeight/(userHeight*userHeight)
       bmi=Math.round(bmi*100)/100
       return bmi
     }
-    const calcBMR=(weight, height, age, gender)=>{
-      if (gender === "male") {
-        var bmr=88.36+(13.4*weight)+(4.8*height)-(5.7*age)
-      } else if (gender === "female") {
-        var bmr=447.6+(9.2*weight)+(3.1*height)-(4.3*age)
+    const calcBMR=(PROFILE)=>{
+      const {userHeight ,userWeight ,userGender ,userAge}=PROFILE
+      if(!userHeight || !userWeight || !userGender || !userAge) return 'not much info'
+      if (userGender === "male") {
+        var bmr=88.36+(13.4*userWeight)+(4.8*userHeight)-(5.7*userAge)
+      } else if (userGender === "female") {
+        var bmr=447.6+(9.2*userWeight)+(3.1*userHeight)-(4.3*userAge)
       }
       return bmr
     }
-    const calcTDEE=(weight, height, age, gender, activityLevel)=>{
+    const calcTDEE=(PROFILE)=>{
+      const {userHeight ,userWeight ,userGender ,userAge ,userActivityLevel}=PROFILE
+      if(!userHeight || !userWeight || !userGender || !userAge || !userActivityLevel) return 'not much info'
+
       // convert activityLevel to numbers
       // end
-      var bmr = calcBMR(weight, height, age, gender)
-      var tdee = bmr * activityLevel
+      var bmr = calcBMR(PROFILE)
+      var tdee = bmr * userActivityLevel
       return tdee
     }
     // end
@@ -355,7 +363,6 @@ const coronateUser=async(target)=>{
   try{
     const response=await update(ref(db ,`users/${userId}`),updates)
     const newUser={...userProfile ,userCrowns:updates.userCrowns}
-    console.log('ren')
     setUserProfile(newUser)
   }catch(err){
     errorOccurred(err.message)
