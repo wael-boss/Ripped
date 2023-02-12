@@ -11,7 +11,7 @@ const ExercisesLoop = ({exercises}) => {
                 <img src={`/images/${exercise.Force}.png`}/>
                 <p>{exercise.Name}</p>
                 <button onClick={()=>{
-                  navigator('/exerciseFocus' ,{state:{exercise:exercise}})
+                  navigator('/exercise_focus' ,{state:{exercise:exercise}})
                 }}><BsArrowRight/></button>
             </div>
         )

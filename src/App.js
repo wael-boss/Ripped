@@ -16,6 +16,8 @@ import AddWorkout from "./components/AddWorkout";
 import Settings from "./pages/Settings";
 import Profile from "./pages/Profile";
 import Peaple from "./pages/Peaple";
+import EditProfile from "./components/Settings/EditProfile";
+import EditSecondaryColor from "./components/Settings/EditSecondaryColor";
 function App() {
   const {user}=useContext(DataContext)
   return (
@@ -30,10 +32,13 @@ function App() {
           <Route path="/" element={<Home/>}/>
           <Route path="/gym" element={<Gym/>}/>
           <Route path="/about" element={<About/>}/>
-          <Route path="/exerciseFocus" element={<ExerciseFocus/>}/>
+          <Route path="/exercise_focus" element={<ExerciseFocus/>}/>
           <Route path="/user" element={<User/>}/>
           <Route path="/peaple" element={<Peaple/>}/>
-          <Route path="/settings" element={<Settings/>}/>
+          <Route path="/settings" element={<Settings/>}>
+            <Route path="edit_profile" element={<EditProfile/>}/>
+            <Route path="edit_color" element={<EditSecondaryColor/>}/>
+          </Route>
           <Route path="/profile" element={<Profile/>}/>
           <Route path="*" element={<Missing/>}/>
         </Routes>

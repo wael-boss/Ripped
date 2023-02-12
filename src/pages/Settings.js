@@ -1,22 +1,16 @@
-import { colord } from 'colord'
+import { Link, NavLink, Outlet} from 'react-router-dom'
+import '../css/Settings.css'
 
 const Settings = () => {
   return (
-    <main>
-        settings
-        {/*
-        --change muscle color
-        <div className='setting'>
-            <input
-            type='color'
-            formAction='RGB'
-            value={colord('rgb('+muscleAPIcolor+')').toHex()}
-            onChange={e=>{
-                let rgb=colord(e.target.value).toRgbString()
-                setMuscleAPIcolor(rgb.slice(4,-1))
-            }}
-            />
-        </div> */}
+    <main id='settingsPage'>
+      <section id='settingsSideBarSection'>
+        <NavLink to='edit_profile'>edit profile</NavLink>
+        <NavLink to='edit_color'>color change</NavLink>    
+      </section>
+      <section id='settingsMainContentSection'>
+        <Outlet/>
+      </section>
     </main>
   )
 }

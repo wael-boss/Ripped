@@ -183,7 +183,7 @@ section:nth-child(odd){
   background-color: #050505;
 }
 section:nth-child(even){
-  background-color: var(--color1);
+  background-color:#030303;
 }
 footer{
   width: 100%;

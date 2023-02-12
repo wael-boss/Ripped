@@ -1,0 +1,50 @@
+#settingsPage{
+    display: flex;
+}
+#settingsPage>section{
+    min-height: 100%;
+    padding: 0;
+}
+#settingsSideBarSection{
+    overflow-y: scroll;
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+}
+#settingsSideBarSection{
+    overflow-y: scroll;
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+#settingsSideBarSection>a{
+    width: 100%;
+    padding: 8px 0 8px 10px;
+    font-size: var(--font-size-M);
+    font-family: var(--font1);
+    border-bottom:1px solid var(--color3);
+    transition: all .1s ease-in-out;
+}
+#settingsSideBarSection>a:is(:hover ,.active){
+    background-color: var(--shade1);
+    border-color: var(--color4);
+}
+#settingsMainContentSection{
+    width: 70vw;
+}
+.settingIntro{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+.settingIntro>h1{
+    font: 600 var(--font-size-B) var(--font1);
+    padding-bottom: 5px;
+    padding-left: 10px;
+    border-bottom:2px solid var(--color2);
+}
+.settingIntro>h2{
+    font-size: var(--font-size-M);
+}
