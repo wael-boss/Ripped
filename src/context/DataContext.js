@@ -33,6 +33,38 @@ export const DataProvider=({children})=>{
       ['friday','day7',[]]
     ]
     }
+    const calculations={
+      BMR:{short:"BMR",long:" Basal Metabolic Rate",description:"BMR represents the amount of energy (in calories) that a person's body burns at rest, to carry out basic physiological functions such as breathing, circulation, and temperature regulation."},
+      BMI:{short:"BMI",long:"Body Mass Index",description:"BMI is a measure of a person's body fat based on their weight and height. It is calculated by dividing a person's weight (in kilograms) by their height (in meters) squared"},
+      TDEE:{short:"TDEE",long:"Total Daily Energy Expenditure",description:"TDEE represents the total number of calories that a person's body burns in a day, taking into account their BMR as well as their level of physical activity and other factors such as age, sex, and weight. TDEE is often used to determine the number of calories a person needs to consume in order to maintain, gain, or lose weight"}
+    }
+    const activityTypes = {
+      sedentary: {
+        label: 'Sedentary',
+        factor: 1.2,
+        description: 'Little to no exercise and a desk job'
+      },
+      lightlyActive: {
+        label: 'Lightly Active',
+        factor: 1.375,
+        description: 'Light exercise or sports 1-3 days a week'
+      },
+      moderatelyActive: {
+        label: 'Moderately Active',
+        factor: 1.55,
+        description: 'Moderate exercise or sports 3-5 days a week'
+      },
+      veryActive: {
+        label: 'Very Active',
+        factor: 1.725,
+        description: 'Hard exercise or sports 6-7 days a week'
+      },
+      extraActive: {
+        label: 'Extra Active',
+        factor: 1.9,
+        description: 'Very hard exercise or sports, physical job or training twice a day'
+      }
+    }
     const dictionary=[
         {ImgApi:"all",ExerApi:["pectoralis major" ,"biceps" ,"abdominals" ,"sartorius" ,"abductors" ,"trapezius" ,"deltoid" ,"latissimus dorsi" ,"serratus anterior" ,"external oblique" ,"brachioradialis" ,"finger extensors" ,"finger flexors" ,"quadriceps" ,"hamstrings" ,"gastrocnemius" ,"soleus" ,"infraspinatus" ,"teres major" ,"triceps" ,"gluteus medius" ,"gluteus maximus"]},
         {ImgApi:"all_lower",ExerApi:["abductors" ,"sartorius" ,"gastrocnemius" ,"soleus" ,"gluteus maximus" ,"gluteus medius" ,"hamstrings" ,"quadriceps"]},
@@ -160,6 +192,7 @@ export const DataProvider=({children})=>{
     const passwordCheck=useRef()
     const signInPasswordRef=useRef()
     const muscleChoiceInput=useRef()
+    let editUserRefs={}
     const navigator=useNavigate()
     //functions
     const ConfirmationTab=(string)=>{
@@ -594,7 +627,7 @@ const moreExercises=async()=>{
 return(
     <DataContext.Provider value={{
         user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,PlatformLogIn ,authenticationId ,setAuthenticationId ,updateUserDetail ,addExeciseToCalendar ,removeExeciseFromCalendar ,editDayName ,emptyDay ,emptyCalendar ,users ,setUsers ,getAllUsers ,calcBMI ,calcBMR ,calcTDEE ,coronateUser
-        ,userProfile ,setUserProfile
+        ,userProfile ,setUserProfile ,activityTypes ,editUserRefs ,calculations
     }}>
         {children}
     </DataContext.Provider>
