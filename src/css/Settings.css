@@ -1,6 +1,15 @@
 #settingsPage{
     display: flex;
 }
+#settingsPage input[type=text]{
+    flex-grow: 1;
+    background-color:transparent;
+    border: none;
+    border-bottom: 2px solid var(--shade3);
+    padding-left: 10px;
+    margin-left: 10px;
+    font-size: var(--font-size-M);
+}
 #settingsPage>section{
     min-height: 100%;
     padding: 0;
@@ -12,14 +21,24 @@
     flex-direction: column;
 }
 #settingsSideBarSection{
-    overflow-y: scroll;
-    overflow-x: hidden;
-    width: 30vw;
     display: flex;
     flex-direction: column;
+    width: 30vw;
+    justify-content: space-between;
+    
+}
+#settingsSideBarSection>div{
+    width: 100%;
     padding: 0;
 }
-#settingsSideBarSection>a{
+#slowSettingAcces{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+#slowSettingAcces>a{
     width: 100%;
     padding: 8px 0 8px 10px;
     font-size: var(--font-size-M);
@@ -27,9 +46,20 @@
     border-bottom:1px solid var(--color3);
     transition: all .1s ease-in-out;
 }
-#settingsSideBarSection>a:is(:hover ,.active){
+#slowSettingAcces>a:is(:hover ,.active){
     background-color: var(--shade1);
     border-color: var(--color4);
+}
+#fastSettingAcces{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 1px solid var(--shade3);
+}
+#fastSettingAcces>button{
+    font:500 var(--font-size-M) var(--font1);
+    width: 100%;
+    padding:5px;
 }
 #settingsMainContentSection{
     width: 70vw;
@@ -89,14 +119,6 @@
     align-items: center;
     font-size: var(--font-size-M);
 }
-.inputContainer input{
-    flex-grow: 1;
-    background-color:transparent;
-    border: none;
-    border-bottom: 2px solid var(--shade3);
-    padding-left: 10px;
-    margin-left: 10px;
-}
 .inputContainer *{
     display: flex;
     align-items: center;
@@ -144,4 +166,14 @@
     border: none;
     background-color: transparent;
     cursor:pointer;
+}
+#deleteAcountForm{
+    width: 100%;
+    display: flex;
+    gap: 30px;
+}
+#deleteAcountForm button{
+    background-color: var(--color2);
+    padding: 5px 20px;
+    border-radius: 10px;
 }

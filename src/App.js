@@ -18,6 +18,8 @@ import Profile from "./pages/Profile";
 import Peaple from "./pages/Peaple";
 import EditProfile from "./components/Settings/EditProfile";
 import EditSecondaryColor from "./components/Settings/EditSecondaryColor";
+import ChangePassword from "./components/Settings/ChangePassword";
+import DeleteAcount from "./components/Settings/DeleteAcount";
 function App() {
   const {user}=useContext(DataContext)
   return (
@@ -38,6 +40,8 @@ function App() {
           <Route path="/settings" element={<Settings/>}>
             <Route path="edit_profile" element={<EditProfile/>}/>
             <Route path="edit_color" element={<EditSecondaryColor/>}/>
+            <Route path="change_password" element={<ChangePassword/>}/>
+            <Route path="delete_acount" element={<DeleteAcount/>}/>
           </Route>
           <Route path="/profile" element={<Profile/>}/>
           <Route path="*" element={<Missing/>}/>

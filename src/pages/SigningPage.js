@@ -3,16 +3,11 @@ import {  Link, Route, Routes } from "react-router-dom"
 import SignIn from "../components/SignIn"
 import SignUp from "../components/SignUp"
 import Missing from './Missing'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import DataContext from '../context/DataContext'
 import PlatformSignIn from '../components/PlatformSignIn'
 const SigningPage = () => {
-  const {navigator ,authenticationId ,user}=useContext(DataContext)
-  console.log(authenticationId)
-  useEffect(()=>{
-    if(!authenticationId.length) return
-    //get user data
-  },[])
+  const {authenticationId}=useContext(DataContext)
   return (
     <main id="signingPageMain">
         <section id="formsSection">

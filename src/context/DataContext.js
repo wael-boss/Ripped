@@ -1,10 +1,10 @@
 import { createContext, useMemo, useRef, useState } from "react";
 import {auth} from '../Config'
-import { createUserWithEmailAndPassword ,signInWithEmailAndPassword ,GoogleAuthProvider,signInWithPopup ,FacebookAuthProvider ,deleteUser} from 'firebase/auth'
+import { GoogleAuthProvider,signInWithPopup ,FacebookAuthProvider ,deleteUser} from 'firebase/auth'
 import {useNavigate, useSearchParams} from "react-router-dom";
 import ExerciseAPI from "../api/ExerciseAPI";
 import ImgAPI from "../api/ImgAPI";
-import {getDatabase ,ref ,child ,get ,set, update} from "firebase/database";
+import {getDatabase ,ref ,child ,get ,set, update ,remove} from "firebase/database";
 
 const DataContext=createContext({})
 
@@ -423,6 +423,15 @@ export const DataProvider=({children})=>{
     craeteUser(NewUser)
   }
 //database functions
+const deleteAcount=(inputPassword)=>{
+  if(user.userPassword!==inputPassword){
+    errorOccurred('wrong password')
+    return
+  }
+  remove(ref(db ,'users/'+authenticationId))
+  auth.currentUser.delete()
+  signOutFunc()
+}
 const coronateUser=async(target)=>{
   const updates={}
   const {userId ,userCrowns}=target
@@ -486,7 +495,7 @@ const craeteUser=async(userData)=>{
   }
   try{
     const response=await set(ref(db, `users/${authenticationId}`), finalObj);
-    console.log(response)
+    setUser(userData)
   }catch(err){
     errorOccurred(err.message)
   }finally{
@@ -508,7 +517,6 @@ const craeteUser=async(userData)=>{
     }
     try{
       const response=await signInWithPopup(auth ,Provider)
-      console.log(response)
       setUser({...user ,userPhoto:response.user.photoURL})
       setAuthenticationId(response.user.uid)
     }catch(err){
@@ -664,7 +672,7 @@ const moreExercises=async()=>{
 return(
     <DataContext.Provider value={{
         user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,PlatformLogIn ,authenticationId ,setAuthenticationId ,updateUserDetail ,addExeciseToCalendar ,removeExeciseFromCalendar ,editDayName ,emptyDay ,emptyCalendar ,users ,setUsers ,getAllUsers ,calcBMI ,calcBMR ,calcTDEE ,coronateUser
-        ,userProfile ,setUserProfile ,activityTypes ,editUserRefs ,calculations ,editUserDetails
+        ,userProfile ,setUserProfile ,activityTypes ,editUserRefs ,calculations ,editUserDetails ,deleteAcount
     }}>
         {children}
     </DataContext.Provider>

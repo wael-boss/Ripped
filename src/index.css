@@ -165,7 +165,7 @@ background-color: var(--color2);
   place-items: center;
   transition: transform .3s ease-in-out;
 }
-#technicalLinks a:has(svg):is(:hover ,:focus){
+#technicalLinks a:has(svg):is(:hover){
 transform: rotate(90deg);
 }
 #technicalLinks img{
