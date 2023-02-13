@@ -3,7 +3,7 @@ import { Route ,Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Gym from "./pages/Gym";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import SigningPage from "./pages/SigningPage";
 import DataContext from "./context/DataContext";
 import Footer from "./components/Footer";

@@ -91,7 +91,7 @@ const NewProfileData = () => {
                         <option
                         key={activity.label}
                         title={activity.description}
-                        value={activity.factor}
+                        value={activity.label}
                         >{activity.label}
                         </option>
                     )

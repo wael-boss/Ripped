@@ -11,6 +11,7 @@ const EditSecondaryColor = () => {
           <h2>change this <span style={{color:`rgb(${muscleAPIcolor})`}}>color</span>, changes will be applied through the entire site.</h2>
         </div>
         <input
+        id='colorChangeInput'
         type='color'
         formAction='RGB'
         value={colord('rgb('+muscleAPIcolor+')').toHex()}

@@ -39,27 +39,27 @@ export const DataProvider=({children})=>{
       TDEE:{short:"TDEE",long:"Total Daily Energy Expenditure",description:"TDEE represents the total number of calories that a person's body burns in a day, taking into account their BMR as well as their level of physical activity and other factors such as age, sex, and weight. TDEE is often used to determine the number of calories a person needs to consume in order to maintain, gain, or lose weight"}
     }
     const activityTypes = {
-      sedentary: {
+      Sedentary: {
         label: 'Sedentary',
         factor: 1.2,
         description: 'Little to no exercise and a desk job'
       },
-      lightlyActive: {
+      LightlyActive: {
         label: 'Lightly Active',
         factor: 1.375,
         description: 'Light exercise or sports 1-3 days a week'
       },
-      moderatelyActive: {
+      ModeratelyActive: {
         label: 'Moderately Active',
         factor: 1.55,
         description: 'Moderate exercise or sports 3-5 days a week'
       },
-      veryActive: {
+      VeryActive: {
         label: 'Very Active',
         factor: 1.725,
         description: 'Hard exercise or sports 6-7 days a week'
       },
-      extraActive: {
+      ExtraActive: {
         label: 'Extra Active',
         factor: 1.9,
         description: 'Very hard exercise or sports, physical job or training twice a day'
@@ -200,11 +200,29 @@ export const DataProvider=({children})=>{
     // fitness calculations
     const calcBMI=(PROFILE)=>{
       const {userHeight ,userWeight}=PROFILE
-      if(!userHeight || !userWeight) return 'not much info'
+      if(!userHeight || !userWeight) return <p>not much info</p>
+      const indicator={}
       const num=userHeight/100
       let bmi=userWeight/(num*num)
+      if(bmi<18.5){
+        indicator.range='Under weight'
+        indicator.color='yellow'
+      }
+      if(bmi>=18.5 && bmi<=24.9){
+        indicator.range='Healthy weight'
+        indicator.color='green'
+      }
+      if(bmi>=25 && bmi<=29.9){
+        indicator.range='Over weight'
+        indicator.color='red'
+      }
+      if(bmi>=30){
+        indicator.range='Massive'
+        indicator.color='darkred'
+      }
       bmi=Math.round(bmi*100)/100
-      return bmi.toFixed(2)
+
+      return <p>BMI: {bmi.toFixed(2)}<span title={indicator.range} style={{color:indicator.color,marginLeft:'10px',cursor:"pointer"}}>{indicator.range[0]}</span></p>
     }
     const calcBMR=(PROFILE)=>{
       const {userHeight ,userWeight ,userGender ,userAge}=PROFILE
@@ -220,8 +238,13 @@ export const DataProvider=({children})=>{
       const {userHeight ,userWeight ,userGender ,userAge ,userActivityLevel}=PROFILE
       if(!userHeight || !userWeight || !userGender || !userAge || !userActivityLevel) return 'not much info'
       // end
+      let ALF=0
+      Object.entries(activityTypes).map(([key ,value])=>{
+        if(value.label!==userActivityLevel) return
+        ALF=value.factor
+      })
       var bmr = calcBMR(PROFILE)
-      var tdee = (bmr * userActivityLevel)
+      var tdee = (bmr * ALF)
       return tdee.toFixed(2)
     }
     // end
@@ -464,7 +487,6 @@ const craeteUser=async(userData)=>{
   try{
     const response=await set(ref(db, `users/${authenticationId}`), finalObj);
     console.log(response)
-    setUser(userData)
   }catch(err){
     errorOccurred(err.message)
   }finally{

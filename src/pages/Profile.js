@@ -1,9 +1,14 @@
 import { useContext, useEffect, useRef, useState } from "react"
 import { useLocation } from "react-router-dom"
 import DataContext from "../context/DataContext"
-import {MdArrowDropDown} from "react-icons/md"
-import {AiOutlinePlus ,AiOutlineMinus} from "react-icons/ai"
+import {MdArrowDropDown ,MdWork} from "react-icons/md"
+import {AiOutlinePlus ,AiOutlineMinus ,AiOutlineFieldNumber} from "react-icons/ai"
 import {GoSettings} from "react-icons/go"
+import {BsGenderAmbiguous ,BsGenderMale ,BsGenderFemale} from "react-icons/bs"
+import {FaTape} from "react-icons/fa"
+import {TbScaleOutline} from "react-icons/tb"
+import {BiBody} from "react-icons/bi"
+import {GiMeat ,GiFireBowl} from "react-icons/gi"
 import '../css/Profile.css'
 const Profile = () => {
   const {calcBMI ,calcBMR ,calcTDEE ,userProfile ,setUserProfile ,coronateUser ,emptyCalendar ,emptyDay ,errorOccurred ,user ,navigator ,setItemsToAdd ,removeExeciseFromCalendar ,editDayName}=useContext(DataContext)
@@ -34,19 +39,21 @@ const Profile = () => {
           // salute the user func
           coronateUser(userProfile)
         }}>+👑</button>}
+        {!locationUser &&<button id="editProfileAncorBtn" onClick={()=>navigator('/settings/edit_profile')}>Edit profile</button>}
         <MdArrowDropDown style={{transform:isShowingMore ? 'rotate(-180deg)' : 'rotate(0deg)'}} onClick={()=>{
           setIsShowingMore(!isShowingMore)
         }}/>
       </section>
       {isShowingMore &&
       <section id="moreInformation">
-        <p>age: {!userProfile.userAge ? 'not mentioned' : userProfile.userAge}</p>
-        <p>height: {!userProfile.userHeight ? 'not mentioned' : userProfile.userHeight}</p>
-        <p>weight: {!userProfile.userWeight ? 'not mentioned' : userProfile.userWeight}</p>
-        <p>gender: {!userProfile.userGender ? 'not mentioned' : userProfile.userGender}</p>
-        <p>BMI:{calcBMI(userProfile)}</p>
-        <p>BMR:{calcBMR(userProfile)}</p>
-        <p>TDEE:{calcTDEE(userProfile)}</p>
+        <div className="infoContainer"><AiOutlineFieldNumber/><p>age: {!userProfile.userAge ? 'not mentioned' : userProfile.userAge}</p></div>
+        <div className="infoContainer"><FaTape/><p>height: {!userProfile.userHeight ? 'not mentioned' : userProfile.userHeight} cm</p></div>
+        <div className="infoContainer"><TbScaleOutline/><p>weight: {!userProfile.userWeight ? 'not mentioned' : userProfile.userWeight} Kg</p></div>
+        <div className="infoContainer">{!userProfile.userGender ? <BsGenderAmbiguous/> : userProfile.userGender==='male' ? <BsGenderMale style={{color:'#007ecc'}}/> : <BsGenderFemale style={{color:'#ff00ae'}}/>}<p>gender: {!userProfile.userGender ? 'not mentioned' : userProfile.userGender}</p></div>
+        <div className="infoContainer"><BiBody/>{calcBMI(userProfile)}</div>
+        <div className="infoContainer"><GiMeat/><p>BMR: {calcBMR(userProfile)} cal</p></div>
+        <div className="infoContainer"><GiFireBowl/><p>TDEE: {calcTDEE(userProfile)} cal</p></div>
+        <div className="infoContainer"><MdWork/><p>activity level: {!userProfile.userActivityLevel ? 'not mentioned' : userProfile.userActivityLevel}</p></div>
       </section>}
       <section id="calendarSection">
         {!locationUser &&<button id="calendarLightSettingsContainer" onClick={()=>{
@@ -124,9 +131,9 @@ const Profile = () => {
                 dayExercises.map(exercise=>{
                   return(
                     <div>
-                      <p onClick={()=>{
+                      <p style={{cursor:'pointer'}} onClick={()=>{
                         // look at exercise details
-                        navigator(`/exerciseFocus?name=${exercise.split(' ').join('+')}`)
+                        navigator(`/exercise_focus?name=${exercise.split(' ').join('+')}`)
                       }}>{exercise}
                       </p>
                       <hr/>
