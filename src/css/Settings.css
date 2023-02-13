@@ -13,6 +13,7 @@
 }
 #settingsSideBarSection{
     overflow-y: scroll;
+    overflow-x: hidden;
     width: 30vw;
     display: flex;
     flex-direction: column;
@@ -32,6 +33,17 @@
 }
 #settingsMainContentSection{
     width: 70vw;
+}
+#settingContainer{
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#settingContent{
+    flex-grow: 1;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 .settingIntro{
     display: flex;
@@ -110,6 +122,20 @@
     outline: none;
     cursor: pointer;
 }
-option{
-    background-color: red;
+#settingsConfirmatioButtonContainer{
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+    padding: 10px;
+}
+#settingsConfirmatioButtonContainer button{
+    border-radius: 20px;
+    font-size: var(--font-size-B);
+    padding: 5px 20px;
+}
+#settingsConfirmatioButtonContainer>.approve{
+    background-color: var(--color4);
+}
+#settingsConfirmatioButtonContainer>.decline{
+    border: 1px solid var(--shade4);
 }

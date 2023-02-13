@@ -175,7 +175,7 @@ export const DataProvider=({children})=>{
     const [codeShown ,setCodeShown]=useState(true)
     const [error ,setError]=useState(null)
     const [isLoading ,setIsLoading]=useState(false)
-    const [muscleAPIcolor ,setMuscleAPIcolor]=useState('200,100,80')
+    const [muscleAPIcolor ,setMuscleAPIcolor]=useState(localStorage.getItem('secondaryColor') || '200,100,80')
     const [signUpPasswordKeys ,setSignUpPasswordKeys]=useState('')
     const [searchParams ,setSearchParams]=useSearchParams({})
     const [nameSearch ,setNameSearch]=useState('')
@@ -185,7 +185,6 @@ export const DataProvider=({children})=>{
     const [muscleSearch ,setMuscleSearch]=useState('')
     const [generalMuscleImages ,setGeneralMuscleImages]=useState([])
     const [itemsToAdd ,setItemsToAdd]=useState({})
-    const [isNeedingConfermation ,setIsNeedingConfermation]=useState({})
     const [users ,setUsers]=useState([])
     const [userProfile ,setUserProfile]=useState(user) 
     const emailRef=useRef()
@@ -202,10 +201,10 @@ export const DataProvider=({children})=>{
     const calcBMI=(PROFILE)=>{
       const {userHeight ,userWeight}=PROFILE
       if(!userHeight || !userWeight) return 'not much info'
-      userHeight=userHeight/100
-      let bmi=userWeight/(userHeight*userHeight)
+      const num=userHeight/100
+      let bmi=userWeight/(num*num)
       bmi=Math.round(bmi*100)/100
-      return bmi
+      return bmi.toFixed(2)
     }
     const calcBMR=(PROFILE)=>{
       const {userHeight ,userWeight ,userGender ,userAge}=PROFILE
@@ -215,17 +214,15 @@ export const DataProvider=({children})=>{
       } else if (userGender === "female") {
         var bmr=447.6+(9.2*userWeight)+(3.1*userHeight)-(4.3*userAge)
       }
-      return bmr
+      return bmr.toFixed(2)
     }
     const calcTDEE=(PROFILE)=>{
       const {userHeight ,userWeight ,userGender ,userAge ,userActivityLevel}=PROFILE
       if(!userHeight || !userWeight || !userGender || !userAge || !userActivityLevel) return 'not much info'
-
-      // convert activityLevel to numbers
       // end
       var bmr = calcBMR(PROFILE)
-      var tdee = bmr * userActivityLevel
-      return tdee
+      var tdee = (bmr * userActivityLevel)
+      return tdee.toFixed(2)
     }
     // end
     const IMGtoEXERCISEFunc=(img)=>{
@@ -236,34 +233,37 @@ export const DataProvider=({children})=>{
       })
       return exercises
     }
-    const EXERCISEtoIMGFunc=(exercise)=>{
-      let img=[]
-      const contestants=[]
+  const EXERCISEtoIMGFunc=(exercise)=>{
+    let img=[]
+    const contestants=[]
+    dictionary.map(obj=>{
+      if(JSON.stringify(obj.ExerApi) === JSON.stringify(exercise)){
+        img.push(obj.ImgApi)
+      }
+    })
+      if(img.length>0) return img 
       dictionary.map(obj=>{
-        if(JSON.stringify(obj.ExerApi) === JSON.stringify(exercise)){
-          img.push(obj.ImgApi)
+        let testObj={img:obj.ImgApi,arrays:obj.ExerApi.length,matches:0}
+        exercise.map(exer=>{
+          if(obj.ExerApi.includes(exer)){
+            testObj.matches++
+          }
+        })
+        if(testObj.matches){
+          contestants.push(testObj)
         }
       })
-        if(img.length>0) return img 
-        dictionary.map(obj=>{
-          let testObj={img:obj.ImgApi,arrays:obj.ExerApi.length,matches:0}
-          exercise.map(exer=>{
-            if(obj.ExerApi.includes(exer)){
-              testObj.matches++
-            }
-          })
-          if(testObj.matches){
-            contestants.push(testObj)
-          }
-        })
-        contestants.map(contestant=>{
-          if(contestant.arrays<contestant.matches+1){
-            img.push(contestant.img)
-          }
-        })
-        return img
-    }
-
+      contestants.map(contestant=>{
+        if(contestant.arrays<contestant.matches+1){
+          img.push(contestant.img)
+        }
+      })
+      return img
+  }
+  const secondaryColorToLs=useMemo(()=>{
+    localStorage.setItem('secondaryColor' ,muscleAPIcolor)
+    document.documentElement.style.setProperty('--color4',`rgb(${muscleAPIcolor})`)
+  },[muscleAPIcolor])
   const signOutFunc=()=>{
     setAuthenticationId('')
     setUser(emptyUserOBJ)
@@ -326,8 +326,6 @@ export const DataProvider=({children})=>{
       setIsLoading(false)
     }
   }
-
-
   const editDayName=async(day ,newName)=>{
     if(isLoading) return
     let newCalendar=user.userCalendar
@@ -383,6 +381,23 @@ export const DataProvider=({children})=>{
     }finally{
       setIsLoading(false)
     }
+  }
+  // end
+  const editUserDetails=()=>{
+    const newData={}
+    const validGenders=['male' ,'female']
+    Object.entries(editUserRefs).map(([key ,value])=>{
+      if(!value.value.length || !value.value) return
+      if(key==='userGender' && !validGenders.includes(value.value)) return
+      newData[key]=value.value
+    })
+    if(!Object.values(newData).length) return
+    const NewUser={
+      ...user ,
+      ...newData
+    }
+    setUser(NewUser)
+    craeteUser(NewUser)
   }
 //database functions
 const coronateUser=async(target)=>{
@@ -627,7 +642,7 @@ const moreExercises=async()=>{
 return(
     <DataContext.Provider value={{
         user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,PlatformLogIn ,authenticationId ,setAuthenticationId ,updateUserDetail ,addExeciseToCalendar ,removeExeciseFromCalendar ,editDayName ,emptyDay ,emptyCalendar ,users ,setUsers ,getAllUsers ,calcBMI ,calcBMR ,calcTDEE ,coronateUser
-        ,userProfile ,setUserProfile ,activityTypes ,editUserRefs ,calculations
+        ,userProfile ,setUserProfile ,activityTypes ,editUserRefs ,calculations ,editUserDetails
     }}>
         {children}
     </DataContext.Provider>

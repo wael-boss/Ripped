@@ -7,7 +7,7 @@ const NewProfileData = () => {
     useEffect(()=>{
         const inputs=document.querySelectorAll('.editUserInputs')
         inputs.forEach(input=>{
-            editUserRefs[`${input.dataset.content}Input`]=input
+            editUserRefs[`${input.dataset.content}`]=input
         })
     },[])
   return (
@@ -83,9 +83,9 @@ const NewProfileData = () => {
             <div id='activityLevelContainer'>
                 <select id="activityLevelOptions"
                     className='editUserInputs'
-                    data-content='user'
+                    data-content='userActivityLevel'
                 >
-                <option value="null">choose</option>
+                <option value="">choose</option>
                 {Object.values(activityTypes).map(activity=>{
                     return(
                         <option
