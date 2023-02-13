@@ -478,13 +478,15 @@ const getAllUsers=async()=>{
   }
 }
 const updateUserDetail=async(option,data)=>{
+  setIsLoading(true)
   const updates={}
   updates[option]=data
-  const db=getDatabase()
   try{
     const response=await update(ref(db ,`users/${auth.currentUser.uid}`),updates)
   }catch(err){
     errorOccurred(err.message)
+  }finally{
+    setIsLoading(false)
   }
 }
 const craeteUser=async(userData)=>{
