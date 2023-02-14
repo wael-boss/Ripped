@@ -599,7 +599,30 @@ const getMuscleImage=useMemo(async()=>{
   }
 },[exercises])
 
-
+const fixMuscleForce=(exercises)=>{
+  const result=[]
+  const pullMuscles = [
+    "biceps",
+    "latissimus dorsi",
+    "trapezius",
+    "rhomboids",
+    "teres major",
+    "rear deltoids",
+    "brachialis",
+    "forearm extensors",
+    "forearm flexors"
+  ]
+exercises.map(exercise=>{
+  const Obj={...exercise}
+  let isPull=false
+  Object.values(exercise)[2].map(muscle=>{
+    if(pullMuscles.includes(muscle)) isPull=true
+  })
+  if(isPull) Obj.Force='pull'
+  result.push(Obj)
+})
+return result
+}
 const getExercises=async(input)=>{
   setGeneralMuscleImages([])
   if(isLoading) return
@@ -623,9 +646,10 @@ try{
     setExercises([])
     return
   }
-  let execisesArr
+  const filteredExercises=fixMuscleForce(response.data)
+  let execisesArr=[]
   if(isSearchingPrimary){
-     execisesArr=[{muscleType:isSearchingPrimary ? 'Primary' : 'Secondary',muscleGroups:Object.values(response.data[0])[2],data:response.data}]
+     execisesArr=[{muscleType:'Primary',muscleGroups:Object.values(response.data[0])[2],data:filteredExercises}]
   }else{
     let a=[]
     const result=[]
@@ -637,7 +661,7 @@ try{
         result.push(muscle)
       }
     })
-    execisesArr=[{muscleType:isSearchingPrimary ? 'Primary' : 'Secondary',muscleGroups:result,data:response.data}]
+    execisesArr=[{muscleType:'Secondary',muscleGroups:result,data:filteredExercises}]
   }
   setExercises(execisesArr)
 }catch(err){
@@ -663,7 +687,8 @@ const moreExercises=async()=>{
         errorOccurred(`No exercises for ${wantedMuscle} as a ${isSearchingPrimary ? 'Primary' : 'Secondary'}`)
         return
     }
-    const execisesArr={muscleType:isSearchingPrimary ? 'Primary' : 'Secondary',muscleGroups:Object.values(response.data[0])[2],data:response.data}
+    const filteredExercises=fixMuscleForce(response.data)
+    const execisesArr={muscleType:isSearchingPrimary ? 'Primary' : 'Secondary',muscleGroups:Object.values(response.data[0])[2],data:filteredExercises}
     setExercises([...exercises ,execisesArr])
   }catch(err){
     errorOccurred(err.message)
