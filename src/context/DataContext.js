@@ -460,7 +460,6 @@ const getAllUsers=async()=>{
     Object.entries(response).map(arr=>{
       const responseId=arr[0]
       const responseUser=arr[1]
-      if(responseId===authenticationId) return
       const userOBJ={
         ...emptyUserOBJ,
         ...responseUser,

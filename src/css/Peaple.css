@@ -74,3 +74,12 @@
 .userContainer>p{
     font-family: var(---font1);
 }
+#userFollowersIntro{
+    display: flex;
+    justify-content: center;
+}
+#userFollowersIntro h1{
+    font-size: var(--font-size-B);
+    font-family: var(--font1);
+    color: var(--color4);
+}

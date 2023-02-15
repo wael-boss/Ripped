@@ -11,7 +11,7 @@ import {BiBody} from "react-icons/bi"
 import {GiMeat ,GiFireBowl} from "react-icons/gi"
 import '../css/Profile.css'
 const Profile = () => {
-  const {calcBMI ,calcBMR ,calcTDEE ,userProfile ,setUserProfile ,coronateUser ,emptyCalendar ,emptyDay ,errorOccurred ,user ,navigator ,setItemsToAdd ,removeExeciseFromCalendar ,editDayName}=useContext(DataContext)
+  const {users ,calcBMI ,calcBMR ,calcTDEE ,userProfile ,setUserProfile ,coronateUser ,emptyCalendar ,emptyDay ,errorOccurred ,user ,navigator ,setItemsToAdd ,removeExeciseFromCalendar ,editDayName}=useContext(DataContext)
   const location=useLocation()
   const locationUser=!location.state ? null : location.state.user
   const [isShowingMore ,setIsShowingMore]=useState(false)
@@ -29,7 +29,11 @@ const Profile = () => {
         <div id="profileGlmipse">
           <div id="headers">
           <h1>{userProfile.userName}</h1>
-          <p>{userProfile.userCrowns.length}👑</p>
+          <p onClick={()=>{
+            errorOccurred(`${userProfile.userName} has no followers`)
+            const allFollowing=users.filter(user=>userProfile.userCrowns.includes(user.userId))
+            navigator('/peaple' ,{state:{followers:[...allFollowing, {deletedAcounts:userProfile.userCrowns.length-allFollowing.length ,userName:'deleted'}],user:userProfile.userName}} )
+          }}>{userProfile.userCrowns.length}👑</p>
           </div>
           <div id="subHeaders">
             <h2>{userProfile.userBio}</h2>

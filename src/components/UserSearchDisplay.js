@@ -6,7 +6,9 @@ const UserSearchDisplay = ({users}) => {
   return (
     <div id='usersContainer'>
       {users.map(user=>{
-      return(<div className="userContainer" onClick={()=>{
+        if(user.deletedAcounts==undefined){
+        return(
+      <div className="userContainer" onClick={()=>{
         navigator('/profile' ,{state:{user:user}})
       }}>
         <div className="userDetails">
@@ -19,8 +21,19 @@ const UserSearchDisplay = ({users}) => {
           </div>
         </div>
         <p>👑{user.userCrowns.length}</p>
-    </div>)
-    })}</div>
+    </div>
+    )}
+    if(user.deletedAcounts>0){
+      return(
+      <div className="userContainer">
+        <div className="userDetails">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCg82ukYsHu6RhCL5frZWulTBv0161i72wWg&usqp=CAU"/>
+        <p>{user.deletedAcounts} {user.deletedAcounts==1 ? 'follower': 'followers'} deleted their acounts</p>
+        </div>
+      </div>)
+    }
+    })}
+  </div>
   )
 }
 
