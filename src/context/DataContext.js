@@ -187,11 +187,13 @@ export const DataProvider=({children})=>{
     const [itemsToAdd ,setItemsToAdd]=useState({})
     const [users ,setUsers]=useState([])
     const [userProfile ,setUserProfile]=useState(user) 
+    const [nameInput ,setNameInput]=useState('')
+    const [isValidName ,setIsValidName]=useState(true)
+    const [editUserRefs ,setEditUserRefs]=useState({})
     const emailRef=useRef()
     const passwordCheck=useRef()
     const signInPasswordRef=useRef()
     const muscleChoiceInput=useRef()
-    let editUserRefs={}
     const navigator=useNavigate()
     //functions
     const ConfirmationTab=(string)=>{
@@ -407,20 +409,30 @@ export const DataProvider=({children})=>{
   }
   // end
   const editUserDetails=()=>{
+    if(!isValidName){
+      errorOccurred('invalid name')
+      return
+    }
     const newData={}
     const validGenders=['male' ,'female']
+    console.log(editUserRefs) 
     Object.entries(editUserRefs).map(([key ,value])=>{
       if(!value.value.length || !value.value) return
       if(key==='userGender' && !validGenders.includes(value.value)) return
+      // if(user[key]===value.value) return
       newData[key]=value.value
     })
-    if(!Object.values(newData).length) return
+    if(!Object.values(newData).length){
+      errorOccurred('nothing was changed')
+      return
+    }
     const NewUser={
       ...user ,
       ...newData
     }
     setUser(NewUser)
     craeteUser(NewUser)
+    navigator('/profile')
   }
 //database functions
 const deleteAcount=(inputPassword)=>{
@@ -698,7 +710,7 @@ const moreExercises=async()=>{
 return(
     <DataContext.Provider value={{
         user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,PlatformLogIn ,authenticationId ,setAuthenticationId ,updateUserDetail ,addExeciseToCalendar ,removeExeciseFromCalendar ,editDayName ,emptyDay ,emptyCalendar ,users ,setUsers ,getAllUsers ,calcBMI ,calcBMR ,calcTDEE ,coronateUser
-        ,userProfile ,setUserProfile ,activityTypes ,editUserRefs ,calculations ,editUserDetails ,deleteAcount
+        ,userProfile ,setUserProfile ,activityTypes ,editUserRefs ,calculations ,editUserDetails ,deleteAcount,nameInput ,setNameInput ,isValidName ,setIsValidName ,setEditUserRefs
     }}>
         {children}
     </DataContext.Provider>

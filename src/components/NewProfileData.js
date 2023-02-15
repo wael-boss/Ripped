@@ -2,10 +2,8 @@ import { useContext, useEffect, useMemo, useState } from 'react'
 import DataContext from '../context/DataContext'
 import {BsCheckLg ,BsXLg} from 'react-icons/bs'
 const NewProfileData = () => {
-    const {getAllUsers ,users ,user ,activityTypes ,editUserRefs ,calculations}=useContext(DataContext)
+    const {setEditUserRefs ,isValidName ,setIsValidName ,nameInput ,setNameInput ,getAllUsers ,users ,user ,activityTypes ,editUserRefs ,calculations}=useContext(DataContext)
     const {userName ,userBio ,userPhoto ,userAge ,userHeight ,userWeight ,userGender ,userActivityLevel}=user
-    const [nameInput ,setNameInput]=useState('')
-    const [isValidName ,setIsValidName]=useState(true)
     const validNameCheck=useMemo(()=>{
         const allNames=[]
         users.map(user=>allNames.push(user.userName))
@@ -16,11 +14,13 @@ const NewProfileData = () => {
         setIsValidName(true)
     },[nameInput])
     useEffect(()=>{
+        let finalObj={}
         const inputs=document.querySelectorAll('.editUserInputs')
         inputs.forEach(input=>{
-            editUserRefs[`${input.dataset.content}`]=input
+            finalObj[`${input.dataset.content}`]=input
         })
-        if(!users.length) getAllUsers()
+        setEditUserRefs(finalObj)
+        getAllUsers()
     },[])
     return (
     <form id='editUserForm'>
