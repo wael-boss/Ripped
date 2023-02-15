@@ -1,28 +1,46 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import DataContext from '../context/DataContext'
-
+import {BsCheckLg ,BsXLg} from 'react-icons/bs'
 const NewProfileData = () => {
-    const {user ,activityTypes ,editUserRefs ,calculations}=useContext(DataContext)
+    const {getAllUsers ,users ,user ,activityTypes ,editUserRefs ,calculations}=useContext(DataContext)
     const {userName ,userBio ,userPhoto ,userAge ,userHeight ,userWeight ,userGender ,userActivityLevel}=user
+    const [nameInput ,setNameInput]=useState('')
+    const [isValidName ,setIsValidName]=useState(true)
+    const validNameCheck=useMemo(()=>{
+        const allNames=[]
+        users.map(user=>allNames.push(user.userName))
+        if(allNames.includes(nameInput) || !nameInput.length || nameInput.length>15){
+            setIsValidName(false)
+            return
+        }
+        setIsValidName(true)
+    },[nameInput])
     useEffect(()=>{
         const inputs=document.querySelectorAll('.editUserInputs')
         inputs.forEach(input=>{
             editUserRefs[`${input.dataset.content}`]=input
         })
+        if(!users.length) getAllUsers()
     },[])
-  return (
+    return (
     <form id='editUserForm'>
         <div id='priorirtyOne'>
             {/* on drop = func */}
             <img src={userPhoto}/>
-            <div className='inputContainer'>
+            <div className='inputContainer' id='nameInputContainer'>
                 <label>name: </label>
                 <input
+                style={{color:isValidName ? 'green' : 'red'}}
                 className='editUserInputs'
                 type='text'
                 placeholder={userName}
                 data-content='userName'
+                value={nameInput}
+                onChange={(e)=>{
+                    setNameInput(e.target.value.trim())
+                }}
                 />
+                {isValidName ? <BsCheckLg style={{color:'green'}}/> : <BsXLg style={{color:'red'}}/>}
             </div>
             <div className='inputContainer'>
                 <label>bio: </label>

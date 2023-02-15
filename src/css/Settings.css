@@ -193,3 +193,17 @@
     background-color: var(--shade1);
     border-color: var(--color4);
 }
+#nameInputContainer{
+    position: relative;
+}
+#nameInputContainer input{
+    padding-right: 40px;
+}
+#nameInputContainer svg{
+    position: absolute;
+    top:50%;
+    bottom:50%;
+    right: 10px;
+    font-size: 20px;
+    transform: translateY(-50%);
+}
