@@ -7,7 +7,7 @@ const NewProfileData = () => {
     const validNameCheck=useMemo(()=>{
         const allNames=[]
         users.map(user=>allNames.push(user.userName))
-        if(allNames.includes(nameInput) || !nameInput.length || nameInput.length>15){
+        if(allNames.includes(nameInput) || !nameInput.length || nameInput.length>20){
             setIsValidName(false)
             return
         }
@@ -30,7 +30,7 @@ const NewProfileData = () => {
             <div className='inputContainer' id='nameInputContainer'>
                 <label>name: </label>
                 <input
-                style={{color:isValidName ? 'green' : 'red'}}
+                style={{color:!nameInput.length  ? '#fff' : isValidName ? 'green' : 'red'}}
                 className='editUserInputs'
                 type='text'
                 placeholder={userName}

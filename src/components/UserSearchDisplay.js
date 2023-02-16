@@ -2,14 +2,14 @@ import { useContext } from "react"
 import DataContext from "../context/DataContext"
 
 const UserSearchDisplay = ({users}) => {
-  const {navigator}=useContext(DataContext)
+  const {authenticationId ,navigator}=useContext(DataContext)
   return (
     <div id='usersContainer'>
       {users.map(user=>{
         if(user.deletedAcounts==undefined){
         return(
       <div className="userContainer" onClick={()=>{
-        navigator('/profile' ,{state:{user:user}})
+        navigator('/profile' ,user.userId==authenticationId ? '' : {state:{user:user}})
       }}>
         <div className="userDetails">
           <img src={user.userPhoto}/>

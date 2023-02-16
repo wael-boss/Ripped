@@ -82,4 +82,5 @@
     font-size: var(--font-size-B);
     font-family: var(--font1);
     color: var(--color4);
+    cursor: pointer;
 }

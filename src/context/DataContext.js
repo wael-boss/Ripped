@@ -419,7 +419,7 @@ export const DataProvider=({children})=>{
     Object.entries(editUserRefs).map(([key ,value])=>{
       if(!value.value.length || !value.value) return
       if(key==='userGender' && !validGenders.includes(value.value)) return
-      // if(user[key]===value.value) return
+      if(user[key]===value.value) return
       newData[key]=value.value
     })
     if(!Object.values(newData).length){
@@ -435,6 +435,33 @@ export const DataProvider=({children})=>{
     navigator('/profile')
   }
 //database functions
+const replaceDayByNew=async(oldDayData ,newDayData)=>{
+const newCalendar=[]
+user.userCalendar.map(day=>{
+  if(day[1]===oldDayData[1]) return newCalendar.push(newDayData)
+  newCalendar.push(day)
+})
+try{
+  setIsLoading(true)
+  const response=await updateUserDetail('userCalendar',JSON.stringify(newCalendar))
+  setUser({...user ,userCalendar:newCalendar})
+}catch(err){
+  errorOccurred(err.message)
+}finally{
+  setIsLoading(false)
+}
+}
+const replaceEntireCalendar=async(newCalendar)=>{
+try{
+  setIsLoading(true)
+  const response=await updateUserDetail('userCalendar',JSON.stringify(newCalendar))
+  setUser({...user ,userCalendar:newCalendar})
+}catch(err){
+  errorOccurred(err.message)
+}finally{
+  setIsLoading(false)
+}
+}
 const deleteAcount=(inputPassword)=>{
   if(user.userPassword!==inputPassword){
     errorOccurred('wrong password')
@@ -449,8 +476,7 @@ const coronateUser=async(target)=>{
   const {userId ,userCrowns}=target
   updates.userCrowns=[...userCrowns ,authenticationId]
   if(userCrowns.includes(authenticationId)){
-    errorOccurred('you already proformed this action')
-    return
+    updates.userCrowns=userCrowns.filter(followerId=>followerId!==authenticationId)
   }
   try{
     const response=await update(ref(db ,`users/${userId}`),updates)
@@ -710,7 +736,7 @@ const moreExercises=async()=>{
 return(
     <DataContext.Provider value={{
         user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,PlatformLogIn ,authenticationId ,setAuthenticationId ,updateUserDetail ,addExeciseToCalendar ,removeExeciseFromCalendar ,editDayName ,emptyDay ,emptyCalendar ,users ,setUsers ,getAllUsers ,calcBMI ,calcBMR ,calcTDEE ,coronateUser
-        ,userProfile ,setUserProfile ,activityTypes ,editUserRefs ,calculations ,editUserDetails ,deleteAcount,nameInput ,setNameInput ,isValidName ,setIsValidName ,setEditUserRefs
+        ,userProfile ,setUserProfile ,activityTypes ,editUserRefs ,calculations ,editUserDetails ,deleteAcount,nameInput ,setNameInput ,isValidName ,setIsValidName ,setEditUserRefs ,replaceDayByNew ,replaceEntireCalendar
     }}>
         {children}
     </DataContext.Provider>
