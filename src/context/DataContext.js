@@ -415,8 +415,11 @@ export const DataProvider=({children})=>{
     }
     const newData={}
     const validGenders=['male' ,'female']
-    console.log(editUserRefs) 
     Object.entries(editUserRefs).map(([key ,value])=>{
+      if(key==='userPhoto'){
+        newData[key]=value.src
+        return
+      }
       if(!value.value.length || !value.value) return
       if(key==='userGender' && !validGenders.includes(value.value)) return
       if(user[key]===value.value) return

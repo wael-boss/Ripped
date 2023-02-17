@@ -23,7 +23,7 @@
   box-sizing: border-box;
   font-family: var(--font2);
 }
-*:is(p ,div ,span ,a ,button ,input){
+*:is(p ,div ,span ,a ,button ,input ,select){
   color: #fff;
 }
 .btnStyle1{
@@ -170,8 +170,8 @@ transform: rotate(90deg);
 }
 #technicalLinks img{
   width: 35px;
+  aspect-ratio: 1/1;
   border-radius: 50%;
-  transition: all .3s ease-in-out;
 }
 main{
   width: 100%;

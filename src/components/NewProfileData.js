@@ -2,17 +2,20 @@ import { useContext, useEffect, useMemo, useState } from 'react'
 import DataContext from '../context/DataContext'
 import {BsCheckLg ,BsXLg} from 'react-icons/bs'
 const NewProfileData = () => {
-    const {setEditUserRefs ,isValidName ,setIsValidName ,nameInput ,setNameInput ,getAllUsers ,users ,user ,activityTypes ,editUserRefs ,calculations}=useContext(DataContext)
+    const {errorOccurred ,setEditUserRefs ,isValidName ,setIsValidName ,nameInput ,setNameInput ,getAllUsers ,users ,user ,activityTypes ,editUserRefs ,calculations}=useContext(DataContext)
     const {userName ,userBio ,userPhoto ,userAge ,userHeight ,userWeight ,userGender ,userActivityLevel}=user
+    const pasteHandeler=(e)=>{
+        console.log(e)
+    }
     const validNameCheck=useMemo(()=>{
-        const allNames=[]
-        users.map(user=>allNames.push(user.userName))
-        if(allNames.includes(nameInput) || !nameInput.length || nameInput.length>20){
-            setIsValidName(false)
-            return
-        }
-        setIsValidName(true)
-    },[nameInput])
+    const allNames=[]
+    users.map(user=>allNames.push(user.userName))
+    if(allNames.includes(nameInput) || !nameInput.length || nameInput.length>20){
+        setIsValidName(false)
+        return
+    }
+    setIsValidName(true)
+},[nameInput])
     useEffect(()=>{
         let finalObj={}
         const inputs=document.querySelectorAll('.editUserInputs')
@@ -26,7 +29,26 @@ const NewProfileData = () => {
     <form id='editUserForm'>
         <div id='priorirtyOne'>
             {/* on drop = func */}
-            <img src={userPhoto}/>
+            <img
+            src={userPhoto}
+            onDragOver={(e)=>{
+                e.preventDefault()
+                e.dataTransfer.dropEffect = 'link';
+            }}
+            onDrop={(e)=>{
+                e.preventDefault()
+                e.stopPropagation()
+                const url=e.dataTransfer.getData('URL');
+                if(!url.length){
+                    errorOccurred('not a valid image')
+                    return
+                }
+                e.target.src=url
+            }}
+            data-content='userPhoto'
+            className='editUserInputs'
+            title='drop a picture link from the web'
+            />
             <div className='inputContainer' id='nameInputContainer'>
                 <label>name: </label>
                 <input
@@ -40,7 +62,7 @@ const NewProfileData = () => {
                     setNameInput(e.target.value.trim())
                 }}
                 />
-                {isValidName ? <BsCheckLg style={{color:'green'}}/> : <BsXLg style={{color:'red'}}/>}
+                {isValidName ? <BsCheckLg style={{color:'green'}}/> : <BsXLg onClick={()=>{setNameInput('')}} style={{cursor:'pointer',color:'red'}}/>}
             </div>
             <div className='inputContainer'>
                 <label>bio: </label>
