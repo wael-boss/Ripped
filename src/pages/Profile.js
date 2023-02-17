@@ -25,6 +25,14 @@ const Profile = () => {
   const editInputRef=useRef()
   useEffect(()=>{
     setUserProfile(!locationUser ? user : locationUser)
+    setIsShowingMore(false)
+    setIsShowingSettings(false)
+    setSettingOption(0)
+    setDayToEdit('')
+    setGetNewDay({
+      new:'',
+      old:''
+    })
   },[locationUser])
   return (
     <main id="profilePage">
@@ -178,8 +186,31 @@ const Profile = () => {
           const dayCounter=day[0]
           const dayName=day[1]
           const dayExercises=day[2]
+          let timeDay=''
+          switch (new Date().getDay()) {
+            case 0:
+              timeDay = "Sunday";
+              break;
+            case 1:
+              timeDay = "Monday";
+              break;
+            case 2:
+              timeDay = "Tuesday";
+              break;
+            case 3:
+              timeDay = "Wednesday";
+              break;
+            case 4:
+              timeDay = "Thursday";
+              break;
+            case 5:
+              timeDay = "Friday";
+              break;
+            case 6:
+              timeDay = "Saturday";
+          }
           return(
-            <div key={dayCounter} className="day">
+            <div key={dayCounter} style={{backgroundColor:timeDay===dayCounter && 'var(--shade1)'}} className="day">
               <div className="dayCounter"><hr/><p>{dayCounter.substring(0 ,3)}</p><hr/></div>
               <div className="dayName"><hr/><p>{dayName}</p><hr/></div>
               <div className="dayExercises" style={{gridTemplateColumns:!dayExercises.length ? '1fr' : 'repeat(2 ,1fr)'}}>

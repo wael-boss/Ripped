@@ -92,6 +92,7 @@ padding: 20px 30px;
 }
 #lightSettings{
     display: flex;
+    flex-direction: column;
     width: 100%;
     border-radius: 10px;
     overflow: hidden;
@@ -102,10 +103,8 @@ padding: 20px 30px;
 #lightSettings p:hover{
     background-color: var(--shade3);
 }
-#settingsLogic{
-    flex-grow: 1;
+#settingsLogic{min-height: 150px;
     background-color: var(--shade1);
-
 }
 .settingContent{
     display: flex;
@@ -148,11 +147,15 @@ padding: 20px 30px;
     border-color: var(--color4);
 }
 #settingsOptions{
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    justify-content: space-evenly;
+    background-image:linear-gradient(transparent 0% 10% , var(--shade2) 10% 100%);
 }
 #settingsOptions p{
     font: 500 var(--font-size-S) var(--font1);
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
 }
 #calendar{
     width: 100%;

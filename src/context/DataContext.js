@@ -24,13 +24,13 @@ export const DataProvider=({children})=>{
       userGender:null,
       userActivityLevel:null,
       userCalendar:[
-      ['saturday','day1',[]],
-      ['sunday','day2',[]],
-      ['monday','day3',[]],
-      ['tuesday','day4',[]],
-      ['wednesday','day5',[]],
-      ['thursday','day6',[]],
-      ['friday','day7',[]]
+      ['Saturday','day1',[]],
+      ['Sunday','day2',[]],
+      ['Monday','day3',[]],
+      ['Tuesday','day4',[]],
+      ['Wednesday','day5',[]],
+      ['Thursday','day6',[]],
+      ['Friday','day7',[]]
     ]
     }
     const calculations={
@@ -409,7 +409,7 @@ export const DataProvider=({children})=>{
   }
   // end
   const editUserDetails=()=>{
-    if(!isValidName){
+    if(nameInput.length && !isValidName){
       errorOccurred('invalid name')
       return
     }
@@ -436,9 +436,13 @@ export const DataProvider=({children})=>{
   }
 //database functions
 const replaceDayByNew=async(oldDayData ,newDayData)=>{
+  if(!oldDayData ,!oldDayData){
+    errorOccurred('not enaugh data to proform action')
+    return
+  }
 const newCalendar=[]
 user.userCalendar.map(day=>{
-  if(day[1]===oldDayData[1]) return newCalendar.push(newDayData)
+  if(day[1]===oldDayData[1]) return newCalendar.push([day[0] ,day[1] ,newDayData[2]])
   newCalendar.push(day)
 })
 try{

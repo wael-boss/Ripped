@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import {AiFillEye} from 'react-icons/ai'
 import DataContext from "../context/DataContext"
 const SignUp = () => {
-    const {navigator ,codeShown ,setCodeShown ,emailRef ,handleSignUp ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys}=useContext(DataContext)
+    const {errorOccurred ,navigator ,codeShown ,setCodeShown ,emailRef ,handleSignUp ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys}=useContext(DataContext)
   return (
     <div className="formsContainer">
         <div className="signingInfo">
@@ -22,7 +22,8 @@ const SignUp = () => {
                 return
             }
             handleSignUp()
-            navigator('/')
+            navigator('/settings/edit_profile')
+            errorOccurred('input your information for better experience')
         }}>
             <input
             ref={emailRef}
