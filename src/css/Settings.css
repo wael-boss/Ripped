@@ -60,6 +60,16 @@
     font:500 var(--font-size-M) var(--font1);
     width: 100%;
     padding:5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+#fastSettingAcces>button>svg{
+    transition: color .2s ease-in-out;
+}
+#fastSettingAcces>button:is(:hover ,:focus)>svg{
+    color: red;
 }
 #settingsMainContentSection{
     width: 70vw;

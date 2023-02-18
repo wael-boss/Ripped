@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import DataContext from '../context/DataContext'
 import '../css/Home.css'
 
@@ -14,6 +14,19 @@ const Home = () => {
     {author:"Wayne Dyer",quote:"Go the extra mile. It’s never crowded."},
     {author:"Sean Patrick Flanery",quote:"Do something today that your future self will thank you for."}
   ]
+  const observer = new IntersectionObserver(entries => {
+    console.log(entries)
+    entries.forEach(entry => {
+      const intersecting = entry.isIntersecting
+      if(intersecting){
+        console.log(entry.target)
+      }
+    })
+  })
+  useEffect(()=>{
+    const container = document.getElementById('heroSection');
+    observer.observe(container)
+  },[])
   const randomQuoteFunc=()=>{
     const rndmNum=Math.floor(Math.random()*quotes.length)
     return(
@@ -44,25 +57,28 @@ const Home = () => {
           <img src='/images/hero1.png'/>
         </div>
       </section>
-      <section>
+      <section className='invisible'>
       <p>Section</p>
       </section>
-      <section>
+      <section className='invisible'>
       <p>Section</p>
       </section>
-      <section>
+      <section className='invisible'>
       <p>Section</p>
       </section>
-      <section>
+      <section className='invisible'>
       <p>Section</p>
       </section>
-      <section>
+      <section className='invisible'>
       <p>Section</p>
       </section>
-      <section>
+      <section className='invisible'>
       <p>Section</p>
       </section>
-      <section>
+      <section className='invisible'>
+      <p>Section</p>
+      </section>
+      <section className='invisible'>
       <p>Section</p>
       </section>
     </main>
