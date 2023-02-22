@@ -23,7 +23,7 @@ const SigningPage = () => {
             <Routes>
               <Route path='/' element={<SignIn/>}/>
               <Route path='/signUp' element={<SignUp/>}/>
-              <Route path='/*' element={<Link to='/'>back to signing page</Link>}/>
+              <Route path='/*' element={<SignIn/>}/>
             </Routes>
             </>}
         </section>

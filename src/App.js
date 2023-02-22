@@ -11,7 +11,6 @@ import Missing from "./pages/Missing";
 import ErrorPopUp from "./components/ErrorPopUp";
 import LoadingScreen from "./components/LoadingScreen";
 import ExerciseFocus from "./pages/ExerciseFocus";
-import User from "./pages/User";
 import AddWorkout from "./components/AddWorkout";
 import Settings from "./pages/Settings";
 import Profile from "./pages/Profile";
@@ -20,6 +19,7 @@ import EditProfile from "./components/Settings/EditProfile";
 import EditSecondaryColor from "./components/Settings/EditSecondaryColor";
 import ChangePassword from "./components/Settings/ChangePassword";
 import DeleteAcount from "./components/Settings/DeleteAcount";
+import './css/responsiveness.css'
 function App() {
   const {user}=useContext(DataContext)
   return (
@@ -35,7 +35,6 @@ function App() {
           <Route path="/gym" element={<Gym/>}/>
           <Route path="/about" element={<About/>}/>
           <Route path="/exercise_focus" element={<ExerciseFocus/>}/>
-          <Route path="/user" element={<User/>}/>
           <Route path="/peaple" element={<Peaple/>}/>
           <Route path="/settings" element={<Settings/>}>
             <Route path="edit_profile" element={<EditProfile/>}/>

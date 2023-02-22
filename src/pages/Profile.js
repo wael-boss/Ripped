@@ -41,7 +41,7 @@ const Profile = () => {
         <div id="profileGlmipse">
           <div id="headers">
           <h1>{userProfile.userName}</h1>
-          <p onClick={()=>{
+          <button onClick={()=>{
             if(userProfile.userCrowns.length===0){
               errorOccurred(`${userProfile.userName} has no followers`)
               return
@@ -49,7 +49,7 @@ const Profile = () => {
             }
             const allFollowing=users.filter(user=>userProfile.userCrowns.includes(user.userId))
             navigator('/peaple' ,{state:{followers:[...allFollowing, {deletedAcounts:userProfile.userCrowns.length-allFollowing.length ,userName:'deleted'}],user:userProfile.userName}} )
-          }}>{userProfile.userCrowns.length}👑</p>
+          }}>{userProfile.userCrowns.length}👑</button>
           </div>
           <div id="subHeaders">
             <h2>{userProfile.userBio}</h2>

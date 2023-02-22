@@ -29,7 +29,7 @@ const Gym = () => {
           <button
           id='moreExercisesBtn'
           onClick={moreExercises}
-          >More exercises
+          >get {musclesLeft[0]} exercises
           </button>}
           </div>
         </section>
