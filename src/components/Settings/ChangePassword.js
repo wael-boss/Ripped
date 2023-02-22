@@ -10,8 +10,8 @@ const ChangePassword = () => {
   <div id='settingContainer'>
     <div id="settingContent">
     <div className='settingIntro'>
-      <h1>Edit profile</h1>
-      <h2>edit your profile information</h2>
+      <h1>change password</h1>
+      <h2>input your the new password and confirm it</h2>
     </div>
     <form id="changePasswordForm" onSubmit={(e)=>{
         e.preventDefault()

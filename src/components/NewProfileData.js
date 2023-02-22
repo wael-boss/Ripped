@@ -94,6 +94,7 @@ const NewProfileData = () => {
                     placeholder={userHeight}
                     data-content='userHeight'
                     />
+                    <p>Cm</p>
                 </div>
                 <div className='inputContainer'>
                     <label>weight: </label>
@@ -103,6 +104,7 @@ const NewProfileData = () => {
                     placeholder={userWeight}
                     data-content='userWeight'
                     />
+                    <p>Kg</p>
                 </div>
                 <div className='inputContainer'>
                     <label>gender: </label>

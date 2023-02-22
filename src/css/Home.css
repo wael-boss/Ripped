@@ -6,6 +6,7 @@
     padding: 0 70px;
     background: url(https://media.istockphoto.com/id/1135438279/photo/room-with-concrete-floor-and-smoke.jpg?b=1&s=612x612&w=0&k=20&c=Ag9O5iUwDTtqYw5JRmv-cLFdAIoEginBUNVvYyVkwHk=) no-repeat;
     background-size: cover;
+    --bounce:bez;
 }
 #heroContent{
     width:45%;
@@ -37,21 +38,6 @@
     padding: 5px 10px;
     position: relative;
 }
-#heroButtonContainer button::before{
-    content: '';
-    position: absolute;
-    bottom: -35%;
-    right:-10%;
-    background-color: var(--color4);
-    width: 20%;
-    aspect-ratio:1 / 1;
-    border-radius: 50%;
-    filter: blur(18px);
-    transition: transform .3s ease-out;
-  }
-  #heroButtonContainer button:is(:hover ,:focus)::before{
-    transform:translate(-500%,-100%) ;
-  }
 #heroImage{
     height: 75vh;
     width: 50%;
@@ -60,6 +46,10 @@
     height: 100%;
     width: 100%;
 }
+.observed{
+    transition: all .4s ease-out .2s;
+    opacity: 0;
+}
 .visible{
-background-color: red;
+    opacity: 1;
 }

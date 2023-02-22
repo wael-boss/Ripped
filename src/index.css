@@ -28,10 +28,6 @@
 }
 .btnStyle1{
   background: linear-gradient(130deg ,var(--color2) 93% ,transparent 90%);
-  transition: transform .3s ease-out;
-}
-.btnStyle1:is(:hover ,:focus){
-  transform:scale(1.05) ;
 }
 body {
   margin: 0;
