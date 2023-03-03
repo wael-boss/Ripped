@@ -5,9 +5,10 @@ import DataContext from "../context/DataContext"
 import ImgAPI from "../api/ImgAPI"
 import '../css/ExerciseFocus.css'
 import {FaPlus ,FaPaperclip} from 'react-icons/fa'
+import {TiArrowBack} from 'react-icons/ti'
 
 const ExerciseFocus = () => {
-  const {setItemsToAdd ,muscleAPIcolor ,EXERCISEtoIMGFunc ,setSearchParams ,searchParams ,errorOccurred ,setIsLoading}=useContext(DataContext)
+  const {navigator ,setItemsToAdd ,muscleAPIcolor ,EXERCISEtoIMGFunc ,setSearchParams ,searchParams ,errorOccurred ,setIsLoading}=useContext(DataContext)
   const location=useLocation()
   const [exerciseFocus ,setExerciseFocus]=useState(null)
   const [isGettingImage ,setIsGettingImage]=useState(false)
@@ -104,6 +105,12 @@ const convertBlob=(blob)=>{
       {exerciseFocus ? 
       <div id="exerciseContainer">
         <section id="muscleInfo">
+          <div onClick={()=>{
+              navigator('gym')
+              }} id="backLink">
+            <p>back</p>
+            <TiArrowBack/>
+          </div>
           <div id="pageIntro">
             <h1>- {exerciseFocus.Name}</h1>
             <div id="funcButtons">

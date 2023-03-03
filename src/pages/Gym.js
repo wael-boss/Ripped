@@ -1,12 +1,15 @@
 import '../css/Gym.css'
 import MuscleSearch from '../components/MuscleSearch'
 import NameSearch from '../components/NameSearch'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import DataContext from '../context/DataContext'
 import ExerciseSort from '../components/ExerciseSort'
 const Gym = () => {
-  const {exercises ,musclesLeft ,moreExercises ,testState}=useContext(DataContext)
+  const {exercises ,musclesLeft ,moreExercises ,setItemsToAdd}=useContext(DataContext)
   let i=-1
+  useEffect(()=>{
+    setItemsToAdd({})
+  })
     return (
       <main>
         <section id='searchSection'>

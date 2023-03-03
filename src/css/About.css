@@ -1,0 +1,66 @@
+#aboutPage section{
+    padding: 40px 0;
+    position: relative;
+    background-color: transparent;
+}
+#aboutPage section>img{
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: grayscale(1);
+    transition: filter .3s ease-in-out;
+}
+#textContainer{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    background-color:#000000d7;
+    width: 80%;
+    padding: 20px;
+    z-index: 2;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    position: relative;
+}
+#textContainer::before{
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 100px;
+    height: 100px;
+    background-image:linear-gradient(270deg ,var(--color2) ,var(--color3));
+    border-radius: 56% 44% 38% 62% / 61% 31% 69% 39%;
+    animation: turnLoop 10s linear infinite;
+}
+#textContainer::after{
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 100px;
+    height: 100px;
+    background-image:linear-gradient(45deg ,var(--color2) ,var(--color3));
+    border-radius: 29% 71% 26% 74% / 55% 72% 28% 45% ;
+    animation: turnLoop 10s linear infinite;
+}
+@keyframes turnLoop {
+    0%{
+        rotate: 0;
+    }
+    100%{
+        rotate: 360deg;
+    }
+}
+#textContainer h1{
+    font: 700  var(--font-size-B) var(--font1);
+    border-bottom: 2px solid var(--color2);
+}
+#textContainer p{
+    font-size: var(--font-size-M);
+}
