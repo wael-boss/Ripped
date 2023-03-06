@@ -8,7 +8,7 @@ import {FaPlus ,FaPaperclip} from 'react-icons/fa'
 import {TiArrowBack} from 'react-icons/ti'
 
 const ExerciseFocus = () => {
-  const {navigator ,setItemsToAdd ,muscleAPIcolor ,EXERCISEtoIMGFunc ,setSearchParams ,searchParams ,errorOccurred ,setIsLoading}=useContext(DataContext)
+  const {setItemsToAdd ,muscleAPIcolor ,EXERCISEtoIMGFunc ,setSearchParams ,searchParams ,errorOccurred ,setIsLoading}=useContext(DataContext)
   const location=useLocation()
   const [exerciseFocus ,setExerciseFocus]=useState(null)
   const [isGettingImage ,setIsGettingImage]=useState(false)
@@ -97,9 +97,6 @@ const convertBlob=(blob)=>{
       behavior:'smooth',
     })
   },[showingPimage])
-  const handleCopy=()=>{
-    navigator.clipboard.writeText(window.location.href)
-  }
   return (
     <main>
       {exerciseFocus ? 
@@ -117,7 +114,7 @@ const convertBlob=(blob)=>{
               <button
               title="share workout"
               onClick={()=>{
-                handleCopy()
+                navigator.clipboard.writeText(window.location.href)
               }}
               ><FaPaperclip/></button>
               <button

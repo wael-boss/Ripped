@@ -48,6 +48,7 @@ const NewProfileData = () => {
             data-content='userPhoto'
             className='editUserInputs'
             title='drop a picture link from the web'
+            alt='drop a picture link from the web'
             />
             <div className='inputContainer' id='nameInputContainer'>
                 <label>name: </label>

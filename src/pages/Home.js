@@ -58,6 +58,9 @@ const Home = () => {
           <img src='/images/hero1.png'/>
         </div>
       </section>
+      <section className='observed'></section>
+      <section className='observed'></section>
+      <section className='observed'></section>
     </main>
   )
 }

@@ -105,6 +105,24 @@
     opacity: 0.1;
     margin: auto;
 }
+#resultsContainer>button{
+    width: fit-content;
+    padding: 5px 20px;
+    font-size: var(--font-size-M);
+    margin: auto;
+    border: 2px solid var(--color4);
+    border-radius: 20px;
+    transition: border .2s ease-in-out;
+}
+#resultsContainer>button>span{
+    transition: color .2s ease-in-out;
+}
+#resultsContainer>button:is(:hover ,:focus){
+    border-color:var(--color3);
+}
+#resultsContainer>button:is(:hover ,:focus)>span{
+    color: var(--color4);
+}
 .exerciseGroup{
     width: 100%;
     display: flex;
@@ -172,6 +190,10 @@
     background-image: linear-gradient(90deg ,var(--shade5)0% 10% ,var(--shade1) 50% 100%);
     border-top:2px solid var(--color4) ;
     border-bottom:2px solid var(--color4) ;
+    transition: border .2s ease-in-out;
+}
+.exercise:is(:hover ,:focus){
+    border-color: var(--color3);
 }
 .exercise *{
     font-size: var(--font-size-M);

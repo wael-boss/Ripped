@@ -9,7 +9,7 @@ const Gym = () => {
   let i=-1
   useEffect(()=>{
     setItemsToAdd({})
-  })
+  },[])
     return (
       <main>
         <section id='searchSection'>
@@ -32,7 +32,7 @@ const Gym = () => {
           <button
           id='moreExercisesBtn'
           onClick={moreExercises}
-          >get {musclesLeft[0]} exercises
+          >Next muscle group (<span> {musclesLeft[0]} </span>)
           </button>}
           </div>
         </section>

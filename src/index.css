@@ -26,7 +26,7 @@
 ::selection{
   background-color: var(--color2);
 }
-*:is(p ,div ,span ,a ,button ,input ,select){
+*:is(p ,div ,span ,a ,button ,input ,select ,textarea){
   color: #fff;
 }
 .btnStyle1{
@@ -185,14 +185,6 @@ section:nth-child(odd){
 section:nth-child(even){
   background-color:#030303;
 }
-footer{
-  width: 100%;
-  background-color: var(--color1);
-  display: flex;
-  justify-content: center;
-  font: 400 30px var(--font1);
-  padding: 10px 0;
-}
 /* error popup */
 #errorPopUp{
   position: fixed;
@@ -298,4 +290,126 @@ footer{
 }
 .dayContainer button:is(:hover ,:focus){
   background-color: var(--shade3);
+}
+footer{
+  width: 100%;
+  background-color: var(--color1);
+  display: flex;
+  padding: 70px 30px 10px 30px;
+  justify-content: space-between;
+}
+#signature{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#signatureLogo{
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+#signatureLogo img{
+  width: 23px;
+}
+#signatureLogo p{
+  font: 700 23px var(--font1);
+}
+#FooterAncors{
+  font-size: 18px;
+}
+#FooterAncors a:is(:hover ,:focus ,.active){
+  color: var(--color3);
+}
+#copyRight{
+  font-size: 14px;
+  opacity: .6;
+}
+#copyRight>span{
+  font-weight: 600;
+}
+#links{
+  display: flex;
+  gap: 30px;
+}
+#links>.linkSection{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+#links>.linkSection h3{
+  font-size: 20px;
+  position: relative;
+  margin-bottom: 7px;
+}
+#links>.linkSection h3::before{
+  content: '';
+  position: absolute;
+  top: calc(100% + 2px);
+  width: 50%;
+  height: 2px;
+  background-color: var(--color3);
+}
+#links>.linkSection p{
+  font-size: 14px;
+  opacity: .8;
+  transition: all .3s ease-in-out;
+  cursor: pointer;
+}
+#links>.linkSection p:is(:hover ,:focus){
+  opacity: 1;
+  transform:translateX(10px) ;
+}
+#contactForm{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+#contactForm form{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+#contactForm form div{
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  column-gap: 10px;
+}
+#contactForm div *{
+  font-size: 18px;
+}
+#contactForm form div>:nth-child(2){
+  background-color: var(--color1);
+  border: none;
+  border-bottom: 1px solid var(--color3);
+  flex-grow: 1;
+  outline: none;
+}
+#contactForm form button{
+  background-color: var(--color2);
+  font-size: 18px;
+}
+#contactForm form div>:nth-child(2):is(:hover ,:focus){
+  border-bottom: 1px solid var(--color2);
+}
+#platforms{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+#platforms >div{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+#platforms .platform{
+  font-size: 20px;
+  cursor: pointer;
+}
+#platforms .platform:is(:hover ,:focus){
+  color: var(--color3);
 }

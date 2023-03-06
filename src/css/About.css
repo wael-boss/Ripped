@@ -2,6 +2,7 @@
     padding: 40px 0;
     position: relative;
     background-color: transparent;
+    overflow: hidden;
 }
 #aboutPage section>img{
     position: absolute;
@@ -22,13 +23,14 @@
     width: 80%;
     padding: 20px;
     z-index: 2;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
     border-radius: 20px;
     position: relative;
 }
 #textContainer::before{
     content: '';
+    filter: blur(13px);
     position: absolute;
     top: -50px;
     left: -50px;
@@ -40,6 +42,7 @@
 }
 #textContainer::after{
     content: '';
+    filter: blur(13px);
     position: absolute;
     bottom: -50px;
     right: -50px;
