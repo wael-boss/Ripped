@@ -103,27 +103,47 @@ const Home = () => {
         <h1 className='sectionHeader'>how we benefit you</h1>
         <div id='columnsContainer'>
           <div className='column'>
-            <div className='imageSide'>
+            <div className='imageSide observed'>
               <img className='circularSlogan' src='images/circular-slogan.png'/>
               <img className='columnImg' src='images/connectivity.png'/>
             </div>
-            <div className='textSide'></div>
+            <div className='textSide observed'>
+              <span className='columnNum observed'>1</span>
+              <h2>- Connectivity</h2>
+              <p>Connecting with others who share similar interests and goals is an important aspect of achieving success in any area of life, including fitness. At Ripped, we understand the importance of community and support when it comes to fitness, which is why we've created a platform that allows users to socialize and connect with others who are working towards similar goals.</p>
+              <p>Our website includes features such as a user profile network, where users can view each other's progress and offer support and encouragement. We also have a forum where users can connect with one another, share their experiences, and ask questions. Additionally, we host events, challenges, and competitions that allow users to connect and compete with one another, fostering a sense of community and motivation.</p>
+              <p>By socializing with other users on our website, you can gain valuable insights, receive support and encouragement, and stay motivated on your fitness journey. Whether you're looking to build muscle, lose weight, or simply maintain a healthy lifestyle, Ripped is the perfect platform to connect with others and achieve your fitness goals.</p>
+            </div> 
           </div>
           {/*  */}
           <div className='column'>
-            <div className='textSide'></div>
-            <div className='imageSide'>
+            <div className='textSide observed'>
+              <span className='columnNum observed'>2</span>
+              <h2>- Get In Shape</h2>
+              <p>Are you looking to get in shape and improve your overall fitness? At Ripped, we're here to help. Our website is designed to provide you with everything you need to achieve your fitness goals and get in the best shape of your life.</p>
+              <p>We offer a wide range of exercises and workout routines, each designed to target different muscle groups and help you build strength, endurance, and flexibility. Our exercises come with detailed instructions and images, so you can be sure you're doing them correctly and safely.</p>
+              <p>In addition to our exercises, we also offer a calendar feature that allows you to plan your workouts and track your progress over time. You can easily add exercises to your calendar at a day of your choice and keep track of your performance to see how far you've come.</p>
+            </div>
+            <div className='imageSide observed'>
               <img className='columnImg' src='images/bothgendersinshape.png'/>
               <img className='circularSlogan' src='images/circular-slogan.png'/>
             </div>
           </div>
           {/*  */}
           <div className='column'>
-            <div className='imageSide'>
+            <div className='imageSide observed'>
               <img className='circularSlogan' src='images/circular-slogan.png'/>
               <img className='columnImg' src='images/timefix.png'/>
             </div>
-            <div className='textSide'></div>
+            <div className='textSide observed'>
+            <span className='columnNum observed'>3</span>
+              <h2>- save time</h2>
+              <p>We understand that time is precious, and that's why we've designed Ripped to help you get the most out of your workouts in the shortest amount of time possible.</p>
+              <p>Our exercises are designed to be efficient and effective, so you can get a full-body workout in just a few minutes. We offer exercises that target multiple muscle groups at once, allowing you to get the most out of each movement and save time in the process.</p>
+              <p>And with our calendar feature, you can easily plan your workouts ahead of time and schedule them at a time that works best for you. You can also track your progress over time and see how much you've accomplished in just a few short minutes each day.</p>
+              <p>In addition to our time-saving exercises and calendar feature, we also offer a user profile network where you can connect with other users who are working towards similar goals. This allows you to share your experiences, get tips and advice, and receive support and encouragement from a community of like-minded individuals, all while saving time and getting in shape.</p>
+              <p>With Ripped, you can achieve your fitness goals and save time in the process. Try us out today and see how much you can accomplish in just a few minutes a day.</p>
+            </div>
           </div>
           {/*  */}
         </div>

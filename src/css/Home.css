@@ -134,9 +134,24 @@
     display: flex;
     justify-content: space-between
 }
+.column>div{
+    transition: all .3s ease-out;
+    opacity: 0;
+}
+.column>div:is(.visible){
+    transform: translateX(0%);
+    opacity: 1;
+}
+.column>:nth-child(odd){
+    transform: translateX(-100px);
+}
+.column>:nth-child(even){
+    transform: translateX(100px);
+}
 .imageSide{
     width: 40%;
     aspect-ratio: 1/1;
+    height: fit-content;
     background-color: var(--shade1);
     border-radius: 50%;
     display: grid;
@@ -144,7 +159,7 @@
     position: relative;
 }
 .columnImg{
-    width:80%;
+    width:85%;
 }
 .circularSlogan{
     width: 100px;
@@ -168,4 +183,43 @@
   }
 .textSide{
     width:48%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 0;
+}
+.textSide::after{
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0px;
+    width: 70px;
+    height: 4px;
+    border-radius: 5px;
+    background-color: var(--color3);
+}
+.columnNum{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-size: 350px;
+    font-family: var(--font1);
+    color: var(--color2);
+    opacity: 0;
+    z-index: 1;
+    transition: all .5s ease-in-out .3s;
+}
+.columnNum:is(.visible){
+    opacity: .8;
+}
+.textSide h2{
+    font: 600 var(--font-size-B) var(--font1);
+    margin-bottom: 10px;
+    z-index: 2;
+}
+.textSide p{
+    font-size: calc(var(--font-size-M) - 4px);
+    z-index: 2;
+    line-height: 30px;
 }
