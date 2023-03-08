@@ -28,7 +28,7 @@ const Header = () => {
             <NavLink to='/peaple'>
               <div className='ancorContent'>
                 <RiUserSearchFill/>
-                <p>peaple</p>
+                <p>people</p>
               </div>
             </NavLink>
             <NavLink to='/gym'>

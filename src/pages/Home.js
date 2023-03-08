@@ -1,12 +1,10 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect} from 'react'
 import DataContext from '../context/DataContext'
 import '../css/Home.css'
 import {TbSocial} from 'react-icons/tb'
 import {GiStrong ,GiProgression} from 'react-icons/gi'
-import GymShark from '../api/GymShark'
-import { set } from 'firebase/database'
 const Home = () => {
-  const {navigator ,errorOccurred}=useContext(DataContext)
+  const {navigator}=useContext(DataContext)
   const quotes=[
     {author:"Ronnie Coleman",quote:"The real workout starts when you want to stop."},
     {author:"Dwayne ‘The Rock’ Johnson",quote:"Wake up determined. Go to bed satisfied."},
@@ -101,8 +99,34 @@ const Home = () => {
             </div>
           </div>
       </section>
-      <section id='productsSetcion'>
-        <h1 className='sectionHeader'>Gym Equipment</h1>
+      <section id='columnsSection'>
+        <h1 className='sectionHeader'>how we benefit you</h1>
+        <div id='columnsContainer'>
+          <div className='column'>
+            <div className='imageSide'>
+              <img className='circularSlogan' src='images/circular-slogan.png'/>
+              <img className='columnImg' src='images/connectivity.png'/>
+            </div>
+            <div className='textSide'></div>
+          </div>
+          {/*  */}
+          <div className='column'>
+            <div className='textSide'></div>
+            <div className='imageSide'>
+              <img className='columnImg' src='images/bothgendersinshape.png'/>
+              <img className='circularSlogan' src='images/circular-slogan.png'/>
+            </div>
+          </div>
+          {/*  */}
+          <div className='column'>
+            <div className='imageSide'>
+              <img className='circularSlogan' src='images/circular-slogan.png'/>
+              <img className='columnImg' src='images/timefix.png'/>
+            </div>
+            <div className='textSide'></div>
+          </div>
+          {/*  */}
+        </div>
       </section>
     </main>
   )

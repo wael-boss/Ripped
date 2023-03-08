@@ -29,7 +29,7 @@
     opacity: 0;
 }
 #quoteHeader span:is(.visible){
-    transition: opacity .1s ease-out;
+    transition: opacity .01s ease-out;
     opacity: 1;
 }
 #quotesContainer p{
@@ -117,4 +117,55 @@
 .textContainer{
     font-size: var(--font-size-S);
     text-align: center;
+}
+#columnsSection{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#columnsContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.column{
+    width: 90%;
+    display: flex;
+    justify-content: space-between
+}
+.imageSide{
+    width: 40%;
+    aspect-ratio: 1/1;
+    background-color: var(--shade1);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    position: relative;
+}
+.columnImg{
+    width:80%;
+}
+.circularSlogan{
+    width: 100px;
+    position: absolute;
+    top: 70%;
+    animation: infiniteCircleLoop 10s linear infinite;
+}
+.circularSlogan:nth-child(odd){
+    right: 0px;
+}
+.circularSlogan:nth-child(even){
+    left: 0px;
+}
+@keyframes infiniteCircleLoop {
+    0%{
+      transform: rotate(0deg);
+    }
+    100%{
+      transform: rotate(360deg);
+    }
+  }
+.textSide{
+    width:48%;
 }
