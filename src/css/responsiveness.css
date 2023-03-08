@@ -1,6 +1,10 @@
 /* break ponts for all pages */
 @media (width<1200px){
     /* root */
+    :root{
+        --font-size-B:28px;
+        --font-size-M:23px;
+    }
     /* home */
     /* peaple */
     /* gym */

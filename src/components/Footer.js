@@ -12,7 +12,7 @@ const Footer = () => {
           <p>IPPED</p>
         </div>
         <div id="FooterAncors">
-          <NavLink to='/'>home</NavLink> | <NavLink to='/peaple'>peaple</NavLink> | <NavLink to='/gym'>gym</NavLink> | <NavLink to='profile'>profile</NavLink> | <NavLink to='settings'>settings</NavLink>
+          <NavLink to='/'>home</NavLink> | <NavLink to='/peaple'>peaple</NavLink> | <NavLink to='/gym'>gym</NavLink> | <NavLink to='about'>about</NavLink> | <NavLink to='profile'>profile</NavLink> | <NavLink to='settings'>settings</NavLink>
         </div>
         <p id="copyRight">Copyright &copy; <span>Ripped</span> all rights reserved</p>
         <div id="platforms">
@@ -49,6 +49,7 @@ const Footer = () => {
             type='text'
             placeholder={user.userName}
             onDoubleClick={e=>e.target.value=user.userName}
+            title='double click to auto-fill'
             />
           </div>
           <div>
@@ -57,6 +58,7 @@ const Footer = () => {
             type='email'
             placeholder={user.userEmail}
             onDoubleClick={e=>e.target.value=user.userEmail}
+            title='double click to auto-fill'
             />
           </div>
           <div>

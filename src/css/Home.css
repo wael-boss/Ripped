@@ -6,7 +6,6 @@
     padding: 0 70px;
     background: url(https://media.istockphoto.com/id/1135438279/photo/room-with-concrete-floor-and-smoke.jpg?b=1&s=612x612&w=0&k=20&c=Ag9O5iUwDTtqYw5JRmv-cLFdAIoEginBUNVvYyVkwHk=) no-repeat;
     background-size: cover;
-    --bounce:bez;
 }
 #heroContent{
     width:45%;
@@ -23,8 +22,15 @@
     flex-direction: column;
     gap: 15px;
 }
-#quotesContainer h2{
+#quoteHeader{
     font-size: var(--font-size-B);
+}
+#quoteHeader span{
+    opacity: 0;
+}
+#quoteHeader span:is(.visible){
+    transition: opacity .1s ease-out;
+    opacity: 1;
 }
 #quotesContainer p{
     font-size: var(--font-size-M);
@@ -47,9 +53,68 @@
     width: 100%;
 }
 .observed{
-    transition: all .4s ease-out .2s;
+    transition: all .3s ease-out;
+}
+#introSection{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.sectionHeader{
+    font:600 var(--font-size-B) var(--font1);
+    margin-bottom: 40px;
+}
+#introBlocks{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    cursor: pointer;
+}
+.introBlock{
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: all .3s ease-out;
+    transform: translateY(50%);
     opacity: 0;
 }
-.visible{
+.introBlock:nth-child(1){
+    transition-delay: .1s;
+}
+.introBlock:nth-child(2){
+    transition-delay: .2s;
+}
+.introBlock:nth-child(3){
+    transition-delay: .3s;
+}
+.introBlock:is(.visible){
+    transform: translateY(0%);
     opacity: 1;
+}
+.imageContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.imageContainer svg{
+    font-size:35px;
+    transition: transform .3s ease-in-out;
+    color: var(--color2);
+}
+.imageContainer svg:is(:hover ,:focus){
+    transform: translateY(-5px);
+}
+.imageContainer h2{
+    font-size: var(--font-size-M);
+    transition: color .3s ease-in-out;
+}
+.imageContainer h2:is(:hover ,:focus){
+    color: var(--color3);
+}
+.textContainer{
+    font-size: var(--font-size-S);
+    text-align: center;
 }
