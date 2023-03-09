@@ -14,7 +14,7 @@ const Gym = () => {
       <main>
         <section id='searchSection'>
           <MuscleSearch/>
-          -OR-
+          <p id='OR'>-OR-</p>
           <NameSearch/>
         </section>
         <section id='resultsSection'>

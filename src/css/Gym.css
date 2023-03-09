@@ -28,6 +28,9 @@
     width: 50%;
     height: 30px;
 }
+#OR{
+    font-size: var(--font-size-M);
+}
 #musclesForm button{
     border-radius: 20px 0 0 20px;
 }
@@ -86,6 +89,10 @@
 #resultsSection #intro *{
     text-align: center;
 }
+#resultsSection #intro h2 {
+    padding: 0 20px;
+    font-size: var(--font-size-B);
+}
 #resultsContainer{
     display: flex;
     flex-direction: column;
@@ -93,6 +100,7 @@
     gap: 20px;
     min-height: 70vh;
     position: relative;
+    padding-bottom: 60px;
 }
 #resultsContainer>img{
     position: absolute;
@@ -106,7 +114,12 @@
     margin: auto;
 }
 #resultsContainer>button{
-    width: fit-content;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    right: 50%;
+    width: 80%;
+    transform: translate(-50% ,-50%);
     padding: 5px 20px;
     font-size: var(--font-size-M);
     margin: auto;
@@ -197,6 +210,9 @@
 }
 .exercise *{
     font-size: var(--font-size-M);
+}
+.exercise p{
+    text-align: center;
 }
 .exercise>img{
     width: 10%;

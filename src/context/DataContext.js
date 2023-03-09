@@ -654,7 +654,8 @@ const fixMuscleForce=(exercises)=>{
     "rear deltoids",
     "brachialis",
     "forearm extensors",
-    "forearm flexors"
+    "forearm flexors",
+    "abdominals"
   ]
 exercises.map(exercise=>{
   const Obj={...exercise}

@@ -5,9 +5,24 @@
         --font-size-B:28px;
         --font-size-M:23px;
     }
-    /* home */
-    /* people */
     /* gym */
+    #musclesForm {
+        width: 70%;
+    }
+    #nameForm {
+        width: 70%;
+    }
+    .exercise {
+        padding: 0 10px;
+    }
+    .exerciseInfo>img {
+        min-width: 15%;
+        max-width: 15%;
+    }
+    .exerciseInfo .loadingMuscleImg {
+        min-width: 15%;
+        max-width: 15%;
+    }
     /* about */
     /* profile */
     /* settings */
@@ -31,6 +46,15 @@
     }
     /* people */
     /* gym */
+    #musclesForm {
+        width: 85%;
+    }
+    #nameForm {
+        width: 85%;
+    }
+    .exercise * {
+        font-size: calc(var(--font-size-M) - 4px);
+    }
     /* about */
     /* profile */
     /* settings */
@@ -67,11 +91,29 @@
     }
     /* people */
     /* gym */
+    #searchSection {
+        padding: 20px;
+    }
+    #searchSection>div {
+        width: 44%;
+    }
+    #musclesForm {
+        width: 100%;
+    }
+    #nameForm {
+        width: 100%;
+    }
     /* about */
     /* profile */
     /* settings */
     /* components */
     header nav {
+        display: none;
+    }
+    #technicalLinks{
+        display: block;
+    }
+    #technicalLinks svg{
         display: none;
     }
     footer{
@@ -105,6 +147,39 @@
         padding: 10px 0 10px 8%;
     }
     /* gym */
+    #searchSection {
+        flex-direction: column;
+        gap: 10px;
+    }
+    #searchSection>div {
+        width:65%;
+    }
+    #musclesForm {
+        width: 100%;
+    }
+    #nameForm {
+        width: 100%;
+    }
+    #resultsSection #intro h2 {
+        padding: 0 10px;
+    }
+    .exerciseContainer {
+        grid-template-columns: 1fr;
+    }
+    #resultsContainer {
+        padding-bottom: 40px;
+    }
+    .exerciseInfo>img {
+        min-width: 20%;
+        max-width: 20%;
+    }
+    .exerciseInfo .loadingMuscleImg {
+        min-width: 20%;
+        max-width: 20%;
+    }
+    .exercise * {
+        font-size:var(--font-size-M);
+    }
     /* about */
     /* profile */
     /* settings */
@@ -127,8 +202,38 @@
     }
     /* people */
     /* gym */
+    .exerciseInfo {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .exerciseInfo>p {
+        text-align: center;
+    }
+    .exerciseInfo>img {
+        min-width: 40%;
+        max-width: 40%;
+    }
+    .exerciseInfo .loadingMuscleImg {
+        min-width: 40%;
+        max-width: 40%;
+    }
+    #searchSection>div {
+        width:100%;
+    }
+    #musclesForm {
+        width: 100%;
+    }
+    #nameForm {
+        width: 100%;
+    }
+    #resultsContainer>button {
+        width: 95%;
+    }
     /* about */
     /* profile */
     /* settings */
     /* components */
+    #technicalLinks img{
+        display: none;
+    }
 }
