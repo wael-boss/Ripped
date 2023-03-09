@@ -11,45 +11,118 @@
     /* about */
     /* profile */
     /* settings */
-    /* pop ups */
+    /* components */
 }
 @media (width<992px){
     /* root */
+    :root{
+        --font-size-B:25px;
+        --font-size-M:20px;
+    }
     /* home */
+    .introBlock {
+        width: 30%;
+    }
+    .textSide p {
+        line-height: 23px;
+    }
+    .columnNum{
+        font-size: 300px;
+    }
     /* peaple */
     /* gym */
     /* about */
     /* profile */
     /* settings */
-    /* pop ups */
+    /* components */
 }
 @media (width<768px){
     /* root */
+    :root{
+        --font-size-B:22px;
+        --font-size-M:17px;
+    }
     /* home */
+    #heroImage {
+        display: none;
+    }
+    #heroSection {
+        min-height: 55vh;
+        padding: 0 40px;
+    }
+    #heroContent {
+        width: 100%;
+    }
+    .imageSide{
+        display: none;
+    }
+    .textSide {
+        width: 100%;
+    }
+    .columnNum{
+        font-size: 200px;
+    }
+    .textSide p {
+        line-height: 17px;
+    }
     /* peaple */
     /* gym */
     /* about */
     /* profile */
     /* settings */
-    /* pop ups */
+    /* components */
+    header nav {
+        display: none;
+    }
+    footer{
+        flex-direction: column;
+        align-items: center;
+    }
 }
 @media (width<576px){
     /* root */
+    :root{
+        --font-size-B:20px;
+        --font-size-S:15px;
+    }
     /* home */
+    #heroSection {
+        padding: 0 15px;
+    }
+    #introBlocks {
+        flex-wrap: wrap;
+        width: 90%;
+    }
+    .introBlock {
+        min-width: 40%;
+        flex-grow: 1;
+    }
     /* peaple */
     /* gym */
     /* about */
     /* profile */
     /* settings */
-    /* pop ups */
+    /* components */
 }
 @media (width<450px){
     /* root */
+    :root{
+        --font-size-B:18px;
+        --font-size-M:16px;
+        --font-size-S:14px;
+    }
     /* home */
+    #introBlocks{
+        flex-direction: column;
+        gap: 20px;
+    }
+    .introBlock{
+        width: 100%;
+    }
     /* peaple */
     /* gym */
     /* about */
     /* profile */
     /* settings */
-    /* pop ups */
+    /* components */
 }

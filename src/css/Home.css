@@ -110,6 +110,7 @@
 .imageContainer h2{
     font-size: var(--font-size-M);
     transition: color .3s ease-in-out;
+    font-weight: 600;
 }
 .imageContainer h2:is(:hover ,:focus){
     color: var(--color3);
@@ -117,6 +118,9 @@
 .textContainer{
     font-size: var(--font-size-S);
     text-align: center;
+}
+.textContainer p{
+    font-size: calc(var(--font-size-M) - 4px);
 }
 #columnsSection{
     display: flex;
@@ -214,12 +218,12 @@
     opacity: .8;
 }
 .textSide h2{
-    font: 600 var(--font-size-B) var(--font1);
+    font: 600 var(--font-size-M) var(--font1);
     margin-bottom: 10px;
     z-index: 2;
 }
 .textSide p{
-    font-size: calc(var(--font-size-M) - 4px);
+    font-size: calc(var(--font-size-M) - 5px);
     z-index: 2;
     line-height: 30px;
 }
