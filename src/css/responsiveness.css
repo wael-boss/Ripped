@@ -6,7 +6,7 @@
         --font-size-M:23px;
     }
     /* home */
-    /* peaple */
+    /* people */
     /* gym */
     /* about */
     /* profile */
@@ -29,7 +29,7 @@
     .columnNum{
         font-size: 300px;
     }
-    /* peaple */
+    /* people */
     /* gym */
     /* about */
     /* profile */
@@ -65,7 +65,7 @@
     .textSide p {
         line-height: 17px;
     }
-    /* peaple */
+    /* people */
     /* gym */
     /* about */
     /* profile */
@@ -97,7 +97,13 @@
         min-width: 40%;
         flex-grow: 1;
     }
-    /* peaple */
+    /* people */
+    #usersContainer {
+        grid-template-columns: 1fr;
+    }
+    #userSearchForm>input {
+        padding: 10px 0 10px 8%;
+    }
     /* gym */
     /* about */
     /* profile */
@@ -119,7 +125,7 @@
     .introBlock{
         width: 100%;
     }
-    /* peaple */
+    /* people */
     /* gym */
     /* about */
     /* profile */
