@@ -18,7 +18,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
     background-color:#000000d7;
     width: 80%;
     padding: 20px;
@@ -63,6 +63,7 @@
 #textContainer h1{
     font: 700  var(--font-size-B) var(--font1);
     border-bottom: 2px solid var(--color2);
+    margin-bottom: 10px;
 }
 #textContainer p{
     font-size: var(--font-size-M);

@@ -230,6 +230,14 @@
         width: 95%;
     }
     /* about */
+    #textContainer {
+        width: 100%;
+        border-radius: 0;
+        padding: 10px;
+    }
+    #aboutPage section{
+        padding: 0;
+    }
     /* profile */
     /* settings */
     /* components */

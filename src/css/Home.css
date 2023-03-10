@@ -212,7 +212,7 @@
     color: var(--color2);
     opacity: 0;
     z-index: 1;
-    transition: all .5s ease-in-out .3s;
+    transition: all .5s ease-in-out .5s;
 }
 .columnNum:is(.visible){
     opacity: .8;
