@@ -5,18 +5,22 @@ background-color: var(--color1);
 padding: 20px 30px;
 }
 #profileIntro{
-    display: flex;
+    display:grid;
+    grid-template-columns: .5fr 3fr 2fr .5fr;
     align-items: center;
-    gap: 5%;
-    height: 15vh;
+    justify-content: center;
+    min-height: 15vh;
+}
+#profileIntro >*{
+    margin: auto;
 }
 #profileIntro img{
-    height: 100%;
+    width: 75px;
     aspect-ratio: 1/1;
     border-radius: 50%;
 }
 #profileIntro #profileGlmipse{
-    flex-grow: 1;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -201,7 +205,11 @@ padding: 20px 30px;
 .day .dayExercises{
     flex-grow: 1;
     display: grid;
+    grid-template-columns:repeat(2 ,1fr);
     column-gap: 10px;
+}
+.day .dayExercises:is(.empty){
+    grid-template-columns:1fr;
 }
 .dayExercises>div{
     display: flex;

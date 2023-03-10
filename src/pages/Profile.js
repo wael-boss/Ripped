@@ -60,9 +60,10 @@ const Profile = () => {
           coronateUser(userProfile ,userProfile.userCrowns.includes(authenticationId) ? 'unfollow' : 'follow')
         }}>{userProfile.userCrowns.includes(authenticationId) ? '-' : '+'}👑</button>}
         {!locationUser &&<button id="editProfileAncorBtn" onClick={()=>navigator('/settings/edit_profile')}>Edit profile</button>}
-        <MdArrowDropDown style={{transform:isShowingMore ? 'rotate(-180deg)' : 'rotate(0deg)'}} onClick={()=>{
-          setIsShowingMore(!isShowingMore)
-        }}/>
+        <div id="moreInfoContainer"
+        onClick={()=>setIsShowingMore(!isShowingMore)}>
+          <MdArrowDropDown style={{transform:isShowingMore ? 'rotate(-180deg)' : 'rotate(0deg)'}}/>
+        </div>
       </section>
       {isShowingMore &&
       <section id="moreInformation">
@@ -211,9 +212,9 @@ const Profile = () => {
           }
           return(
             <div key={dayCounter} style={{backgroundColor:timeDay===dayCounter && 'var(--shade1)'}} className="day">
-              <div className="dayCounter"><hr/><p>{dayCounter.substring(0 ,3)}</p><hr/></div>
+              <div className="dayCounter"><hr/><p style={{color:timeDay===dayCounter && 'var(--color3)'}}>{dayCounter.substring(0 ,3)}</p><hr/></div>
               <div className="dayName"><hr/><p>{dayName}</p><hr/></div>
-              <div className="dayExercises" style={{gridTemplateColumns:!dayExercises.length ? '1fr' : 'repeat(2 ,1fr)'}}>
+              <div className={`dayExercises ${!dayExercises.length ? 'empty' : ''}` }>
                 {!dayExercises.length ? 
                 <div>
                     <hr/>
