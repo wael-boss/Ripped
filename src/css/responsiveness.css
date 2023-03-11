@@ -82,7 +82,23 @@
     #exerciseContainer>#muscleImages {
         width: 40%;
     }
+    #signingPageMain #formsSection {
+        gap: -1px;
+    }
     /* signing page */
+    #siteDetails img {
+        width: 50px;
+    }
+    #siteDetails {
+        gap: 10px;
+    }
+    #signingPageMain #formsSection {
+        padding: 20px 0 10px 0  ;
+    }
+    #siteDetails p {
+        text-align: left;
+        font-size: calc(var(--font-size-S) + 1px);
+    }
     /* components */
 }
 @media (width<768px){
@@ -142,8 +158,20 @@
         place-items: center;
     }
     /* settings */
-    /* exercise focus */
     /* signing page */
+    #signingPageMain #backgroundSection {
+        width:45%;
+        border-radius: 40px 0 0 40px;
+    }
+    #signingPageMain #backgroundSection img {
+        border-radius: 40px 0 0 40px;
+    }
+    #signingPageMain #formsSection {
+        width: 55%;
+    }
+    #siteDetails p {
+        font-size: calc(var(--font-size-S) + 3px);
+    }
     /* components */
     header nav {
         display: none;
@@ -322,6 +350,12 @@
         transform: translateX(0%);
     }
     /* signing page */
+    #signingPageMain #backgroundSection {
+        display: none;
+    }
+    #signingPageMain #formsSection {
+        width: 100%;
+    }
     /* components */
 }
 @media (width<450px){
@@ -391,6 +425,12 @@
         padding: 10px 0;
     }
     /* signing page */
+    #siteDetails h1 {
+        font-size: calc(var(--font-size-B) + 2px);
+    }
+    #signingToPlatform div>svg {
+        font-size: var(--font-size-B);
+    }
     /* components */
     #technicalLinks img{
         display: none;

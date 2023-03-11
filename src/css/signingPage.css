@@ -17,7 +17,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    gap: 30px;
+    gap: 5px;
 }
 #signingPageMain #formsSection{
     width: 40%;
@@ -25,8 +25,9 @@
     display: flex;
     flex-direction: column;
     padding-top:30px;
-    gap:30px;
+    gap:60px;
     align-items: center;
+    min-height: 100vh;
 }
 #intro{
     display: flex;
@@ -39,11 +40,14 @@
     width: 60px;
 }
 #intro h1{
-    font:500 30px var(--font1);
+    font:500 var(--font-size-B) var(--font1);
     letter-spacing: -3px;
 }
 #intro p{
-    font-size:15px;
+    font-size:var(--font-size-S);
+}
+.signingIdentifier{
+    font-size: var(--font-size-B);
 }
 .signingInfo{
     display: flex;
@@ -51,7 +55,7 @@
     gap: 10px;
 }
 .signingForm{
-    width: 250px;
+    width:90%;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -70,6 +74,7 @@
     border: 2px solid var(--color2);
     border-radius: 8px;
     outline: none;
+    font-size: var(--font-size-S);
 }
 .signingForm input:is(:hover ,:focus){
     background-color: var(--shade2);
@@ -123,6 +128,7 @@
     height: 100%;
     object-fit:fill;
     border-radius: 60px 0 0 60px;
+    filter:brightness(.5) grayscale(1) hue-rotate(120deg);
 }
 /* end */
 #introToSite{

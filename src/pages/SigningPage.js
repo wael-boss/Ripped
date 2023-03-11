@@ -28,7 +28,7 @@ const SigningPage = () => {
             </>}
         </section>
         <section id="backgroundSection">
-          {/* <img src="/images/standing.jpg"/> */}
+          <img src="https://images.unsplash.com/photo-1576678927484-cc907957088c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGd5bXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"/>
         </section>
     </main>
   )
