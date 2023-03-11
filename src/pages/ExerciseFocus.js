@@ -103,7 +103,7 @@ const convertBlob=(blob)=>{
       <div id="exerciseContainer">
         <section id="muscleInfo">
           <div onClick={()=>{
-              navigator('gym')
+              navigationSystem('/gym')
               }} id="backLink">
             <p>back</p>
             <TiArrowBack/>

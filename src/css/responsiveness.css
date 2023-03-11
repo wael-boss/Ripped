@@ -23,9 +23,14 @@
         min-width: 15%;
         max-width: 15%;
     }
-    /* profile */
     /* settings */
     /* exercise focus */
+    #exerciseContainer>#muscleInfo {
+        width: 65%;
+    }
+    #exerciseContainer>#muscleImages {
+        width: 35%;
+    }
     /* signing page */
     /* components */
 }
@@ -68,6 +73,15 @@
     }
     /* settings */
     /* exercise focus */
+    #squares>span {
+        width: 5%;
+    }
+    #exerciseContainer>#muscleInfo {
+        width: 60%;
+    }
+    #exerciseContainer>#muscleImages {
+        width: 40%;
+    }
     /* signing page */
     /* components */
 }
@@ -267,6 +281,46 @@
     }
     /* settings */
     /* exercise focus */
+    #muscleImages>#squares {
+        display: none;
+    }
+    #exerciseContainer{
+        flex-direction: column;
+    }
+    #exerciseContainer>#muscleInfo {
+        width: 100%;
+    }
+    #exerciseContainer>#muscleImages {
+        width: 100%;
+    }
+    #exerciseContainer>section {
+        min-height: fit-content;
+    }
+    #muscleImages>#imageScroller {
+        position: fixed;
+        bottom: 0px;
+        right: 0px;
+        z-index: 10;
+        width: 40vw;
+        border-radius: 10px 0 0 0 ;
+        aspect-ratio: 1/1;
+    }
+    #muscleImages>#imageScroller>div>p {
+        font-size: var(--font-size-S);
+        position: absolute;
+        top: 0px;
+        color: #000;
+    }
+    #exerciseContainer>#muscleInfo {
+        padding: 10px;
+    }
+    #backLink {
+        flex-direction: row-reverse;
+        gap: 5px;
+    }
+    #backLink svg {
+        transform: translateX(0%);
+    }
     /* signing page */
     /* components */
 }
@@ -333,6 +387,9 @@
     }
     /* settings */
     /* exercise focus */
+    #muscleInfo >div:not(#backLink) {
+        padding: 10px 0;
+    }
     /* signing page */
     /* components */
     #technicalLinks img{

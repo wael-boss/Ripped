@@ -437,6 +437,15 @@ export const DataProvider=({children})=>{
     craeteUser(NewUser)
     navigator('/profile')
   }
+  const validNameCheck=useMemo(()=>{
+    const allNames=[]
+    users.map(user=>allNames.push(user.userName))
+    if(allNames.includes(nameInput) || !nameInput.length || nameInput.length>20){
+        setIsValidName(false)
+        return
+    }
+    setIsValidName(true)
+    },[nameInput])
 //database functions
 const replaceDayByNew=async(oldDayData ,newDayData)=>{
   if(!oldDayData ,!oldDayData){

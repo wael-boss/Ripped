@@ -2,20 +2,8 @@ import { useContext, useEffect, useMemo, useState } from 'react'
 import DataContext from '../context/DataContext'
 import {BsCheckLg ,BsXLg} from 'react-icons/bs'
 const NewProfileData = () => {
-    const {errorOccurred ,setEditUserRefs ,isValidName ,setIsValidName ,nameInput ,setNameInput ,getAllUsers ,users ,user ,activityTypes ,editUserRefs ,calculations}=useContext(DataContext)
-    const {userName ,userBio ,userPhoto ,userAge ,userHeight ,userWeight ,userGender ,userActivityLevel}=user
-    const pasteHandeler=(e)=>{
-        console.log(e)
-    }
-    const validNameCheck=useMemo(()=>{
-    const allNames=[]
-    users.map(user=>allNames.push(user.userName))
-    if(allNames.includes(nameInput) || !nameInput.length || nameInput.length>20){
-        setIsValidName(false)
-        return
-    }
-    setIsValidName(true)
-},[nameInput])
+    const {errorOccurred ,setEditUserRefs ,isValidName ,setIsValidName ,nameInput ,setNameInput ,getAllUsers ,users ,user ,activityTypes ,calculations}=useContext(DataContext)
+    const {userName ,userBio ,userPhoto ,userAge ,userHeight ,userWeight ,userGender}=user
     useEffect(()=>{
         let finalObj={}
         const inputs=document.querySelectorAll('.editUserInputs')
