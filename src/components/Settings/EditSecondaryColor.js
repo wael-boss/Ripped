@@ -8,7 +8,7 @@ const EditSecondaryColor = () => {
     <div className='settingContainer'>
         <div className='settingIntro'>
           <h1>Color change</h1>
-          <h2>change this <span style={{color:`rgb(${muscleAPIcolor})`}}>color</span>, changes will be applied through the entire site.</h2>
+          <h2>change this <span style={{color:`rgb(${muscleAPIcolor})`}}>color</span> using the color bar benieth, changes will be applied through the entire site.</h2>
         </div>
         <input
         id='colorChangeInput'

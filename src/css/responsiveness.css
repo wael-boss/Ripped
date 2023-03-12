@@ -23,7 +23,6 @@
         min-width: 15%;
         max-width: 15%;
     }
-    /* settings */
     /* exercise focus */
     #exerciseContainer>#muscleInfo {
         width: 65%;
@@ -72,7 +71,6 @@
     .columnNum{
         font-size: 300px;
     }
-    /* people */
     /* gym */
     #musclesForm {
         width: 85%;
@@ -94,6 +92,23 @@
         grid-template-columns: 1fr 1fr 3fr;
     }
     /* settings */
+    #settingsPage input[type=text] {
+        font-size: var(--font-size-S);
+    }
+    .inputContainer * {
+        display: flex;
+        align-items: center;
+        font-size: var(--font-size-S);
+    }
+    #nameInputContainer svg {
+        font-size: var(--font-size-S);
+    }
+    #changePasswordForm button {
+        font-size: var(--font-size-S);
+    }
+    #deleteAcountForm button {
+        font-size: var(--font-size-S);
+    }
     /* exercise focus */
     #squares>span {
         width: 5%;
@@ -192,6 +207,9 @@
         place-items: center;
     }
     /* settings */
+    #priorirtyTwo>#inputsContainer {
+        grid-template-columns: repeat(1 ,1fr);
+    }
     /* signing page */
     #signingPageMain #backgroundSection {
         width:45%;
@@ -353,6 +371,21 @@
         flex-grow: 1;
     }
     /* settings */
+    #settingsSideBarSection{
+        display: none;
+    }
+    #settingsMainContentSection{
+        width: 100%;
+    }
+    #settingLinks{
+        display: flex;
+    }
+    #priorirtyOne {
+    grid-template-columns: 75px 1fr;
+    }
+    #priorirtyOne>:nth-child(1) {
+        width: 75px;
+    }
     /* exercise focus */
     #muscleImages>#squares {
         display: none;
@@ -435,6 +468,9 @@
     #loadingLineContent div span:nth-child(8) {
         display: none;
     }
+    aside {
+        min-width: 60vw;
+    }
 }
 @media (width<450px){
     /* root */
@@ -501,6 +537,13 @@
         font-size:var(--font-size-S);
     }
     /* settings */
+    #priorirtyOne {
+        grid-template-columns: 50px 1fr;
+    }
+    #priorirtyOne>:nth-child(1) {
+        width: 50px;
+        gap: 10px;
+    }
     /* exercise focus */
     #muscleInfo >div:not(#backLink) {
         padding: 10px 0;
@@ -515,5 +558,8 @@
     /* components */
     #technicalLinks img{
         display: none;
+    }
+    aside {
+        min-width: 80vw;
     }
 }

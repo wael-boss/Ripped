@@ -78,9 +78,11 @@ header{
   align-items: center;
   padding: 10px 30px;
   background-color: var(--color1);
+  z-index: 9;
 }
 header:is(.fixed){
-  /* display it as fixed with out breaking shit */
+  position: fixed;
+  top: 0px;
 }
 #logoContainer{
 display: flex;
@@ -170,14 +172,14 @@ background-color: var(--color2);
   aspect-ratio: 1/1;
   position: relative;
   display: none;
-  z-index: 10;
+  z-index: 11;
 }
 #sideBarToggle>span{
   position: absolute;
   height: 3px;
   width: 100%;
   left: 0px;
-  background-color: var(--shade3);
+  background-color: var(--shade1);
   transition: all .3s ease-in-out;
   border-radius: 2px;
 }
@@ -245,22 +247,24 @@ aside{
   height: 100vh;
   min-width: 40vw;
   position: fixed;
+  overflow: scroll;
   top: 0px;
   right: 0px;
   display: flex;
   flex-direction: column;
   transition: transform .3s ease-out;
   padding-top: 40px;
-  background-color: var(--shade1);
-  z-index: 9;
+  background-color: #ff383881;
+  backdrop-filter: blur(10px);
+  z-index: 10;
 }
 #sideBarContent{
   display: flex;
   flex-direction: column;
 }
-#sideBarContent>a{
+#sideBarContent a ,summary{
   font-size: var(--font-size-B);
-  padding: 15px 10px;
+  padding: 12px 10px;
   position: relative;
   display: flex;
   align-items: center;
@@ -269,9 +273,10 @@ aside{
 }
 #sideBarContent>a>img{
   width: 40px;
+  aspect-ratio: 1/1;
   border-radius: 50%;
 }
-#sideBarContent>a::before{
+#sideBarContent a::before{
   content: '';
   position: absolute;
   top: 0px;
@@ -279,11 +284,15 @@ aside{
   left: 0px;
   width: 100%;
   transform: translateX(-100%);
-  background-color: var(--color3);
+  background-color: var(--color2);
   z-index: -1;
   transition: transform .3s ease-out;
 }
-#sideBarContent>a:is(:hover ,:focus ,.active)::before{
+#settingLinks{
+  flex-direction: column;
+  display: none;
+}
+#sideBarContent a:is(:hover ,:focus ,.active)::before{
   transform: translateX(0%);
 }
 /* loading screen */

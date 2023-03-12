@@ -20,7 +20,6 @@ import EditSecondaryColor from "./components/Settings/EditSecondaryColor";
 import ChangePassword from "./components/Settings/ChangePassword";
 import DeleteAcount from "./components/Settings/DeleteAcount";
 import './css/responsiveness.css'
-import SideBar from "./components/SideBar";
 function App() {
   const {user}=useContext(DataContext)
   return (
@@ -28,7 +27,6 @@ function App() {
       <ErrorPopUp/>
       <LoadingScreen/>
       <AddWorkout/>
-      <SideBar/>
         {user.userName ? 
         <>
         <Header/>

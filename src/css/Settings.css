@@ -2,13 +2,16 @@
     display: flex;
 }
 #settingsPage input[type=text]{
+    width: 70%;
     flex-grow: 1;
     background-color:transparent;
     border: none;
     border-bottom: 2px solid var(--shade3);
     padding-left: 10px;
-    margin-left: 10px;
     font-size: var(--font-size-M);
+}
+#changePasswordForm input[type=text]{
+    width: 100%;
 }
 #settingsPage>section{
     min-height: 100%;
@@ -40,7 +43,7 @@
 #slowSettingAcces>a{
     width: 100%;
     padding: 8px 0 8px 10px;
-    font-size: var(--font-size-M);
+    font-size: calc(var(--font-size-M) - 3px);
     font-family: var(--font1);
     border-bottom:1px solid var(--color3);
     transition: all .1s ease-in-out;
@@ -81,8 +84,10 @@
 }
 #settingContent{
     flex-grow: 1;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 .settingIntro{
     display: flex;
@@ -98,6 +103,7 @@
 }
 .settingIntro>h2{
     font-size: var(--font-size-M);
+    padding: 0px 20px;
 }
 #editUserForm{
     width: 100%;
@@ -141,6 +147,9 @@
     flex-direction: column;
     gap: 20px;
 }
+#priorirtyTwo>p{
+    font-size: calc(var(--font-size-M) - 3px);
+}
 #priorirtyTwo>#inputsContainer{
     display: grid;
     grid-template-columns: repeat(2 ,1fr);
@@ -178,21 +187,25 @@
     border: none;
     background-color: transparent;
     cursor:pointer;
+    padding: 0 20px;
 }
 #deleteAcountForm{
     width: 100%;
     display: flex;
+    padding: 0 20px;
     gap: 30px;
 }
 #deleteAcountForm button{
     background-color: var(--color2);
     padding: 5px 20px;
     border-radius: 10px;
+    font-size: var(--font-size-M);
 }
 #changePasswordForm{
     display: flex;
     flex-direction: column;
     gap: 15px;
+    padding: 0 20px;
 }
 #changePasswordForm button{
     font-size: var(--font-size-M);
@@ -216,6 +229,6 @@
     top:50%;
     bottom:50%;
     right: 10px;
-    font-size: 20px;
+    font-size: var(--font-size-M);
     transform: translateY(-50%);
 }

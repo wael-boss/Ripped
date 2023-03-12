@@ -45,6 +45,7 @@ padding: 20px 30px;
 }
 #profileGlmipse #subHeaders>h2{
    font-size: var(--font-size-S);
+   word-break: break-word;
 }
 #profileIntro h1{
     font: 700 var(--font-size-B) var(--font1);

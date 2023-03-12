@@ -4,8 +4,10 @@ import {AiFillHome} from 'react-icons/ai'
 import {FaQuestion} from 'react-icons/fa'
 import {IoIosSettings} from 'react-icons/io'
 import {RiUserSearchFill} from 'react-icons/ri'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext ,useState } from 'react'
 import DataContext from '../context/DataContext'
+import SideBar from "./SideBar";
+
 const Header = () => {
   const {user ,navigator ,isToggledSieBar ,setIsToggledSieBar}=useContext(DataContext)
   const [windowScroll ,setWindowScroll]=useState()
@@ -57,6 +59,7 @@ const Header = () => {
               <span></span>
             </button>
         </div>
+        <SideBar/>
     </header>
   )
 }
