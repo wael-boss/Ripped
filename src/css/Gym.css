@@ -54,6 +54,7 @@
 #musclesContainer p{
     border-bottom:2px solid var(--color3) ;
     padding:3px 5px;
+    cursor: pointer;
 }
 #musclesContainer p:hover{
     background-color: var(--color2);

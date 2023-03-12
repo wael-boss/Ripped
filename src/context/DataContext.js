@@ -190,6 +190,7 @@ export const DataProvider=({children})=>{
     const [nameInput ,setNameInput]=useState('')
     const [isValidName ,setIsValidName]=useState(true)
     const [editUserRefs ,setEditUserRefs]=useState({})
+    const [isToggledSieBar ,setIsToggledSieBar]=useState(false)
     const emailRef=useRef()
     const passwordCheck=useRef()
     const signInPasswordRef=useRef()
@@ -753,7 +754,7 @@ const moreExercises=async()=>{
 return(
     <DataContext.Provider value={{
         user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,PlatformLogIn ,authenticationId ,setAuthenticationId ,updateUserDetail ,addExeciseToCalendar ,removeExeciseFromCalendar ,editDayName ,emptyDay ,emptyCalendar ,users ,setUsers ,getAllUsers ,calcBMI ,calcBMR ,calcTDEE ,coronateUser
-        ,userProfile ,setUserProfile ,activityTypes ,editUserRefs ,calculations ,editUserDetails ,deleteAcount,nameInput ,setNameInput ,isValidName ,setIsValidName ,setEditUserRefs ,replaceDayByNew ,replaceEntireCalendar
+        ,userProfile ,setUserProfile ,activityTypes ,editUserRefs ,calculations ,editUserDetails ,deleteAcount,nameInput ,setNameInput ,isValidName ,setIsValidName ,setEditUserRefs ,replaceDayByNew ,replaceEntireCalendar ,isToggledSieBar ,setIsToggledSieBar
     }}>
         {children}
     </DataContext.Provider>

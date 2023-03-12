@@ -4,14 +4,17 @@ import {AiFillHome} from 'react-icons/ai'
 import {FaQuestion} from 'react-icons/fa'
 import {IoIosSettings} from 'react-icons/io'
 import {RiUserSearchFill} from 'react-icons/ri'
-import { useContext, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import DataContext from '../context/DataContext'
 const Header = () => {
-  const {user ,signOutFunc ,setUser ,UserToLocalStorage ,navigator,muscleAPIcolor ,setMuscleAPIcolor}=useContext(DataContext)
-  const [isEditing ,setIsEditing]=useState(false)
-  const nameChangeRef=useRef()
+  const {user ,navigator ,isToggledSieBar ,setIsToggledSieBar}=useContext(DataContext)
+  const [windowScroll ,setWindowScroll]=useState()
+  
+    window.addEventListener('scroll',e=>{
+      setWindowScroll(window.scrollY)
+  })
   return (
-    <header>
+    <header id='header' className={windowScroll>=80 ? 'fixed': 'static'}>
         <div id='logoContainer' onClick={()=>{
           navigator('/')
         }}>
@@ -49,6 +52,10 @@ const Header = () => {
               <img src={user.userPhoto ? user.userPhoto : `/images/${user.userGender}-icon.jpg`}/>
               </Link>
             <Link to='settings'><IoIosSettings/></Link>
+            <button onClick={()=>setIsToggledSieBar(!isToggledSieBar)} id='sideBarToggle' className={isToggledSieBar ? 'toggled' : ''}>
+              <span></span>
+              <span></span>
+            </button>
         </div>
     </header>
   )

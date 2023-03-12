@@ -15,15 +15,6 @@ const Footer = () => {
           <NavLink to='/'>home</NavLink> | <NavLink to='/peaple'>people</NavLink> | <NavLink to='/gym'>gym</NavLink> | <NavLink to='about'>about</NavLink> | <NavLink to='profile'>profile</NavLink> | <NavLink to='settings'>settings</NavLink>
         </div>
         <p id="copyRight">Copyright &copy; <span>Ripped</span> all rights reserved</p>
-        <div id="platforms">
-          <p>socials</p>
-            <div>
-              <p className="platform"><FaFacebookF/></p>
-              <p className="platform"><FaTwitter/></p>
-              <p className="platform"><FaInstagram/></p>
-              <p className="platform"><FaLinkedin/></p>
-            </div>
-        </div>
       </div>
       <div id="links">
         <div className="linkSection">
@@ -69,6 +60,15 @@ const Footer = () => {
           </div>
           <button type="submit">submit</button>
         </form>
+        <div id="platforms">
+          <p>socials</p>
+            <div>
+              <p className="platform"><FaFacebookF/></p>
+              <p className="platform"><FaTwitter/></p>
+              <p className="platform"><FaInstagram/></p>
+              <p className="platform"><FaLinkedin/></p>
+            </div>
+        </div>
       </div>
     </footer>
   )

@@ -79,6 +79,9 @@ header{
   padding: 10px 30px;
   background-color: var(--color1);
 }
+header:is(.fixed){
+  /* display it as fixed with out breaking shit */
+}
 #logoContainer{
 display: flex;
 align-items: center;
@@ -89,7 +92,7 @@ cursor: pointer;
 width: 37px;
 }
 #logoContainer p{
-font-size: 30px;
+font-size: var(--font-size-B);
 letter-spacing: 2px;
 font-family: var(--font1);
 }
@@ -162,6 +165,38 @@ background-color: var(--color2);
 #technicalLinks *{
   cursor: pointer;
 }
+#sideBarToggle{
+  width: 35px;
+  aspect-ratio: 1/1;
+  position: relative;
+  display: none;
+  z-index: 10;
+}
+#sideBarToggle>span{
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  left: 0px;
+  background-color: var(--shade3);
+  transition: all .3s ease-in-out;
+  border-radius: 2px;
+}
+#sideBarToggle>span:nth-child(1){
+  top: 30%;
+}
+#sideBarToggle>span:nth-child(2){
+  bottom: 30%;
+}
+/* #sideBarToggle:is(.toggled)>span{
+  top: 50%;
+  bottom: 50%;
+} */
+#sideBarToggle:is(.toggled)>span:nth-child(1){
+  transform: rotate(45deg) translateY(8px);
+}
+#sideBarToggle:is(.toggled)>span:nth-child(2){
+  transform: rotate(-45deg) translateY(-8px);
+}
 #technicalLinks a:has(svg){
   font-size: 35px;
   display: grid;
@@ -201,16 +236,62 @@ section:nth-child(even){
 }
 #errorPopUp p{
   width: 100%;
-  font-size: 20px;
+  font-size: var(--font-size-M);
   text-align: center;
   padding: 5px 0;
+}
+/* sidebar */
+aside{
+  height: 100vh;
+  min-width: 40vw;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  display: flex;
+  flex-direction: column;
+  transition: transform .3s ease-out;
+  padding-top: 40px;
+  background-color: var(--shade1);
+  z-index: 9;
+}
+#sideBarContent{
+  display: flex;
+  flex-direction: column;
+}
+#sideBarContent>a{
+  font-size: var(--font-size-B);
+  padding: 15px 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+}
+#sideBarContent>a>img{
+  width: 40px;
+  border-radius: 50%;
+}
+#sideBarContent>a::before{
+  content: '';
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  transform: translateX(-100%);
+  background-color: var(--color3);
+  z-index: -1;
+  transition: transform .3s ease-out;
+}
+#sideBarContent>a:is(:hover ,:focus ,.active)::before{
+  transform: translateX(0%);
 }
 /* loading screen */
 #loadingLine{
   position: fixed;
   bottom: 0px;
   min-width: 100vw;
-  height: 50px;
+  height: 75px;
   background-color: var(--color1);
   transition: transform .2s ease-out;
   z-index: 10;
@@ -221,7 +302,7 @@ section:nth-child(even){
   overflow: hidden;
 }
 #loadingLineContent>img{
-  width: 50px;
+  width: 75px;
   background-color: var(--color1);
   z-index: 2;
 }
@@ -236,7 +317,7 @@ section:nth-child(even){
   width: 10%;
 }
 #loadingLineContent div span img{
-  width:15px;
+  width:22px;
 }
 @keyframes pac-man {
   0%{
@@ -263,6 +344,8 @@ section:nth-child(even){
   align-items: center;
   justify-content: space-evenly;
   padding: 40px 10px;
+  z-index: 3;
+  border-radius: 12px;
 }
 #addingContent{
   height: 100%;

@@ -31,8 +31,30 @@
     #exerciseContainer>#muscleImages {
         width: 35%;
     }
-    /* signing page */
     /* components */
+    #logoContainer img {
+        width: 30px;
+    }
+    footer{
+        display: grid;
+        grid-template-columns: repeat(2 ,1fr);
+        gap:10px ;
+    }
+    footer>div{
+        width: 100%;
+    }
+    #contactForm{
+        grid-column: 1/-1;
+    }
+    #contactForm form {
+        width: 100%;
+    }
+    #links {
+        justify-content: center;
+    }
+    #addingContent>.dayContainer{
+        flex-wrap: wrap;
+    }
 }
 @media (width<992px){
     /* root */
@@ -100,6 +122,18 @@
         font-size: calc(var(--font-size-S) + 1px);
     }
     /* components */
+    footer{
+        grid-template-columns:2fr 1fr ;
+    }
+    #links {
+        justify-content: space-between;
+    }
+    #addWorkout {
+        min-width: 60vw;
+    }
+    #addWorkout>svg {
+        font-size: 30px;
+    }
 }
 @media (width<768px){
     /* root */
@@ -176,15 +210,26 @@
     header nav {
         display: none;
     }
-    #technicalLinks{
-        display: block;
+    #technicalLinks a{
+        display: none;
     }
-    #technicalLinks svg{
+    #technicalLinks a:has(svg) {
         display: none;
     }
     footer{
         flex-direction: column;
         align-items: center;
+        grid-template-columns: 1fr;
+        row-gap: 30px;
+    }
+    #links {
+        justify-content: space-evenly;
+    }
+    #sideBarToggle{
+        display: block;
+    }
+    #addWorkout {
+        min-width: 70vw;
     }
 }
 @media (width<576px){
@@ -328,7 +373,7 @@
         position: fixed;
         bottom: 0px;
         right: 0px;
-        z-index: 10;
+        z-index: 2;
         width: 40vw;
         border-radius: 10px 0 0 0 ;
         aspect-ratio: 1/1;
@@ -357,6 +402,39 @@
         width: 100%;
     }
     /* components */
+    footer {
+        padding: 70px 20px 10px 20px;
+    }
+    header {
+        padding: 10px 20px;
+    }
+    #addWorkout {
+        min-width: 90vw;
+    }
+    #loadingLineContent div span:nth-child(1) {
+        display: none;
+    }
+    #loadingLineContent div span:nth-child(2) {
+        display: none;
+    }
+    #loadingLineContent div span:nth-child(3) {
+        display: none;
+    }
+    #loadingLineContent div span:nth-child(4) {
+        display: none;
+    }
+    #loadingLineContent div span:nth-child(5) {
+        display: none;
+    }
+    #loadingLineContent div span:nth-child(6) {
+        display: none;
+    }
+    #loadingLineContent div span:nth-child(7) {
+        display: none;
+    }
+    #loadingLineContent div span:nth-child(8) {
+        display: none;
+    }
 }
 @media (width<450px){
     /* root */
@@ -418,6 +496,9 @@
     }
     #lightSettings{
         border-radius: 0px;
+    }
+    .infoContainer *:not(svg) {
+        font-size:var(--font-size-S);
     }
     /* settings */
     /* exercise focus */
