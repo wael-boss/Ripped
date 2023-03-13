@@ -11,7 +11,8 @@ const MuscleSearch = () => {
     })
     return result
   }
-  const muscles=dictionaryMuscles(dictionary)
+  const primaryMuscles=["all", "all_lower", "all_upper", "legs" , "abs" , "back", "back_upper", "biceps", "chest", "core", "core_lower" , "gluteus", "hamstring", "latissimus", "neck", "quadriceps", "shoulders" , "triceps",]
+  const muscles=isSearchingPrimary ? primaryMuscles :dictionaryMuscles(dictionary)
   return (
     <div id='musclesFormContainer'>
       <div id='musclesForm'>

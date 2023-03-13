@@ -16,7 +16,7 @@ const SideBar = () => {
             <NavLink onClick={()=>setIsToggledSieBar(!isToggledSieBar)}to='/peaple'><RiUserSearchFill/>peaple</NavLink>
             <NavLink onClick={()=>setIsToggledSieBar(!isToggledSieBar)}to='/gym'><CgGym/>gym</NavLink>
             <NavLink onClick={()=>setIsToggledSieBar(!isToggledSieBar)}to='/about'><FaQuestion/>about</NavLink>
-            {window.innerWidth<=450 ?
+            {window.innerWidth<=575 ?
             <details>
               <summary><IoIosSettings/>settings</summary>
               <div id="settingLinks">

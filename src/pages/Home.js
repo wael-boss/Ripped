@@ -1,4 +1,4 @@
-import { useContext, useEffect} from 'react'
+import { useContext, useEffect, useState} from 'react'
 import DataContext from '../context/DataContext'
 import '../css/Home.css'
 import {TbSocial} from 'react-icons/tb'
@@ -15,6 +15,23 @@ const Home = () => {
     {author:"Wayne Dyer",quote:"Go the extra mile. It’s never crowded."},
     {author:"Sean Patrick Flanery",quote:"Do something today that your future self will thank you for."}
   ]
+  const randomQuoteFunc=()=>{
+    const rndmNum=Math.floor(Math.random()*quotes.length)
+    const Quote=quotes[rndmNum].quote.split('')
+    let i=0.00
+    return(
+      <>
+        <h2 id='quoteHeader'>{Quote.map(letter=>{
+          i=i+0.01
+          return(
+            <span key={i} style={{transitionDelay:`${i}s`}} className='observed'>{letter}</span>
+            )
+          })}</h2>
+        <p>- {quotes[rndmNum].author}</p>
+      </>
+    )
+  }
+  const [quoteStore ,setQuoteStore]=useState(randomQuoteFunc())
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       const intersecting = entry.isIntersecting
@@ -32,29 +49,13 @@ const Home = () => {
     const containers = document.querySelectorAll('.observed');
     containers.forEach(container=>observer.observe(container))
   },[])
-  const randomQuoteFunc=()=>{
-    const rndmNum=Math.floor(Math.random()*quotes.length)
-    const Quote=quotes[rndmNum].quote.split('')
-    let i=0.00
-    return(
-      <>
-        <h2 id='quoteHeader'>{Quote.map(letter=>{
-          i=i+0.01
-          return(
-            <span key={i} style={{transitionDelay:`${i}s`}} className='observed'>{letter}</span>
-          )
-        })}</h2>
-        <p>- {quotes[rndmNum].author}</p>
-      </>
-    )
-  }
   return (
     <main>
       <section id='heroSection'>
         <div id='heroContent'>
           <p className='slogan'>lift to get ripped</p>
           <div id='quotesContainer'>
-            {randomQuoteFunc()}
+            {quoteStore}
           </div>
           <div id='heroButtonContainer'>
             <button className='btnStyle1' onClick={()=>{

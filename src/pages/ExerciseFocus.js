@@ -22,7 +22,6 @@ const ExerciseFocus = () => {
     if(isGettingImage) return
     if(!exerciseFocus) return
     if (!primaryImage || !secondaryImage){setIsGettingImage(true)}else return
-    console.log('got image')
     if(!primaryImage){
       const primaryMuscles=Object.values(exerciseFocus)[2]
       const muscleArr=EXERCISEtoIMGFunc(primaryMuscles)

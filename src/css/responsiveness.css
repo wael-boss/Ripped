@@ -71,6 +71,10 @@
     .columnNum{
         font-size: 300px;
     }
+    /* people */
+    .userDetails>img {
+        width: 60px;
+    }
     /* gym */
     #musclesForm {
         width: 85%;
@@ -180,6 +184,9 @@
         line-height: 17px;
     }
     /* people */
+    .userDetails>img {
+        width: 55px;
+    }
     /* gym */
     #searchSection {
         padding: 20px;
@@ -225,6 +232,11 @@
         font-size: calc(var(--font-size-S) + 3px);
     }
     /* components */
+    header:is(.fixed) {
+        opacity: 1;
+        transform: translateY(0%);
+        animation: none;
+    }
     header nav {
         display: none;
     }
@@ -274,6 +286,12 @@
     }
     #userSearchForm>input {
         padding: 10px 0 10px 8%;
+    }
+    #usersAcounts {
+        padding: 10px 0;
+    }
+    .userDetails>img {
+        width: 50px;
     }
     /* gym */
     #searchSection {

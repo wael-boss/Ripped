@@ -191,15 +191,15 @@ export const DataProvider=({children})=>{
     const [isValidName ,setIsValidName]=useState(true)
     const [editUserRefs ,setEditUserRefs]=useState({})
     const [isToggledSieBar ,setIsToggledSieBar]=useState(false)
+    const [headerFixed ,setHeaderFixed]=useState({
+      scroll:0,
+      height:0
+    })
     const emailRef=useRef()
     const passwordCheck=useRef()
     const signInPasswordRef=useRef()
     const muscleChoiceInput=useRef()
     const navigator=useNavigate()
-    //functions
-    const ConfirmationTab=(string)=>{
-      // to be worked on
-    }
     // fitness calculations
     const calcBMI=(PROFILE)=>{
       const {userHeight ,userWeight}=PROFILE
@@ -209,19 +209,19 @@ export const DataProvider=({children})=>{
       let bmi=userWeight/(num*num)
       if(bmi<18.5){
         indicator.range='Under weight'
-        indicator.color='yellow'
+        indicator.color='#ffff00'
       }
       if(bmi>=18.5 && bmi<=24.9){
         indicator.range='Healthy weight'
-        indicator.color='green'
+        indicator.color='#00ff00'
       }
       if(bmi>=25 && bmi<=29.9){
         indicator.range='Over weight'
-        indicator.color='red'
+        indicator.color='#ff0000'
       }
       if(bmi>=30){
         indicator.range='Massive'
-        indicator.color='darkred'
+        indicator.color='#9d0000'
       }
       bmi=Math.round(bmi*100)/100
 
@@ -754,7 +754,7 @@ const moreExercises=async()=>{
 return(
     <DataContext.Provider value={{
         user ,signOutFunc ,setUser ,codeShown ,setCodeShown ,emailRef ,signInPasswordRef ,handleSignUp ,handleSignIn ,passwordCheck ,signUpPasswordKeys ,setSignUpPasswordKeys ,navigator ,error ,setError ,isLoading ,searchParams ,setSearchParams ,getExercises ,exercises ,setExercises ,nameSearch ,setNameSearch ,musclesLeft ,isSearchingPrimary ,setIsSearchingPrimary ,muscleSearch ,setMuscleSearch ,moreExercises ,IMGtoEXERCISEFunc ,EXERCISEtoIMGFunc ,muscleAPIcolor ,setMuscleAPIcolor ,getMuscleImage ,dictionary ,generalMuscleImages ,errorOccurred ,setIsLoading ,muscleChoiceInput ,itemsToAdd ,setItemsToAdd ,PlatformLogIn ,authenticationId ,setAuthenticationId ,updateUserDetail ,addExeciseToCalendar ,removeExeciseFromCalendar ,editDayName ,emptyDay ,emptyCalendar ,users ,setUsers ,getAllUsers ,calcBMI ,calcBMR ,calcTDEE ,coronateUser
-        ,userProfile ,setUserProfile ,activityTypes ,editUserRefs ,calculations ,editUserDetails ,deleteAcount,nameInput ,setNameInput ,isValidName ,setIsValidName ,setEditUserRefs ,replaceDayByNew ,replaceEntireCalendar ,isToggledSieBar ,setIsToggledSieBar
+        ,userProfile ,setUserProfile ,activityTypes ,editUserRefs ,calculations ,editUserDetails ,deleteAcount,nameInput ,setNameInput ,isValidName ,setIsValidName ,setEditUserRefs ,replaceDayByNew ,replaceEntireCalendar ,isToggledSieBar ,setIsToggledSieBar ,headerFixed ,setHeaderFixed
     }}>
         {children}
     </DataContext.Provider>

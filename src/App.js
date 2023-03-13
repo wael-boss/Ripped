@@ -21,9 +21,9 @@ import ChangePassword from "./components/Settings/ChangePassword";
 import DeleteAcount from "./components/Settings/DeleteAcount";
 import './css/responsiveness.css'
 function App() {
-  const {user}=useContext(DataContext)
+  const {user ,headerFixed}=useContext(DataContext)
   return (
-    <div className="App">
+    <div className="App" style={{paddingTop:headerFixed.scroll>=headerFixed.height*4 ? `${headerFixed.height}px`: '0px'}}>
       <ErrorPopUp/>
       <LoadingScreen/>
       <AddWorkout/>

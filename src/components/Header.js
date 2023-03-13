@@ -4,19 +4,27 @@ import {AiFillHome} from 'react-icons/ai'
 import {FaQuestion} from 'react-icons/fa'
 import {IoIosSettings} from 'react-icons/io'
 import {RiUserSearchFill} from 'react-icons/ri'
-import { useContext ,useState } from 'react'
+import { useContext, useEffect, useMemo, useRef } from 'react'
 import DataContext from '../context/DataContext'
 import SideBar from "./SideBar";
 
 const Header = () => {
-  const {user ,navigator ,isToggledSieBar ,setIsToggledSieBar}=useContext(DataContext)
-  const [windowScroll ,setWindowScroll]=useState()
-  
+  const {headerFixed ,user ,setHeaderFixed ,navigator ,isToggledSieBar ,setIsToggledSieBar}=useContext(DataContext)
+  const headerRef=useRef()
+  useEffect(()=>{
+    setHeaderFixed({
+      scroll:window.scrollY,
+      height:headerRef.current.clientHeight
+    })
     window.addEventListener('scroll',e=>{
-      setWindowScroll(window.scrollY)
+      setHeaderFixed({
+        scroll:window.scrollY,
+        height:headerRef.current.clientHeight
+      })
   })
+  },[])
   return (
-    <header id='header' className={windowScroll>=80 ? 'fixed': 'static'}>
+    <header ref={headerRef} className={headerFixed.scroll>=headerFixed.height*4 ? 'fixed': 'static'}>
         <div id='logoContainer' onClick={()=>{
           navigator('/')
         }}>
@@ -59,7 +67,7 @@ const Header = () => {
               <span></span>
             </button>
         </div>
-        <SideBar/>
+      <SideBar/>
     </header>
   )
 }
