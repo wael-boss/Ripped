@@ -240,10 +240,7 @@
     header nav {
         display: none;
     }
-    #technicalLinks a{
-        display: none;
-    }
-    #technicalLinks a:has(svg) {
+    #technicalLinks a:nth-child(2) {
         display: none;
     }
     footer{
@@ -426,6 +423,7 @@
         right: 0px;
         z-index: 2;
         width: 40vw;
+        min-width: auto;
         border-radius: 10px 0 0 0 ;
         aspect-ratio: 1/1;
     }

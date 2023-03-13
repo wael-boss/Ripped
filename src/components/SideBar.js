@@ -6,8 +6,9 @@ import {IoIosSettings} from 'react-icons/io'
 import {RiUserSearchFill} from 'react-icons/ri'
 import { useContext } from "react"
 import DataContext from "../context/DataContext"
+import {BiLogOut} from 'react-icons/bi'
 const SideBar = () => {
-  const {user ,isToggledSieBar ,setIsToggledSieBar}=useContext(DataContext)
+  const {user ,isToggledSieBar ,setIsToggledSieBar ,signOutFunc}=useContext(DataContext)
   return (
     <aside style={{transform:isToggledSieBar ? 'translateX(0%)' : 'translateX(100%)'}}>
         <div id="sideBarContent">
@@ -24,6 +25,7 @@ const SideBar = () => {
               <NavLink to='/settings/edit_color'>color change</NavLink>
               <NavLink to='/settings/change_password'>change password</NavLink>
               <NavLink to='/settings/delete_acount'>delete acount</NavLink>
+              <button className='logOutBtn' onClick={signOutFunc}><BiLogOut/> log out</button>
             </div>
             </details>
             :

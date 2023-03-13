@@ -26,8 +26,8 @@ const NewProfileData = () => {
             onDrop={(e)=>{
                 e.preventDefault()
                 e.stopPropagation()
-                const url=e.dataTransfer.getData('URL');
-                if(!url.length){
+                const url=e.dataTransfer.getData('text');
+                if(!url.length || !url.includes('http')){
                     errorOccurred('not a valid image')
                     return
                 }

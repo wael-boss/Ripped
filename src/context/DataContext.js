@@ -398,6 +398,7 @@ export const DataProvider=({children})=>{
   const emptyCalendar=async()=>{
     if(isLoading) return
     const newCalendar=emptyUserOBJ.userCalendar
+    console.log(newCalendar)
     try{
       setIsLoading(true)
       const response=await updateUserDetail('userCalendar',JSON.stringify(newCalendar))

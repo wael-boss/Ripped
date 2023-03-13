@@ -17,6 +17,7 @@ const Header = () => {
       height:headerRef.current.clientHeight
     })
     window.addEventListener('scroll',e=>{
+      if(!headerRef.current) return
       setHeaderFixed({
         scroll:window.scrollY,
         height:headerRef.current.clientHeight

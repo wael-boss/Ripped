@@ -15,7 +15,7 @@ const Settings = () => {
           <NavLink to='delete_acount'>delete acount</NavLink>
         </div>
         <div id='fastSettingAcces'>
-          <button onClick={signOutFunc}><BiLogOut/> log out</button>
+          <button className='logOutBtn' onClick={signOutFunc}><BiLogOut/> log out</button>
         </div>
       </section>
       <section id='settingsMainContentSection'>
